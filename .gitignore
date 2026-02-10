@@ -1,0 +1,11 @@
+media/
+staticfiles/
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+.env
+db.sqlite3
+.vscode/
+.DS_Store
