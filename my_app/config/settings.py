@@ -117,4 +117,4 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-LOGIN_REDIRECT_URL = '/' #トップページに遷移
+AUTH_USER_MODEL = 'accounts.User'
