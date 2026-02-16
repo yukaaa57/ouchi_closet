@@ -27,11 +27,44 @@ def create_superuser(self, email, password=None):
     
     return user
 
+SIZE_CHOICES = [
+    ("","未設定"),
+    ("70","70"),
+    ("80","80"),
+    ("90","90"),
+    ("95","95"),
+    ("100","100"),
+    ("110","110"),
+    ("120","120"),
+    ("130","130"),
+    ("140","140"),
+    ("150","150"),
+    ("S","S"),
+    ("M","M"),
+    ("L","L"),
+    ("LL","LL"),
+    ("XL","XL"),
+    ("その他","その他"),   
+]
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         verbose_name='Eメールアドレス',
         max_length=255,
         unique=True,
+    )
+    
+    nickname = models.CharField(
+        verbose_name="ニックネーム",
+        max_length=100,
+    )
+    
+    size = models.CharField(
+        verbose_name="サイズ",
+        max_length=10,
+        choices=SIZE_CHOICES,
+        blank=True,
+        default="",
     )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
