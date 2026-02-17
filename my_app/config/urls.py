@@ -19,10 +19,17 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path("admin/", admin.site.urls),
+    path("accounts/password_reset/",
+         auth_views.PasswordResetView.as_view(
+             template_name="registration/password_reset_form.html"
+         ),
+         name="password_reset",
+    ),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("accounts/", include("accounts.urls")),
 ]
 
