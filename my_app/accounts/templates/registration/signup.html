@@ -1,6 +1,6 @@
-<h2>新規アカウント登録</h2>
+<h2>新規アカウント登録</h2> 
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">登録</button>

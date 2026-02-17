@@ -7,5 +7,5 @@ User = get_user_model()
 class SignUpForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ("email", "nickname", "size")
+        fields = ("profile_image", "nickname", "size", "email")
     
