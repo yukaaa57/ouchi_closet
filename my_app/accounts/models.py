@@ -48,10 +48,11 @@ SIZE_CHOICES = [
 ]
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(
-        verbose_name='Eメールアドレス',
-        max_length=255,
-        unique=True,
+    profile_image = models.ImageField(
+        verbose_name="プロフィール画像",
+        upload_to="profile_images",
+        null=True,
+        blank=True,
     )
     
     nickname = models.CharField(
@@ -66,6 +67,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         default="",
     )
+    
+    email = models.EmailField(
+        verbose_name='Eメールアドレス',
+        max_length=255,
+        unique=True,
+    )
+    
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
