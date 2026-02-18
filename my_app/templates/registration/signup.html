@@ -1,14 +1,24 @@
-<h2>新規アカウント登録</h2> 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
+</head>
+<body>
+    <h2>新規アカウント登録</h2> 
 
-<p>※全項目入力必須</p>
+    <p>※全項目入力必須</p>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">登録</button>
-</form>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save-button">登録</button>
+    </form>
 
-<p>
-    既にアカウントをお持ちの方
-    <a href="{% url 'login' %}">ログイン</a>
-</p>
+    <p>
+        既にアカウントをお持ちの方
+        <a href="{% url 'login' %}">ログイン</a>
+    </p>
+</body>
+</html>
