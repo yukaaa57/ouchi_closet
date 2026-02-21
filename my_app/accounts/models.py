@@ -51,6 +51,12 @@ class Family(models.Model):
         return f"Family {self.id}"
 
 class User(AbstractBaseUser, PermissionsMixin):
+    family = models.ForeignKey(
+        Family,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
     profile_image = models.ImageField(
         verbose_name="プロフィール画像",
         upload_to="profile_images",
