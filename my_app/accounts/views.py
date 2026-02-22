@@ -30,7 +30,7 @@ def invite_view(request):
 
     #familyのないユーザーは招待リンク出せない
     if family is None:
-        return render(request, "accounts/invite.html", {"error":"家族が未設定です"})
+        return render(request, "registration/invite.html", {"error":"家族が未設定です"})
     
     #未使用の招待を新しい順に探す
     invites = family.invitations.order_by("-created_at")
@@ -51,7 +51,7 @@ def invite_view(request):
         )
     
     invite_url = request.build_absolute_uri(f"/accounts/signup/?invite={invite.token}")
-    return render(request, "accounts/invite.html", {"invite_url": invite_url})
+    return render(request, "registration/invite.html", {"invite_url": invite_url})
 
 
         

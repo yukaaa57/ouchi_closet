@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation</title>
+</head>
+<body>
+    <h2>家族招待</h2>
+
+    {% if error %}
+      <p>{{ error }}</p>
+    {% else %}
+      <p>招待したい家族にURLを共有し、リンク先からアカウント登録をして下さい。</p>
+      <input type="text" value="{{ invite_url}}" readonly style="width: 100%;">
+    {% endif %}
+
+    <a href="/" class="login-link">ホーム画面へ戻る</a>
+</body>
+</html>
