@@ -4,6 +4,7 @@ import uuid
 from django.conf import settings
 from django.utils import timezone
 from datetime import timedelta
+import secrets
 
 class UserManager(BaseUserManager):
     
@@ -91,4 +92,69 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return self.email
+    
+class Invitation(models.Model):
+    STATUS_UNUSED = 0
+    STATUS_USED = 1
+    STATUS_EXPIRED = 2
+    
+    STATUS_CHOICES =(
+        (STATUS_UNUSED, "未使用"),
+        (STATUS_USED, "使用済み"),
+        (STATUS_EXPIRED, "失効"),
+    )
+    family = models.ForeignKey("accounts.Family", on_delete=models.CASCADE, related_name="invitations")
+    created_by = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="issued_invitations")
+    token = models.CharField(max_length=32, unique=True)
+    status = models.IntegerField(
+        choices=STATUS_CHOICES,
+        default=STATUS_UNUSED,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    expires_at = models.DateTimeField()
+    used_at = models.DateTimeField(null=True, blank=True)
+    
+    #token生成
+    @classmethod
+    def generate_token(cls):
+        return secrets.token_hex(16)
+    
+    #デフォルトの有効期限（24時間）
+    @classmethod
+    def default_expires_at(cls):
+        return timezone.now() + timedelta(hours=24)
+    
+    #使用済みにする
+    def mark_used(self):
+        self.status = self.STATUS_USED
+        self.used_at = timezone.now()
+        self.save()
+        
+    #失効処理
+    def mark_expired(self):
+        self.status = self.STATUS_EXPIRED
+        self.save()
+        
+    #有効判定（＋期限切れなら自動でEXPIREDに変更）
+    def is_valid(self):
+        if self.status == self.STATUS_USED:
+            return False
+        if self.status == self.STATUS_EXPIRED:
+            return False
+        if timezone.now() >= self.expires_at:
+            return False
+        return True
+    
+    #expires_atが未設定なら自動設定
+    def save(self, *args, **kwargs):
+        if not self.expires_at:
+            self.expires_at = self.default_expires_at()
+        super().save(*args, **kwargs)
+        
+    def __str__(self):
+        return f"Invite({self.token}) starus={self.status}"
+    
+                
+    
     
