@@ -23,7 +23,9 @@ class SignUpView(CreateView):
         return context
     
     def form_valid(self, form):
+       
         invite_token = (self.request.POST.get("invite") or "").strip()
+        invitation = None
         user = form.save(commit=False)
         if invite_token:
             try:
@@ -44,7 +46,7 @@ class SignUpView(CreateView):
             user.family = family
         user.save()
         
-        if invite_token:
+        if invitation is not None:
             invitation.mark_used()
         
         return redirect(self.success_url)
