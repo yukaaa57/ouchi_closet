@@ -3,8 +3,9 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model,login
+from django.contrib import messages
 from .forms import SignUpForm
-from .models import Family, Invitation
+from .models import User, Family, Invitation
 
 
 User = get_user_model()
@@ -13,17 +14,43 @@ class SignUpView(CreateView):
     model = User
     form_class = SignUpForm
     template_name = "registration/signup.html"
+    success_url = reverse_lazy("login")
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        invite = self.request.GET.get("invite")
+        context["invite"] = invite
+        return context
     
     def form_valid(self, form):
-        user = form.save()
-        family = Family.objects.create()
-        user.family = family
-        user.save
-        login(self.request, user)
-        return redirect("/")
-    
-    success_url = reverse_lazy("/")
-
+        invite_token = self.request.POST.get("invite")
+        user = form.save(commit=False)
+        if invite_token:
+            try:
+                invitation = Invitation.objects.get(token=invite_token)
+                
+                if not invitation.is_valid():
+                    form.add_error(None, "招待リンクが無効または期限切れです")
+                    return self.form_invalid(form)
+                
+                user.family = invitation.family
+                
+            except Invitation.DoesNotExist:
+                form.add_error(None, "無効な招待リンクです")
+                return self.form_invalid(form)
+            
+        else:
+            family = Family.objects.create()
+            user.family = family
+        user.save()
+        
+        if invite_token:
+            invitation.mark_used()
+        
+        return redirect(self.success_url)
+        
+        
+        
 @login_required
 def invite_view(request):
     family = request.user.family

@@ -13,6 +13,7 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
+        <input type="hidden" name="invite" value="{{ invite }}">
         <button type="submit" class="save-button">登録</button>
     </form>
 
