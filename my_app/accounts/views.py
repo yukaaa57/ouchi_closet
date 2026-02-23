@@ -23,7 +23,7 @@ class SignUpView(CreateView):
         return context
     
     def form_valid(self, form):
-        invite_token = self.request.POST.get("invite")
+        invite_token = (self.request.POST.get("invite") or "").strip()
         user = form.save(commit=False)
         if invite_token:
             try:
