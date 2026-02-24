@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% {% block title %} Ouchi Closet{% endblock %}</title>
+</head>
+<body>
+
+<header>
+    <!-- アカウントアイコン（後で画像ボタンに） -->
+    <div id="account-icon">
+        <a href="/accounts/me/">画像</a>
+    </div>
+
+    <!-- ハンバーガーメニュー（後でJSでサイドバー開く） -->
+    <div id="humburger">
+        ≡
+    </div>
+
+    <!-- パンくず（後でblock差し替え） -->
+    <nav>
+        {% block breadcrumbs %}{% endblock %}
+    </nav>
+</header>
+
+<!-- サイドバー枠 -->
+<aside id="sidebar" style="display:none;">
+  <!-- 後でメニュー入れる -->
+</aside>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>
