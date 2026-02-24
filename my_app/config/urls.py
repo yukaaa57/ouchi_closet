@@ -20,9 +20,11 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.http import HttpResponse
+from accounts import accounts_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", accounts_views.home, name="home"),
     path("accounts/password_reset/",
          auth_views.PasswordResetView.as_view(
              template_name="registration/password_reset_form.html"
