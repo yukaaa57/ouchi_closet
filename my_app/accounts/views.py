@@ -7,7 +7,6 @@ from django.contrib import messages
 from .forms import SignUpForm
 from .models import User, Family, Invitation
 
-
 User = get_user_model()
 
 class SignUpView(CreateView):
@@ -81,6 +80,10 @@ def invite_view(request):
     
     invite_url = request.build_absolute_uri(f"/accounts/signup/?invite={invite.token}")
     return render(request, "registration/invite.html", {"invite_url": invite_url})
+
+@login_required
+def home(request):
+    return render(request, "home.html")
 
 
         
