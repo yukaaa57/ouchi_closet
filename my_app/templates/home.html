@@ -6,8 +6,12 @@
     <title>Home</title>
 </head>
 <body>
+    {% extends "base.html" %}
+
+    {% block content %}
     <h1>ホーム</h1>
 
     <p>ログイン中：{{ request.user.email }}</p>
+    {% endblock %}
 </body>
 </html>
