@@ -85,5 +85,9 @@ def invite_view(request):
 def home(request):
     return render(request, "home.html")
 
+@login_required
+def me_view(request):
+    return render(request, "accounts/me.html", {"user_obj":request.user})
+
 
         
