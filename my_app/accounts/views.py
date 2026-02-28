@@ -4,7 +4,9 @@ from django.views.generic import CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model,login
 from django.contrib import messages
-from .forms import SignUpForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import UpdateView
+from .forms import SignUpForm, ProfileUpdateForm
 from .models import User, Family, Invitation
 
 User = get_user_model()
@@ -88,6 +90,14 @@ def home(request):
 @login_required
 def me_view(request):
     return render(request, "accounts/me.html", {"user_obj":request.user})
+
+class ProfileUpdateView(LoginRequiredMixin,UpdateView):
+    form_class = ProfileUpdateForm
+    template_name = "accounts/me_edit.html"
+    success_url = reverse_lazy("me")
+    
+    def get_object(self, queryset = None):
+        return self.request.user
 
 
         
