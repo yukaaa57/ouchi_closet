@@ -18,6 +18,10 @@
     <p>サイズ： {{ user_obj.size }}</p>
     <p>メールアドレス： {{ user_obj.email }}</p>
 
+    <a href="{% url 'account_edit' %}" class="btn">変更</a>
+    <br>
+    <a href="{% url 'password_change' %}">パスワード変更</a>
+
     <a href="{% url 'login' %}"　class="logout-link">ログアウト</a>
     
 </body>
