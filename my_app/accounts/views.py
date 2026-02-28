@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 from .forms import SignUpForm, ProfileUpdateForm
 from .models import User, Family, Invitation
+from django.contrib.auth.views import PasswordChangeView
 
 User = get_user_model()
 
@@ -98,6 +99,10 @@ class ProfileUpdateView(LoginRequiredMixin,UpdateView):
     
     def get_object(self, queryset = None):
         return self.request.user
+    
+class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+    template_name = "registration/password_change_form.html"
+    success_url = reverse_lazy("me")
     
 
 
