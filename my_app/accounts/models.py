@@ -53,7 +53,7 @@ class Family(models.Model):
 
 class User(AbstractBaseUser, PermissionsMixin):
     family = models.ForeignKey(
-        Family,
+        "Family",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -154,7 +154,40 @@ class Invitation(models.Model):
         
     def __str__(self):
         return f"Invite({self.token}) starus={self.status}"
+
+class Child(models.Model):
+    family = models.ForeignKey(
+        "Family",
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+        related_name="childlen"
+    )
+    profile_image = models.ImageField(
+        verbose_name="プロフィール画像",
+        upload_to="child_images",
+        null=True,
+        blank=True,
+    )
+    nickname = models.CharField(
+        verbose_name="ニックネーム",
+        max_length=100,
+    )
+    size = models.CharField(
+        verbose_name="サイズ",
+        max_length=10,
+        choices=SIZE_CHOICES,
+        blank=True,
+        default="",
+    )
+    birthday = models.DateField(
+        null=True,
+        blank=True,
+    )
+    created_at =  models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
-                
+    def __str__(self):
+        return self.nickname   
     
     
