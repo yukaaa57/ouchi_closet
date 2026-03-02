@@ -25,3 +25,10 @@ class ChildCreateForm(forms.ModelForm):
             "birthday": forms.DateInput(attrs={"type": "date"}),
         }
         
+class ChildForm(forms.ModelForm):
+    class Meta:
+        model = Child
+        fields = ("profile_image", "nickname", "size", "birthday")
+        widgets = {
+            "birthday": forms.DateInput(attrs={"type": "date"}),
+        }
