@@ -9,4 +9,5 @@ urlpatterns = [
     path("me/edit/", views.ProfileUpdateView.as_view(), name="account_edit"),
     path("password_change/", views.CustomPasswordChangeView.as_view(), name="password_change"),
     path("children/add/", views.ChildCreateView.as_view(), name="child_add"),
+    path("children/<int:pk>/edit/", views.ChildUpdateView.as_view(), name="child_edit"),
 ]
