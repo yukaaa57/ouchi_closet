@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model,login
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
-from .forms import SignUpForm, ProfileUpdateForm, ChildCreateForm
+from .forms import SignUpForm, ProfileUpdateForm, ChildCreateForm, ChildForm
 from .models import User, Family, Invitation, Child
 from django.contrib.auth.views import PasswordChangeView
 
@@ -115,6 +115,17 @@ class ChildCreateView(LoginRequiredMixin, CreateView):
         child.family = self.request.user.family
         child.save()
         return super().form_valid(form)
+    
+class ChildUpdateView(LoginRequiredMixin, UpdateView):
+    model = Child
+    form_class = ChildForm
+    template_name = "accounts/child_edit.html"
+    success_url = reverse_lazy("home")
+    
+    def get_queryset(self):
+        return Child.objects.filter(family=self.request.user.family)
+    
+    
     
     
     
