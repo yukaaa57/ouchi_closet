@@ -99,6 +99,16 @@ def home(request):
     })
 
 @login_required
+def user_closet(request, pk):
+    user = get_object_or_404(User, pk=pk, family=request.user.family)
+    return HttpResponse(f"{user.nickname}のクローゼット（仮）")
+
+@login_required
+def child_closet(request, pk):
+    child = get_object_or_404(Child, pk=pk, family=request.user.family)
+    return HttpResponse(f"{child.nickname}のクローゼット（仮）")
+
+@login_required
 def me_view(request):
     return render(request, "accounts/me.html", {"user_obj":request.user})
 
