@@ -9,6 +9,8 @@ from django.views.generic import UpdateView
 from .forms import SignUpForm, ProfileUpdateForm, ChildCreateForm, ChildForm
 from .models import User, Family, Invitation, Child
 from django.contrib.auth.views import PasswordChangeView
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
 User = get_user_model()
 
@@ -86,7 +88,15 @@ def invite_view(request):
 
 @login_required
 def home(request):
-    return render(request, "home.html")
+    family = request.user.family
+    
+    family_users = User.objects.filter(family=family)
+    children = Child.objects.filter(family=family)
+    
+    return render(request, "home.html", {
+        "family_users": family_users,
+        "children": children,
+    })
 
 @login_required
 def me_view(request):
