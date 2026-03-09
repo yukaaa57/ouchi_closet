@@ -8,10 +8,31 @@
 <body>
     {% extends "base.html" %}
 
-    {% block content %}
-    <h1>ホーム</h1>
+    <h1>Ouchi Closet</h1>
 
-    <p>ログイン中：{{ request.user.email }}</p>
-    {% endblock %}
+    <div>
+    
+    {% for u in family_users %}
+      <div>
+        <a href="{% url 'user_closet' u.pk %}">
+          <img src="{{ u.profile_image.url }}" width="100">
+        </a>
+        <p>{{ u.nickname }}</p>
+      </div>
+    {% endfor %}
+
+    {% for child in children %}
+      <div>
+        <a href="{% url 'child_closet' child.pk %}">
+            <img src="{{ child.profile_image.uel }}" width="100">
+        </a>
+        <p>{{ child.nickname }}
+           <a href="{% url 'child_edit' child.pk %}">✏️</a> 
+        </p>
+      </div>
+    {% endfor %}
+    
+    </div>
+
 </body>
 </html>
