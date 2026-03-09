@@ -1,38 +1,31 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    {% extends "base.html" %}
+{% extends "base.html" %}
 
-    <h1>Ouchi Closet</h1>
+{% block cintent %}
+<h1>Ouchi Closet</h1>
 
+<div>
+  {% for u in family_users %}
     <div>
-    
-    {% for u in family_users %}
-      <div>
-        <a href="{% url 'user_closet' u.pk %}">
-          <img src="{{ u.profile_image.url }}" width="100">
-        </a>
-        <p>{{ u.nickname }}</p>
-      </div>
-    {% endfor %}
-
-    {% for child in children %}
-      <div>
-        <a href="{% url 'child_closet' child.pk %}">
-            <img src="{{ child.profile_image.uel }}" width="100">
-        </a>
-        <p>{{ child.nickname }}
-           <a href="{% url 'child_edit' child.pk %}">✏️</a> 
-        </p>
-      </div>
-    {% endfor %}
-    
+      <a href="{% url 'user_closet' u.pk %}">
+        <img src="{{ u.profile_image.url }}" width="100">
+      </a>
+      <p>{{ u.nickname }}</p>
     </div>
+  {% endfor %}
 
-</body>
-</html>
+  {% for child in children %}
+    <div>
+      <a href="{% url 'child_closet' child.pk %}">
+        <img src="{{ child.profile_image.url }}" width="100">
+      </a>
+      <p>{{ child.nickname }}
+        <a href="{% url 'child_edit' child.pk %}">✏️</a> 
+      </p>
+    </div>
+  {% endfor %}
+</div>
+
+<p>
+  <a href="{% url 'child_add' %}">＋　子どもを追加</a>
+</p>
+{% endblock %}
