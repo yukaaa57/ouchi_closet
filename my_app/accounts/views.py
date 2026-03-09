@@ -144,6 +144,14 @@ class ChildUpdateView(LoginRequiredMixin, UpdateView):
     
     def get_queryset(self):
         return Child.objects.filter(family=self.request.user.family)
+
+def user_closet(request, pk):
+    user = get_object_or_404(User, pk=pk, family=request.user.family)
+    return HttpResponse(f"{user.nickname}のクローゼット")
+
+def child_closet(request, pk):
+    child = get_object_or_404(Child, pk=pk, family=request.user.family)
+    return HttpResponse(f"{child.nickname}のクローゼット")
     
     
     
