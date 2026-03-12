@@ -11,7 +11,7 @@ class SeasinAdmin(admin.ModelAdmin):
     
 @admin.register(ClothingItem)
 class ClothingItemAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "child", "category", "size", "color", "seasons", "wear_status", "created_at")
+    list_display = ("id", "user", "child", "category", "size", "color", "wear_status", "created_at")
     
     
 
