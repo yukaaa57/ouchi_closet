@@ -18,12 +18,12 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-def create_superuser(self, email, password=None, **extra_fields):
-    user = self.create_user(email, password, **extra_fields)
-    user.is_staff = True
-    user.is_superuser = True
-    user.save(using=self._db)
-    return user
+    def create_superuser(self, email, password=None, **extra_fields):
+        user = self.create_user(email, password, **extra_fields)
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
 
 SIZE_CHOICES = [
     ("","未設定"),
