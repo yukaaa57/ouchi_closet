@@ -39,3 +39,33 @@ def child_closet(request, pk):
     
     return render(request, "closet/child_closet.html", context)
 
+@login_required
+def clothing_list(request, owner_type, owner_id, category_id):
+    
+    category = get_object_or_404(Category, pk=category_id)
+    
+    if owner_type == "user":
+        clothes = ClothingItem.objects.filter(
+            user_id=owner_id,
+            category=category
+        )
+    else:
+        clothes = ClothingItem.objects.filter(
+            child_id=owner_id,
+            category=category
+        )
+    
+    order = request.GET.get("oder", "new")
+    
+    if order == "old":
+        clothes = clothes.order_by("created_at")
+    else:
+        clothes = clothes.order_by("-created_at")
+        
+    context = {
+        "clothes": clothes,
+        "category": category,
+    }
+    
+    return render(request, "closet/clothing_list.html", context)
+
