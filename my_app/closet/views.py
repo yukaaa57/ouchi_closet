@@ -16,7 +16,6 @@ def user_closet(request, pk):
     context = {
         "owner": user,
         "owner_type": "user",
-        "categories": categories,
     }
     
     return render(request, "closet/user_closet.html", context)
@@ -34,7 +33,6 @@ def child_closet(request, pk):
     context = {
         "owner": child,
         "owner_type": "childr",
-        "categories": categories,
     }
     
     return render(request, "closet/child_closet.html", context)
