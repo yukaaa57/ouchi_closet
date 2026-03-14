@@ -45,13 +45,23 @@ def clothing_list(request, owner_type, owner_id, category_id):
     category = get_object_or_404(Category, pk=category_id)
     
     if owner_type == "user":
+        owner = get_object_or_404(
+            User,
+            pk=owner_id,
+            family=request.user.family
+        )
         clothes = ClothingItem.objects.filter(
-            user_id=owner_id,
+            user=owner,
             category=category
         )
     else:
+        owner = get_object_or_404(
+            Child,
+            pk=owner_id,
+            family=request.user.family
+        )
         clothes = ClothingItem.objects.filter(
-            child_id=owner_id,
+            child=owner,
             category=category
         )
     
@@ -63,8 +73,11 @@ def clothing_list(request, owner_type, owner_id, category_id):
         clothes = clothes.order_by("-created_at")
         
     context = {
+        "owner": owner,
+        "owner_type": owner_type,
         "clothes": clothes,
         "category": category,
+        "order": order,
     }
     
     return render(request, "closet/clothing_list.html", context)
