@@ -38,9 +38,7 @@ def child_closet(request, pk):
     return render(request, "closet/child_closet.html", context)
 
 @login_required
-def clothing_list(request, owner_type, owner_id, category_id):
-    
-    category = get_object_or_404(Category, pk=category_id)
+def clothing_list(request, owner_type, owner_id, category):
     
     if owner_type == "user":
         owner = get_object_or_404(
@@ -48,20 +46,21 @@ def clothing_list(request, owner_type, owner_id, category_id):
             pk=owner_id,
             family=request.user.family
         )
-        clothes = ClothingItem.objects.filter(
-            user=owner,
-            category=category
-        )
+        clothes = ClothingItem.objects.filter(user=owner)
     else:
         owner = get_object_or_404(
             Child,
             pk=owner_id,
             family=request.user.family
         )
-        clothes = ClothingItem.objects.filter(
-            child=owner,
-            category=category
-        )
+        clothes = ClothingItem.objects.filter(child=owner)
+        
+    if category != "all":
+        category_obj = get_object_or_404(Category, pk=category)
+        clothes = clothes.filter(category=category_obj)
+        category_label = category_obj.name
+    else:
+        category_label = "すべて"
     
     order = request.GET.get("oder", "new")
     
@@ -74,7 +73,7 @@ def clothing_list(request, owner_type, owner_id, category_id):
         "owner": owner,
         "owner_type": owner_type,
         "clothes": clothes,
-        "category": category,
+        "category/label": category_label,
         "order": order,
     }
     
