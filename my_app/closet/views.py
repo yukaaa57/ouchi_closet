@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required, get_user_model
+from django.contrib.auth.decorators import login_required
 from accounts.models import User, Child
 from .models import ClothingItem, Category
+from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
