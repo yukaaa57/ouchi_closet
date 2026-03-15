@@ -6,41 +6,41 @@
   <div>
     <ul class="category_all">
       <li>
-        <a href="{% url 'clothing_list' owner_type owner_pk 'all' %}">すべて</a>
+        <a href="{% url 'clothing_list' owner_type owner.pk 'all' %}">すべて</a>
       </li>
     </ul>
 
     <ul class="category_list">
       <li>
-        <a href="{% url 'clothing_list' owner_type owner_pk tops_category.id %}">トップス</a>
+        <a href="{% url 'clothing_list' owner_type owner.pk tops_category.id %}">トップス</a>
       </li>
 
        <li>
-        <a href="{% url 'clothing_list' owner_type owner_pk bottoms_category.id %}">ボトムス</a>
+        <a href="{% url 'clothing_list' owner_type owner.pk bottoms_category.id %}">ボトムス</a>
       </li>
 
        <li>
-        <a href="{% url 'clothing_list' owner_type owner_pk onepiece_category.id %}">ワンピース</a>
+        <a href="{% url 'clothing_list' owner_type owner.pk onepiece_category.id %}">ワンピース</a>
       </li>
 
        <li>
-        <a href="{% url 'clothing_list' owner_type owner_pk outer_category.id %}">アウター</a>
+        <a href="{% url 'clothing_list' owner_type owner.pk outer_category.id %}">アウター</a>
       </li>
 
        <li>
-        <a href="{% url 'clothing_list' owner_type owner_pk setup_category.id %}">セットアップ</a>
+        <a href="{% url 'clothing_list' owner_type owner.pk setup_category.id %}">セットアップ</a>
       </li>
 
        <li>
-        <a href="{% url 'clothing_list' owner_type owner_pk shoes_category.id %}">シューズ</a>
+        <a href="{% url 'clothing_list' owner_type owner.pk shoes_category.id %}">シューズ</a>
       </li>
 
        <li>
-        <a href="{% url 'clothing_list' owner_type owner_pk accessory_category.id %}">小物</a>
+        <a href="{% url 'clothing_list' owner_type owner.pk accessory_category.id %}">小物</a>
       </li>
 
        <li>
-        <a href="{% url 'clothing_list' owner_type owner_pk bag_category.id %}">バッグ</a>
+        <a href="{% url 'clothing_list' owner_type owner.pk bag_category.id %}">バッグ</a>
       </li>
 
     </ul>
