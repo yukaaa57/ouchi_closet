@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, get_user_model
 from accounts.models import User, Child
 from .models import ClothingItem, Category
+
+User = get_user_model()
 
 @login_required
 def user_closet(request, pk):
@@ -11,11 +13,17 @@ def user_closet(request, pk):
         family=request.user.family
     )
     
-    categories = Category.objects.all()
-    
     context = {
         "owner": user,
         "owner_type": "user",
+        "tops_category": get_object_or_404(Category, name="トップス"),
+        "bottoms_category": get_object_or_404(Category, name="ボトムス"),
+        "onepiece_category": get_object_or_404(Category, name="ワンピース"),
+        "outer_category": get_object_or_404(Category, name="アウター"),
+        "setup_category": get_object_or_404(Category, name="セットアップ"),
+        "shoes_category": get_object_or_404(Category, name="シューズ"),
+        "accessory_category": get_object_or_404(Category, name="小物"),
+        "bag_category": get_object_or_404(Category, name="バッグ"),
     }
     
     return render(request, "closet/user_closet.html", context)
@@ -28,11 +36,17 @@ def child_closet(request, pk):
         family=request.user.family
     )
     
-    categories = Category.objects.all()
-    
     context = {
         "owner": child,
         "owner_type": "childr",
+        "tops_category": get_object_or_404(Category, name="トップス"),
+        "bottoms_category": get_object_or_404(Category, name="ボトムス"),
+        "onepiece_category": get_object_or_404(Category, name="ワンピース"),
+        "outer_category": get_object_or_404(Category, name="アウター"),
+        "setup_category": get_object_or_404(Category, name="セットアップ"),
+        "shoes_category": get_object_or_404(Category, name="シューズ"),
+        "accessory_category": get_object_or_404(Category, name="小物"),
+        "bag_category": get_object_or_404(Category, name="バッグ"),
     }
     
     return render(request, "closet/child_closet.html", context)
