@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>{{ category_label}}</p>
+
+<hr>
+
+<div class="clothing_list">
+
+    {% for clothing in clothes %}
+        <div class="clothing_item">
+            <a href="#">
+                <img src="{{ clothing.photo.url }}" width="120">
+            </a>
+        </div>
+    
+    {% empty %}
+        <p>アイテムがまだありません</p>
+    {% endfor %}
+
+</div>
+  
+{% endblock %}
+
