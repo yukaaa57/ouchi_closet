@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import User, Child
 from .models import ClothingItem, Category
 from django.contrib.auth import get_user_model
+from .forms import ClothingItemForm
 
 User = get_user_model()
 
@@ -93,4 +94,49 @@ def clothing_list(request, owner_type, owner_id, category):
     }
     
     return render(request, "closet/clothing_list.html", context)
+
+@login_required
+def clothing_create(request, owner_type, owner_id):
+    if owner_type == "user":
+        owner = get_object_or_404(
+            User,
+            pk=owner_id,
+            family=request.user.family
+        )
+    else:
+        owner = get_object_or_404(
+            Child,
+            pk=owner_id,
+            family=request.user.family
+        )
+    
+    if request.method == "POST":
+        form = ClothingItemForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            clothing = form.save(commit=False)
+            
+            if owner_type == "user":
+                clothing.user = owner
+            else:
+                clothing.child = owner
+            
+            clothing.save()
+            form.save_m2m()
+            
+            return redirect("clothing_list", owner_type=owner_type, owner_id=owner_id, category="all")
+    
+    else:
+        form = ClothingItemForm()
+    
+    context = {
+        "form": form,
+        "owner": owner,
+        "owner_type": owner_type,
+    }
+    
+    return render(request, "closet/clothing_form.html", context)
+    
+        
+
 
