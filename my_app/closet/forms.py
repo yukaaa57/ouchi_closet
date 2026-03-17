@@ -42,5 +42,5 @@ class CategoryForm(forms.ModelForm):
         fields = ["name"]
         labels = {"name": "カテゴリ名"}
         wodgets = {
-            "name": forms.TextInput(attrs={"placeholder": "カテゴリ追加"})
+            "name": forms.TextInput(attrs={"placeholder": "カテゴリ名"})
         }
