@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <p>
+        {{ form.photo }}<br>
+        {{ form.photo.label_tag }}
+    </p>
+
+    <p>
+        {{ form.category.label_tag }}<br>
+        {{ form.category }}
+    </p>
+
+    <p>
+        <a href="#">＋カテゴリ追加</a>
+    </p>
+
+    <p>
+        {{ form.size.label_tag }}<br>
+        {{ form.size }}
+    </p>
+
+    <p>
+        {{ form.color.label_tag }}<br>
+        {{ form.color }}
+    </p>
+
+    <p>
+        {{ form.seasons.label_tag }}<br>
+        {{ form.seasons }}
+    </p>
+
+    <p>
+        {{ form.wear_status.label_tag }}<br>
+        {{ form.wear_status }}
+    </p>
+
+    <p>
+        {{ form.memo.label_tag }}<br>
+        {{ form.memo }}
+    </p>
+
+    <button type="submit" class="save_button">保存</button>
+</form>
+  
+{% endblock %}
