@@ -10,7 +10,7 @@
       <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}</a>
     {% endif %}
     >
-    {% if is_edit %}編集{% else %}登録{% ensif %}
+    {% if is_edit %}編集{% else %}登録{% endif %}
 </nav>
 
 <form method="post" enctype="multipart/form-data">
