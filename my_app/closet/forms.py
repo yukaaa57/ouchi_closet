@@ -12,28 +12,28 @@ class ClothingItemForm(forms.ModelForm):
     class Meta:
         model = ClothingItem
         fields = [
-            "photo",
+            "clothing_image",
             "category",
             "size",
             "color",
             "seasons",
             "wear_status",
-            "memo",
+            "note",
         ]
         labels = {
-             "photo":"画像",
+             "clothing_image":"画像",
             "category":"カテゴリ",
             "size":"サイズ",
             "color":"カラー",
             "wear_status":"着用状況",
-            "memo":"メモ",
+            "note":"メモ",
         }
         widget = {
             "category": forms.Select(),
             "size": forms.Select(),
             "color": forms.Select(),
             "wear_status": forms.Select(),
-            "memo": forms.Textarea(attrs={"rows": 4}),
+            "note": forms.Textarea(attrs={"rows": 4}),
         }
         
 class CategoryForm(forms.ModelForm):

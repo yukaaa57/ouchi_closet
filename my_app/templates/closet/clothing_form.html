@@ -17,8 +17,8 @@
     {% csrf_token %}
 
     <p>
-        {{ form.photo }}<br>
-        {{ form.photo.label_tag }}
+        {{ form.clothing_image }}<br>
+        {{ form.clothing_image.label_tag }}
     </p>
 
     <p>
@@ -51,8 +51,8 @@
     </p>
 
     <p>
-        {{ form.memo.label_tag }}<br>
-        {{ form.memo }}
+        {{ form.note.label_tag }}<br>
+        {{ form.note }}
     </p>
 
     <button type="submit" class="save_button">保存</button>
