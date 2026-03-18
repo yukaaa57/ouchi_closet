@@ -2,6 +2,17 @@
 
 {% block content %}
 
+<nav>
+    <a href="{% url 'home' %}">ホーム</a>
+    {% if owner_type == "user" %}
+      <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}</a>
+    {% else %}
+      <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}</a>
+    {% endif %}
+    >
+    {% if is_edit %}編集{% else %}登録{% ensif %}
+</nav>
+
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
