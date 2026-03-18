@@ -124,8 +124,10 @@ def clothing_create(request, owner_type, owner_id):
             clothing.save()
             form.save_m2m()
             
-            return redirect("clothing_list", owner_type=owner_type, owner_id=owner_id, category="all")
-    
+            if owner_type == "user":
+                return redirect("user_closet", pk=owner_id)
+            else:
+                return redirect("child_closet", pk=owner_id)    
     else:
         form = ClothingItemForm()
     
@@ -136,6 +138,47 @@ def clothing_create(request, owner_type, owner_id):
     }
     
     return render(request, "closet/clothing_form.html", context)
+
+@login_required
+def clothing_update(request, pk):
+    clothing = get_object_or_404(ClothingItem, pk=pk)
+    
+    if clothing.user:
+        if clothing.user.family != request.user.family:
+            return redirect("home")
+        owner = clothing.user
+        owner_type = "user"
+    else:
+        if clothing.child.family != request.user.family:
+            return redirect("home")
+        owner = clothing.child
+        owner_type = "child"
+    
+    if request.method == "POST":
+        form = ClothingItemForm(request.POST, request.FILES, instance=clothing)
+        
+        if form.is_valid():
+            form.save
+            
+            if clothing.user:
+                return redirect("user_closet", pk=clothing.user.pk)
+            else:
+                return redirect("child_closet", pk=clothing.child.pk)
+    else:
+        form = ClothingItemForm(instance=clothing)
+        
+    context = {
+        "foem": form,
+        "owner": owner,
+        "owner_type": owner_type,
+        "is_edit": True,
+        "clothing": clothing,
+    }
+    
+    return render(request, "closet/clothing_form.html", context)
+
+    
+            
     
         
 
