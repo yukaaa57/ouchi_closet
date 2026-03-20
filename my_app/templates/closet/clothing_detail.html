@@ -36,8 +36,18 @@
 </p>
 
 <p>
-  <a href="#">削除</a>
+  <button type="submit" onclick="document.getElementById('delete-modal').style.display='block'">削除</button>
 </p>
+
+<div id="delete-modal" style="display: none;">
+    <p>削除しますか？</p>
+    <form method="post" action="{% url 'clothing_delete' clothing.pk %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next_url }}">
+      <button type="submit">はい</button>
+      <button type="button" onclick="document.getElementById('delete-modal'.style.display='none')">いいえ</button>
+    </form>
+</div>
 
 <p>
   <a href=" javascript:history.back() ">←アイテム一覧へ戻る</a>
