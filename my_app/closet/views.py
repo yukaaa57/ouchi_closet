@@ -191,11 +191,14 @@ def clothing_detail(request, pk):
             return redirect("home")
         owner = clothing.child
         owner_type = "child"
+        
+    next_url = request.GET.get("next", "")
     
     context = {
         "clothing": clothing,
         "owner": owner,
         "owner_type": owner_type,
+        "next_url": next_url,
     }
     
     return render(request, "closet/clothing_detail.html", context)
