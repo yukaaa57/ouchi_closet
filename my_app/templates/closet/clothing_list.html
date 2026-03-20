@@ -10,7 +10,7 @@
 
     {% for clothing in clothes %}
         <div class="clothing_item">
-            <a href="#">
+            <a href="{% url 'clothing_detail' clothing.pk %}">
                 <img src="{{ clothing.clothing_image.url }}" width="120">
             </a>
         </div>

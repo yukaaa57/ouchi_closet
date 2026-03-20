@@ -5,9 +5,9 @@
 <nav>
     <a href="{% url 'home' %}">ホーム</a>
     {% if owner_type == "user" %}
-      <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}</a>
+      <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
     {% else %}
-      <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}</a>
+      <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
     {% endif %}
     >
     {% if is_edit %}編集{% else %}登録{% endif %}
