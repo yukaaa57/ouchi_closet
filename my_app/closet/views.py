@@ -200,6 +200,32 @@ def clothing_detail(request, pk):
     
     return render(request, "closet/clothing_detail.html", context)
 
+@login_required
+def clothing_delete(request, pk):
+    clothing = get_object_or_404(ClothingItem, pk=pk)
+    
+    if clothing.user:
+        if clothing.user.family != request.user.family:
+            return redirect("home")
+        owner = clothing.user
+        owner_type = "user"
+    else:
+        if clothing.child.family != request.user.family:
+            return redirect("home")
+        owner = clothing.child
+        owner_type = "child"
+    
+    if request.method == "POST":
+        next_url = request.POST.get("next", "")
+        clothing.delete()
+        
+        if next_url:
+            return redirect(next_url)
+        
+        return redirect("clothing_list", owner_type=owner_type, owner_id=owner.pk, category="all")
+    
+    return redirect("clothing_detail", pk=clothing.pk)
+
     
 
     
