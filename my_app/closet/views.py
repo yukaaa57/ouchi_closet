@@ -177,6 +177,31 @@ def clothing_update(request, pk):
     
     return render(request, "closet/clothing_form.html", context)
 
+@login_required
+def clothing_datail(request, pk):
+    clothing = get_object_or_404(ClothingItem, pk=pk)
+    
+    if clothing.user:
+        if clothing.user.family != request.user.family:
+            return redirect("home")
+        owner = clothing.user
+        owner_type = "user"
+    else:
+        if clothing.child.family != request.user.family:
+            return redirect("home")
+        owner = clothing.child
+        owner_type = "child"
+    
+    context = {
+        "clothing": clothing,
+        "owner": owner,
+        "owner_type": owner_type,
+    }
+    
+    return render(request, "closet/clothing_detail.html", context)
+
+    
+
     
             
     
