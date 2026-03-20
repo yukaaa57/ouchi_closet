@@ -158,7 +158,7 @@ def clothing_update(request, pk):
         form = ClothingItemForm(request.POST, request.FILES, instance=clothing)
         
         if form.is_valid():
-            form.save
+            form.save()
             
             if clothing.user:
                 return redirect("user_closet", pk=clothing.user.pk)
@@ -168,7 +168,7 @@ def clothing_update(request, pk):
         form = ClothingItemForm(instance=clothing)
         
     context = {
-        "foem": form,
+        "form": form,
         "owner": owner,
         "owner_type": owner_type,
         "is_edit": True,
