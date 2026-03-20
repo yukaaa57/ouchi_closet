@@ -7,5 +7,5 @@ urlpatterns = [
     path("<str:owner_type>/<int:owner_id>/create/", views.clothing_create, name="clothing_create"),
     path("item/<int:pk>/edit/", views.clothing_update, name="clothing_update"),
     path("<str:owner_type>/<int:owner_id>/<str:category>/", views.clothing_list, name="clothing_list"),
-    path("item/<int:pk>", views.Categoryclothing_datail, name="clothing_datail"),
+    path("item/<int:pk>", views.clothing_detail, name="clothing_detail"),
 ]

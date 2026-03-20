@@ -178,7 +178,7 @@ def clothing_update(request, pk):
     return render(request, "closet/clothing_form.html", context)
 
 @login_required
-def clothing_datail(request, pk):
+def clothing_detail(request, pk):
     clothing = get_object_or_404(ClothingItem, pk=pk)
     
     if clothing.user:
