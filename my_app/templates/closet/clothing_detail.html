@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--パンくず-->
+<nav>
+    <a href="{% url 'home' %}">ホーム</a> >
+    {% if owner_type == "user" %}
+      <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% else %}
+      <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% endif %}
+    >
+    アイテム詳細
+</nav>
+
+<div>
+    <img src="{{ clothing.clothing_image.url }}" width="200">
+</div>
+
+<div>
+    <p>カテゴリ：{{ clothing.category.name }}</p>
+    <p>サイズ：{{ clothing.size }}</p>
+    <p>カラー：{{ clothing.color }}</p>
+    <p>季節：
+      {% for season in clothing.seasons.all %}
+        {{ season.name }}
+      {% endfor %}
+    </p>
+    <p>着用状況：{{ clothing.wear_status }}</p>
+    <p>メモ：{{ clothing.note }}</p>
+</div>
+
+<p>
+  <a href="{% url 'clothing_update' clothing.pk %}">編集</a>
+</p>
+
+<p>
+  <a href="#">削除</a>
+</p>
+
+<p>
+  <a href=" javascript:history.back() ">←アイテム一覧へ戻る</a>
+</p>
+  
+{% endblock %}
