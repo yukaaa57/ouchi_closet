@@ -237,6 +237,31 @@ def clothing_search(request, owner_type, owner_id):
             pk=owner_id,
             family=request.user.family
         )
+    else:
+        owner = get_object_or_404(
+            Child,
+            pk=owner_id,
+            family=request.user.family
+        )
+        
+    form = ClothingSearchForm()
+    
+    context = {
+        "form": form,
+        "owner": owner,
+        "owner_type": owner_type,
+    }
+    
+    return render(request, "closet/clothing_search.html", context)
+
+@login_required
+def clothing_search_results(request, owner_type, owner_id):
+    if owner_type == "user":
+        owner = get_object_or_404(
+            User,
+            pk=owner_id,
+            family=request.user.family
+        )
         clothes = ClothingItem.objects.filter(user=owner)
     else:
         owner = get_object_or_404(
@@ -272,19 +297,23 @@ def clothing_search(request, owner_type, owner_id):
             clothes = clothes.filter(wear_status=wear_status)
             search_conditions.append(f"{wear_status}")
     
-    clothes = clothes.order_by("-created_at")
+    order = request.GET.get("order", "new")
+    
+    if order == "old":
+        clothes = clothes.order_by("created_at")
+    else:
+        clothes = clothes.order_by("-created_at")
     
     context = {
-        "form": form,
         "owner": owner,
         "owner_type": owner_type,
         "clothes": clothes,
         "search_conditions": search_conditions,
+        "order": order,
+        "is_search_result": True,
     }
     
-    return render(request, "closet/clothing_search.html", context)
-
-    
+    return render(request, "closet/clothing_list.html", context)
 
     
             
