@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav>
+  <a href="{% url 'home' %}">ホーム</a>　>
+  {% if owner_type == "user" %}
+    <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname}}のクローゼット</a>
+  {% else %}
+    <a href="{% url 'child_closet' owner.pk %}">{{ child.nickname}}のクローゼット</a>   
+  {% endif %}
+  >
+  アイテム検索
+</nav>
+
+<h2>アイテム検索</h2>
+
+<form method="get">
+  <p>
+    {{ form.category.lael_tag }}<br>
+    {{ form.category }}
+  </p>
+
+  <p>
+    {{ form.size.lael_tag }}<br>
+    {{ form.size }}
+  </p>
+
+  <p>
+    {{ form.color.lael_tag }}<br>
+    {{ form.color }}
+  </p>
+
+  <p>
+    {{ form.season.lael_tag }}<br>
+    {{ form.season }}
+  </p>
+
+  <p>
+    {{ form.wear_status.lael_tag }}<br>
+    {{ form.wear_status }}
+  </p>
+
+  <button type="submit" class="search_button">🔍検索</button>
+</form>
+  
+{% endblock %}
