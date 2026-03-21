@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.models import User, Child
 from .models import ClothingItem, Category
 from django.contrib.auth import get_user_model
-from .forms import ClothingItemForm
+from .forms import ClothingItemForm, CategoryForm, ClothingSearchForm
 
 User = get_user_model()
 
@@ -228,6 +228,61 @@ def clothing_delete(request, pk):
         return redirect("clothing_list", owner_type=owner_type, owner_id=owner.pk, category="all")
     
     return redirect("clothing_detail", pk=clothing.pk)
+
+@login_required
+def clothing_search(request, owner_type, owner_id):
+    if owner_type == "user":
+        owner = get_object_or_404(
+            User,
+            pk=owner_id,
+            family=request.user.family
+        )
+        clothes = ClothingItem.objects.filter(user=owner)
+    else:
+        owner = get_object_or_404(
+            Child,
+            pk=owner_id,
+            family=request.user.family
+        )
+        clothes = ClothingItem.objects.filter(child=owner)
+        
+    form = ClothingSearchForm(request.GET or None)
+    search_conditions = []
+    
+    if form.is_valid():
+        category = form.cleaned_data.get("category")
+        size = form.cleaned_data.get("size")
+        color = form.cleaned_data.get("color")
+        season = form.cleaned_data.get("season")
+        wear_status = form.cleaned_data.get("wear_status")
+        
+        if category:
+            clothes = clothes.filter(category=category)
+            search_conditions.append(f"{category.name}")
+        if size:
+            clothes = clothes.filter(size=size)
+            search_conditions.append(f"{size}")
+        if color:
+            clothes = clothes.filter(color=color)
+            search_conditions.append(f"{color}")
+        if season:
+            clothes = clothes.filter(seasons=season)
+            search_conditions.append(f"{season.name}")
+        if wear_status:
+            clothes = clothes.filter(wear_status=wear_status)
+            search_conditions.append(f"{wear_status}")
+    
+    clothes = clothes.order_by("-created_at")
+    
+    context = {
+        "form": form,
+        "owner": owner,
+        "owner_type": owner_type,
+        "clothes": clothes,
+        "search_conditions": search_conditions,
+    }
+    
+    return render(request, "closet/clothing_search.html", context)
 
     
 
