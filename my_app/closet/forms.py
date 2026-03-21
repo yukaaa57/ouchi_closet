@@ -1,5 +1,5 @@
 from django import forms
-from .models import ClothingItem, Category, Season
+from .models import ClothingItem, Category, Season, SIZE_CHOICES
 
 class ClothingItemForm(forms.ModelForm):
     seasons = forms.ModelMultipleChoiceField(
@@ -42,5 +42,38 @@ class CategoryForm(forms.ModelForm):
         fields = ["name"]
         labels = {"name": "カテゴリ名"}
         wodgets = {
-            "name": forms.TextInput(attrs={"placeholder": "カテゴリ名"})
+            "name": forms.TextInput(attrs={"placeholder": "カテゴリ名"}),
         }
+
+class ClothingSearchForm(forms.Form):
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        required=False,
+        label="カテゴリ",
+        empty_label="選択して下さい",
+    )
+    
+    size = forms.ChoiceField(
+        choices=[("", "選択して下さい")]+ list(SIZE_CHOICES),
+        required=False,
+        label="サイズ",
+    )
+    
+    color = forms.ChoiceField(
+        choices=[("", "選択して下さい")]+ list(ClothingItem.COLOR_CHOICES),
+        required=False,
+        label="カラー",
+    )
+    
+    season = forms.ModelChoiceField(
+        queryset=Season.objects.all(),
+        required=False,
+        label="季節",
+        empty_label="選択して下さい",
+    )
+    
+    wear_status = forms.ChoiceField(
+        choices=[("", "選択して下さい")]+ list(ClothingItem.WEAR_STATUS_CHOICES),
+        required=False,
+        label="着用状況",
+    )
