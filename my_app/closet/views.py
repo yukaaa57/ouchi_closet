@@ -78,7 +78,7 @@ def clothing_list(request, owner_type, owner_id, category):
     else:
         category_label = "すべて"
     
-    order = request.GET.get("oder", "new")
+    order = request.GET.get("order", "new")
     
     if order == "old":
         clothes = clothes.order_by("created_at")
@@ -89,7 +89,7 @@ def clothing_list(request, owner_type, owner_id, category):
         "owner": owner,
         "owner_type": owner_type,
         "clothes": clothes,
-        "category/label": category_label,
+        "category_label": category_label,
         "order": order,
         "is_search_result": False,
     }

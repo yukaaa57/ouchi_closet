@@ -47,8 +47,8 @@
     {% endif %}
     <label for="order">並び順</label>
     <select name="order" id="order" onchange="this.form.submit()">
-        <option value="new">{% if order == "new" %}selected{% endif %}新しい順</option>
-        <option value="old">{% if order == "old" %}selected{% endif %}古い順</option>
+        <option value="new" {% if order == "new" %}selected{% endif %}>新しい順</option>
+        <option value="old" {% if order == "old" %}selected{% endif %}>古い順</option>
     </select>
 </form>
 
