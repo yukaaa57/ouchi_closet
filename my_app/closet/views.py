@@ -279,7 +279,7 @@ def clothing_search_results(request, owner_type, owner_id):
         category = form.cleaned_data.get("category")
         size = form.cleaned_data.get("size")
         color = form.cleaned_data.get("color")
-        season = form.cleaned_data.get("season")
+        seasons = form.cleaned_data.get("season")
         wear_status = form.cleaned_data.get("wear_status")
         
         if category:
@@ -291,9 +291,12 @@ def clothing_search_results(request, owner_type, owner_id):
         if color:
             clothes = clothes.filter(color=color)
             search_conditions.append(f"{color}")
-        if season:
-            clothes = clothes.filter(seasons=season)
-            search_conditions.append(f"{season.name}")
+        if seasons:
+            clothes = clothes.filter(seasons__in=seasons).distinct()
+            season_names= []
+            for season in seasons:
+                season_names.append(season.name)
+            search_conditions.append(f"・".join(season_names))
         if wear_status:
             clothes = clothes.filter(wear_status=wear_status)
             search_conditions.append(f"{wear_status}")
@@ -312,6 +315,7 @@ def clothing_search_results(request, owner_type, owner_id):
         "search_conditions": search_conditions,
         "order": order,
         "is_search_result": True,
+        "selected_season_ids": request.GET.getlist("season"),
     }
     
     return render(request, "closet/clothing_list.html", context)

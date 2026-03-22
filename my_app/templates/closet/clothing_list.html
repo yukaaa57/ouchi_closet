@@ -37,9 +37,9 @@
         <input type="hidden" name="color" value="{{ request.GET.color }}">
       {% endif %}
 
-      {% if request.GET.season %}
-        <input type="hidden" name="season" value="{{ request.GET.season }}">
-      {% endif %}
+      {% for season_id in selected_season_ids %}
+        <input type="hidden" name="season" value="{{ season_id }}">
+      {% endfor %}
 
       {% if request.GET.wear_status %}
         <input type="hidden" name="wear_status" value="{{ request.GET.wear_status }}">

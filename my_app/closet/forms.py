@@ -65,11 +65,11 @@ class ClothingSearchForm(forms.Form):
         label="カラー",
     )
     
-    season = forms.ModelChoiceField(
+    season = forms.ModelMultipleChoiceField(
         queryset=Season.objects.all(),
         required=False,
         label="季節",
-        empty_label="選択して下さい",
+        widget=forms.CheckboxSelectMultiple,
     )
     
     wear_status = forms.ChoiceField(
