@@ -17,27 +17,27 @@
 
 <form method="get" action="{% url 'clothing_search_results' owner_type owner.pk %}">
   <p>
-    {{ form.category.lael_tag }}<br>
+    {{ form.category.label_tag }}
     {{ form.category }}
   </p>
 
   <p>
-    {{ form.size.lael_tag }}<br>
+    {{ form.size.label_tag }}
     {{ form.size }}
   </p>
 
   <p>
-    {{ form.color.lael_tag }}<br>
+    {{ form.color.label_tag }}
     {{ form.color }}
   </p>
 
   <p>
-    {{ form.season.lael_tag }}<br>
+    {{ form.season.label_tag }}
     {{ form.season }}
   </p>
 
   <p>
-    {{ form.wear_status.lael_tag }}<br>
+    {{ form.wear_status.label_tag }}
     {{ form.wear_status }}
   </p>
 
