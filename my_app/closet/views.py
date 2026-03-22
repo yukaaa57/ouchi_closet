@@ -136,6 +136,7 @@ def clothing_create(request, owner_type, owner_id):
         "form": form,
         "owner": owner,
         "owner_type": owner_type,
+        "category_form": CategoryForm(),
     }
     
     return render(request, "closet/clothing_form.html", context)
@@ -174,6 +175,7 @@ def clothing_update(request, pk):
         "owner_type": owner_type,
         "is_edit": True,
         "clothing": clothing,
+        "category_form": CategoryForm(),
     }
     
     return render(request, "closet/clothing_form.html", context)
@@ -319,6 +321,30 @@ def clothing_search_results(request, owner_type, owner_id):
     }
     
     return render(request, "closet/clothing_list.html", context)
+
+@login_required
+def category_create(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        next_url = request.POST.get("next", "")
+        
+        if form.is_valid():
+            form.save()
+            
+            if next_url:
+                return redirect(next_url)
+            
+            return redirect("home")
+    else:
+        form = CategoryForm()
+        
+    context = {
+        "form": form,
+    }
+    
+    return render(request, "closet/category_form.html", context)
+
+
 
     
             
