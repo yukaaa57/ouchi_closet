@@ -2,9 +2,55 @@
 
 {% block content %}
 
-<p>{{ category_label}}</p>
+<nav>
+    <a href="{% url 'home' %}">ホーム</a>
+    {% if owner_type == "user" %}
+      <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% else %}
+      <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% endif %}
+    >
+    アイテム一覧
+</nav>
 
-<hr>
+{% if is_search_result %}
+  <p>
+    {% for condition in search_conditions %}
+      {{ condition }}{% if not forloop.last %}、{% endif %}
+    {% endfor %}
+  </p>
+{% else %}
+  <p>{{ category_label}}</p>
+{% endif %}
+
+<form method="get">
+    {% if is_search_result %}
+      {% if request.GET.category %}
+        <input type="hidden" name="category" value="{{ request.GET.category }}">
+      {% endif %}
+
+      {% if request.GET.size %}
+        <input type="hidden" name="size" value="{{ request.GET.size }}">
+      {% endif %}
+
+      {% if request.GET.color %}
+        <input type="hidden" name="color" value="{{ request.GET.color }}">
+      {% endif %}
+
+      {% if request.GET.season %}
+        <input type="hidden" name="season" value="{{ request.GET.season }}">
+      {% endif %}
+
+      {% if request.GET.wear_status %}
+        <input type="hidden" name="wear_status" value="{{ request.GET.wear_status }}">
+      {% endif %}
+    {% endif %}
+    <label for="order">並び順</label>
+    <select name="order" id="order" onchange="this.form.submit()">
+        <option value="new">{% if order == "new" %}selected{% endif %}新しい順</option>
+        <option value="old">{% if order == "old" %}selected{% endif %}古い順</option>
+    </select>
+</form>
 
 <div class="clothing_list">
 
@@ -14,11 +60,9 @@
                 <img src="{{ clothing.clothing_image.url }}" width="120">
             </a>
         </div>
-    
     {% empty %}
         <p>アイテムがまだありません</p>
     {% endfor %}
-
 </div>
   
 {% endblock %}

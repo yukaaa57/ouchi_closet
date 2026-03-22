@@ -15,7 +15,7 @@
 
 <h2>アイテム検索</h2>
 
-<form method="get">
+<form method="get" action="{% url 'clothing_search_results' owner_type owner.pk %}">
   <p>
     {{ form.category.lael_tag }}<br>
     {{ form.category }}

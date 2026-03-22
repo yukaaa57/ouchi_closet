@@ -91,6 +91,7 @@ def clothing_list(request, owner_type, owner_id, category):
         "clothes": clothes,
         "category/label": category_label,
         "order": order,
+        "is_search_result": False,
     }
     
     return render(request, "closet/clothing_list.html", context)
