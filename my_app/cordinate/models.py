@@ -77,5 +77,24 @@ class OutfitClothingItem(models.Model):
     def __str__(self):
         return f"{self.outfit} - {self.clothing_item}"
     
+class OutfitImage(models.Model):
+    outfit = models.ForeignKey(
+        Outfit,
+        on_delete=models.CASCADE,
+        related_name="outfit_images",
+        verbose_name="コーディネート"
+    )
+    
+    outfit_image = models.ImageField(
+        upload_to="cordinate/",
+        verbose_name="コーデ画像"
+    )
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"{self.outfit}の画像"
+    
             
         
