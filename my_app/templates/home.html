@@ -4,19 +4,27 @@
 <h1>Ouchi Closet</h1>
 
 <div>
-  {% for u in family_users %}
+  {% for user in family_users %}
     <div>
-      <a href="{% url 'user_closet' u.pk %}">
-        <img src="{{ u.profile_image.url }}" width="100">
+      <a href="{% url 'user_closet' user.pk %}">
+        {% if user.profile_image %}
+          <img src="{{ user.profile_image.url }}" width="100">
+        {% else %}
+          <p>画像なし</p>
+        {% endif %}
       </a>
-      <p>{{ u.nickname }}</p>
+      <p>{{ user.nickname }}</p>
     </div>
   {% endfor %}
 
   {% for child in children %}
     <div>
       <a href="{% url 'child_closet' child.pk %}">
-        <img src="{{ child.profile_image.url }}" width="100">
+        {% if child.profile_image %}
+          <img src="{{ child.profile_image.url }}" width="100">
+        {% else %}
+          <p>画像なし</p>
+        {% endif %}
       </a>
       <p>{{ child.nickname }}
         <a href="{% url 'child_edit' child.pk %}">✏️</a> 
