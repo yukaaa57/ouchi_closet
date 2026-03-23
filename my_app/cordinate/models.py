@@ -2,7 +2,7 @@ from django.db import models
 from accounts.models import User, Child
 from closet.models import ClothingItem
 
-class Outfits(models.Model):
+class Outfit(models.Model):
     OUTFIT_TYPE_CHOICES = (
         (0, "internal"),
         (1, "external"),
@@ -57,6 +57,25 @@ class Outfits(models.Model):
         
         return f"{owner_name}のコーデ{self.id}"
     
-
+class OutfitClothingItem(models.Model):
+    outfit = models.ForeignKey(
+        Outfit,
+        on_delete=models.CASCADE,
+        related_name="outfit_clothing_items",
+        verbose_name="コーディネート"
+    )
+    
+    clothing_item = models.ForeignKey(
+        ClothingItem,
+        on_delete=models.CASCADE,
+        verbose_name="洋服アイテム"
+    )
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"{self.outfit} - {self.clothing_item}"
+    
             
         
