@@ -27,3 +27,24 @@ def outfit_list(request, owner_type, oewner_id):
     }
     
     return render(request, "cordinate/outfit_list.html", context)
+
+@login_required
+def outfit_toggle_favorite(request, pk):
+    outfit = get_object_or_404(Outfit, pk)
+    
+    if outfit.user:
+        if outfit.user.family != request.user.family:
+            return redirect("home")
+    else:
+        if outfit.child.family != request.user.family:
+            return redirect("home")
+    
+    if request.method == "POST":
+        outfit.is_favorite = not outfit.is_favorite
+        outfit.save()
+        
+        next_url = request.POST.get("next", "")
+        if next_url:
+            return redirect(next_url)
+    
+    return redirect("home")
