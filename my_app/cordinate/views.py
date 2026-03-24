@@ -38,7 +38,7 @@ def outfit_list(request, owner_type, owner_id):
 
 @login_required
 def outfit_toggle_favorite(request, pk):
-    outfit = get_object_or_404(Outfit, pk)
+    outfit = get_object_or_404(Outfit, pk=pk)
     
     if outfit.user:
         if outfit.user.family != request.user.family:
