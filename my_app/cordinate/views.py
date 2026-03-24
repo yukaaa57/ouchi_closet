@@ -4,26 +4,34 @@ from accounts.models import User, Child
 from .models import Outfit
 
 @login_required
-def outfit_list(request, owner_type, oewner_id):
+def outfit_list(request, owner_type, owner_id):
     if owner_type == "user":
         owner = get_object_or_404(
             User,
-            pk=oewner_id,
+            pk=owner_id,
             family=request.user.family
         )
-        outfits = Outfit.objects.filter(user=owner).order_by("-created_at")
+        outfits = Outfit.objects.filter(user=owner)
     else:
         owner = get_object_or_404(
             Child,
-            pk=oewner_id,
+            pk=owner_id,
             family=request.user.family
         )
-        outfits = Outfit.objects.filter(child=owner).order_by("-created_at")
+        outfits = Outfit.objects.filter(child=owner)
+        
+    order = request.GET.get("order", "new")
+    
+    if order == "old":
+        outfits = outfits.order_by("created_at")
+    else:
+        outfits = outfits.order_by("-created_at")
     
     context = {
         "owner": owner,
         "owner_type": owner_type,
         "outfits": outfits,
+        "order": order,
     }
     
     return render(request, "cordinate/outfit_list.html", context)
