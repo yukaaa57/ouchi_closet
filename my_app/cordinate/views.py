@@ -56,3 +56,29 @@ def outfit_toggle_favorite(request, pk):
             return redirect(next_url)
     
     return redirect("home")
+
+@login_required
+def outfit_detail(request, pk):
+    outfit = get_object_or_404(Outfit, pk=pk)
+    
+    if outfit.user:
+        if outfit.user.family != request.user.family:
+            return redirect("home")
+        owner = outfit.user
+        owner_type = "user"
+    else:
+        if outfit.child.family != request.user.family:
+            return redirect("home")
+        owner = outfit.child
+        owner_type = "child"
+        
+    next_url =request.GET.get("next", "")
+    
+    context = {
+        "outfit": outfit,
+        "owner": owner,
+        "owner_type": owner_type,
+        "next_url": next_url,
+    }
+    
+    return render(request, "cordinate/outfit_detail.html", context)
