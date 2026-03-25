@@ -28,14 +28,14 @@
     {% for outfit in outfits %}
       
       <div class="outfit-item">
-        <a href="#">
+        <a href="{% url 'outfit_detail' outfit.pk %}?next={{ request.get_full_path|urlencode }}">
             {% if outfit.outfit_type == 1 %}
               {% for image in outfit.outfit_images.all %}
                 <img src="{{ image.outfit_image.url }}" width="80" alt="コーデ画像">
               {% endfor %}
             {% else %}
               {% for item in outfit.outfit_clothing_items.all %}
-                <img src="{{ item.clothing.photo.url }}" width="80" alt="コーデ画像">
+                <img src="{{ item.clothing_item.photo.url }}" width="80" alt="コーデ画像">
               {% endfor %}
             {% endif %}
         </a>

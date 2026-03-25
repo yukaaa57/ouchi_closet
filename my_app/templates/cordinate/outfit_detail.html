@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+  
+<nav>
+    <a href="{% url 'home' %}">ホーム</a> >
+    {% if owner_type == "user" %}
+      <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% else %}
+      <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% endif %}
+    >コーデ詳細
+</nav>
+
+<div>
+    {% if outfit.outfit_type == 1 %}
+        {% for image in outfit.outfit_images.all %}
+            <img src="{{ image.outfit_image.url }}" width="120" alt="コーデ画像">
+        {% empty %}
+            <p>画像は登録されていません</p>
+        {% endfor %}
+    {% else %}
+        {% for item in outfit.outfit_clothing_items.all %}
+            <img src="{{ item.clothing_item.photo.url }}" width="120" alt="使用アイテム画像">
+        {% empty %}
+            <p>画像は登録されていません</p>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<div>
+    <form method="post" action="{% url 'outfit_toggle_favorite' outfit.pk %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <button type="submit" style="background: none; border: none; font-size: 28px;">
+            {% if outfit.is_favorite %}
+                <span style="color: red;">♡</span>
+            {% else %}
+                <span style="color: grey;">♡</span>              
+            {% endif %}
+        </button>
+    </form>
+</div>
+
+<div>
+    <p>メモ：{{ outfit.note|default:"" }}</p>
+</div>
+
+{% if outfit.outfit_type == 1 and outfit.external_url %}
+    <div>
+        <p>URL：</p>
+        <p><a href="{{ outfit.external_url }}" target="_blank">{{ outfit.external_url }}</a></p>
+    </div>
+{% endif %}
+
+<p>
+    <a href="#">編集</a>
+</p>
+
+<p>
+    <button type="button" onclick="document.getElementById('delete-modal').style.display='block'">削除</button>
+</p>
+
+<div id="delete-modal" style="display: none;">
+    <p>削除しますか？</p>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next_url }}">
+        <button type="submit">はい</button>
+        <button type="button" onclick="document.getElementById('delete-modal').style.display='none'">いいえ </button>
+    </form>
+</div>
+
+{% endblock %}
