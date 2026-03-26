@@ -101,9 +101,12 @@ def outfit_update(request, pk):
     
     if request.method == "POST":
         form = OutfitForm(request.POST, instance=outfit)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
-            return redirect("outfit_list", pk=owner.id)
+            if owner_type == "user":
+                return redirect("user_outfit_list", owner_id=owner.pk)
+            else:
+                return redirect("child_outfit_list", owner_id=owner.pk)
     else:
         form = OutfitForm(instance=outfit)
     
