@@ -63,7 +63,7 @@
 
 <div id="delete-modal" style="display: none;">
     <p>削除しますか？</p>
-    <form method="post" action="#">
+    <form method="post" action="{% url 'outfit_delete' outfit.pk %}">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next_url }}">
         <button type="submit">はい</button>
