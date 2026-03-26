@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block cintent %}
+  
+<nav>
+    <a href="{% url 'home' %}">ホーム</a> >
+    {% if owner_type == "user" %}
+      <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% else %}
+      <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% endif %}
+    >コーデ編集
+</nav>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div>
+        {{ form.note.label_tag }}
+        {{ form.note }}
+    </div>
+
+    <div>
+        {{ form.external_url.label_tag }}
+        {{ form.external_url }}
+    </div>
+
+    <button type="submit" class="save-button">保存</button>
+</form>
+
+{% endblock %}
