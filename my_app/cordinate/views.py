@@ -118,3 +118,29 @@ def outfit_update(request, pk):
     }
     
     return render(request, "cordinate/outfit_form.html", context)
+
+@login_required
+def outfit_delete(request, pk):
+    outfit = get_object_or_404(Outfit, pk=pk)
+    
+    if outfit.user:
+        if outfit.user.family != request.user.family:
+            return redirect("home")
+        owner = outfit.user
+        owner_type = "user"
+    else:
+        if outfit.child.family != request.user.family:
+            return redirect("home")
+        owner = outfit.child
+        owner_type = "child"
+    
+    if request.method == "POST":
+        outfit.delete()
+        
+        if owner_type == "user":
+            return redirect("user_outfit_list", owner_id=owner.pk)
+        else:
+            return redirect("child_outfit_list", owner_id=owner.pk)
+    
+    return redirect("outfit_deteil", pk=outfit.pk)
+    
