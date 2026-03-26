@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import User, Child
 from .models import Outfit
+from .forms import OutfitForm
 
 @login_required
 def outfit_list(request, owner_type, owner_id):
@@ -82,3 +83,35 @@ def outfit_detail(request, pk):
     }
     
     return render(request, "cordinate/outfit_detail.html", context)
+
+@login_required
+def outfit_update(request, pk):
+    outfit = get_object_or_404(Outfit, pk=pk)
+    
+    if outfit.user:
+        if outfit.user.family != request.user.family:
+            return redirect("home")
+        owner = outfit.user
+        owner_type = "user"
+    else:
+        if outfit.child.family != request.user.family:
+            return redirect("home")
+        owner = outfit.child
+        owner_type = "child"
+    
+    if request.method == "POST":
+        form = OutfitForm(request.POST, instance=outfit)
+        if form.is_valid:
+            form.save()
+            return redirect("outfit_list", pk=owner.id)
+    else:
+        form = OutfitForm(instance=outfit)
+    
+    context = {
+        "form": form,
+        "outfit": outfit,
+        "owner": owner,
+        "owner_type": owner_type,
+    }
+    
+    return render(request, "cordinate/outfit_form.html", context)
