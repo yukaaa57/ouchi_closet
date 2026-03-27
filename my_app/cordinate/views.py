@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import User, Child
-from .models import Outfit
-from .forms import OutfitForm
+from .models import Outfit, OutfitImage
+from .forms import OutfitForm, OutfitImageForm
 
 @login_required
 def outfit_list(request, owner_type, owner_id):
@@ -101,17 +101,28 @@ def outfit_update(request, pk):
     
     if request.method == "POST":
         form = OutfitForm(request.POST, instance=outfit)
+        image_form = OutfitImageForm(request.POST, request.FILES)
+        
         if form.is_valid():
             form.save()
+            
+            if outfit.outfit_type == 1 and request.FILES.get("outfit_image"):
+                if image_form.is_valid():
+                    outfit_image = image_form.save(commit=False)
+                    outfit_image.outfit = outfit
+                    outfit_image.save()
+            
             if owner_type == "user":
                 return redirect("user_outfit_list", owner_id=owner.pk)
             else:
                 return redirect("child_outfit_list", owner_id=owner.pk)
     else:
         form = OutfitForm(instance=outfit)
+        image_form = OutfitImageForm()
     
     context = {
         "form": form,
+        "image_form": image_form,
         "outfit": outfit,
         "owner": owner,
         "owner_type": owner_type,
@@ -176,4 +187,27 @@ def favorite_outfit_list(request, owner_type, owner_id):
     }
     
     return render(request, "cordinate/favorite_outfit_list.html", context)
+
+@login_required
+def outfit_image_delete(request, pk):
+    outfit_image = get_object_or_404(OutfitImage, pk=pk)
+    outfit = outfit_image.outfit
     
+    if outfit.user:
+        if outfit.user.family != request.user.family:
+            return redirect("home")
+        owner = outfit.user
+        owner_type = "user"
+    else:
+        if outfit.child.family != request.user.family:
+            return redirect("home")
+        owner = outfit.child
+        owner_type = "child"
+        
+    if request.method == "POST":
+        outfit_image.delete()
+        
+        return redirect("outfit_uodate", pk=outfit.pk)
+    
+    return redirect("outfit_uodate", pk=outfit.pk)
+     
