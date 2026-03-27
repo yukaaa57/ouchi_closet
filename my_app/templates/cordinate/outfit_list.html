@@ -14,7 +14,11 @@
 
 <h2>登録コーデ</h2>
 
-<a href="#">←お気に入りコーデへ</a>
+{% if owner_type == "user" %}
+  <a href="{% url 'user_favorite_outfit_list' owner.pk %}">←お気に入りコーデへ</a>
+{% else %}
+  <a href="{% url 'child_favorite_outfit_list' owner.pk %}">←お気に入りコーデへ</a>
+{% endif %}
 
 <form  method="get">
     <label for="order">並び順</label>
