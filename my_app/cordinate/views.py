@@ -143,4 +143,37 @@ def outfit_delete(request, pk):
             return redirect("child_outfit_list", owner_id=owner.pk)
     
     return redirect("outfit_deteil", pk=outfit.pk)
+
+@login_required
+def favorite_outfit_list(request, owner_type, owner_id):
+    if owner_type == "user":
+        owner = get_object_or_404(
+            User,
+            pk=owner_id,
+            family=request.user.family
+        )
+        outfits = Outfit.objects.filter(user=owner, is_favorite=True)
+    else:
+        owner = get_object_or_404(
+            Child,
+            pk=owner_id,
+            family=request.user.family
+        )
+        outfits = Outfit.objects.filter(child=owner, is_favorite=True)
+        
+    order = request.GET.get("order", "new")
+    
+    if order == "old":
+        outfits = outfits.order_by("created_at")
+    else:
+        outfits = outfits.order_by("-created_at")
+        
+    context = {
+        "owner": owner,
+        "owner_type": owner_type,
+        "outfits": outfits,
+        "order": order,
+    }
+    
+    return render(request, "cordinate/favorite_outfit_list.html", context)
     
