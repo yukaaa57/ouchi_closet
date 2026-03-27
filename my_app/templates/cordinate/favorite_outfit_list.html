@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav>
+    <a href="{% url 'home' %}">ホーム</a> >
+    {% if owner_type == "user" %}
+      <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% else %}
+      <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% endif %}
+    >お気に入りコーデ一覧
+</nav>
+
+<h2>登録コーデ</h2>
+
+<a href="#">←登録コーデへ</a>
+
+<form  method="get">
+    <label for="order">並び順</label>
+    <select name="order" id="order" onchange="this.form.submit()">
+        <option value="new" {% if order == "new" %}selected{% endif %}>新しい順</option>
+        <option value="old" {% if order == "old" %}selected{% endif %}>古い順</option>
+    </select>
+</form>
+
+<div class="outfit-grid"></div>
+    {% for outfit in outfits %}
+      
+      <div class="outfit-item">
+        <a href="{% url 'outfit_detail' outfit.pk %}?next={{ request.get_full_path|urlencode }}">
+            {% if outfit.outfit_type == 1 %}
+              {% for image in outfit.outfit_images.all %}
+                <img src="{{ image.outfit_image.url }}" width="80" alt="コーデ画像">
+              {% endfor %}
+            {% else %}
+              {% for item in outfit.outfit_clothing_items.all %}
+                <img src="{{ item.clothing_item.photo.url }}" width="80" alt="コーデ画像">
+              {% endfor %}
+            {% endif %}
+        </a>
+
+        <form method="post" action="{% url 'outfit_toggle_favorite' outfit.pk %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+
+            <button type="submit" style="background: none; border: none; padding: 0; font-size: 20px;">
+                {% if outfit.is_favorite %}
+                  <span style="color: red;">♡</span>
+                {% else %}
+                  <span style="color: grey;">♡</span>
+                {% endif %}
+            </button>
+        </form>
+      </div>
+    {% empty%}
+      <p>登録されているコーデはありません</p>
+    {% endfor %}
+
+    <a href="#">＋コーディネートを登録</a>
+
+</div>
+  
+{% endblock %}
