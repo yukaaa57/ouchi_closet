@@ -37,11 +37,6 @@
     {% endif %}
 
     <div>
-        <label for="{{ form.is_favorite.id_for_label }}">♡</label>
-        {{ form.is_favorite }}
-    </div>
-
-    <div>
         {{ form.note.label_tag }}
         {{ form.note }}
     </div>
@@ -50,6 +45,44 @@
         {{ form.external_url.label_tag }}
         {{ form.external_url }}
     </div>
+
+    <div class="favorite-area">
+        {{ form.is_favorite }}
+        <label for="{{ form.is_favorite.id_for_label }}" class="favorite-label">
+            <span class="heart-off">♡</span>
+            <span class="heart-on">❤︎</span>
+        </label>
+    </div>
+
+    <style>
+        #id_is_favorite{
+            display: none;
+        }
+
+        .favorite-label{
+            cursor: pointer;
+            font-size: 28px;
+            display: inline-block;
+        }
+
+        .heart-on{
+            display: none;
+            color: red;
+        }
+
+        .heart-off{
+            display: inline;
+            color: grey;
+        }
+
+        #id_is_favorite:checked + .favorite-label .heart-on{
+            display: inline;
+        }
+
+        #id_is_favorite:checked + .favorite-label .heart-off{
+            display: none;
+        }
+    </style>
 
     <button type="submit" class="save-button">保存</button>
 </form>
