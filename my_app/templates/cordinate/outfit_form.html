@@ -12,28 +12,42 @@
     >コーデ編集
 </nav>
 
+
+
+{% if outfit.outfit_type == 1 %}
+    {% for image in outfit.outfit_images.all %}
+        <div>
+            <img src="{{ image.outfit_image.url }}" width="120" alt="コーデ画像">
+
+            <form method="post" action="{% url 'outfit_image_delete' image.pk %}">
+                {% csrf_token %}
+                <button type="submit">この画像を削除</button>
+            </form>
+        </div>
+    {% empty %}
+        <p>登録されている画像はありません</p>
+    {% endfor %}
+{% endif %}
+
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    {% if outfit.outfit_type == 1 %}
-        {% for image in outfit.outfit_images.all %}
-            <div>
-                <img src="{{ image.outfit_image.url }}" width="120" alt="コーデ画像">
-
-                <form method="post" action="{% url 'outfit_image_delete' image.pk %}">
-                    {% csrf_token %}
-                    <button type="submit">この画像を削除</button>
-                </form>
-            </div>
-        {% empty %}
-            <p>登録されている画像はありません</p>
-        {% endfor %}
-
-        <h3>画像を追加</h3>
+    {% if form.errors %}
         <div>
-            {{ image_form.outfit_image.label_tag }}
-            {{ image_form.outfit_image }}
+            {{ form.errors }}
         </div>
+    {% endif %}
+
+    {% if outfit.outfit_tyoe == 1 %}
+        <h3>画像を追加</h3>
+
+        <div id="new-image-inputs">
+            <div class="new-image-row">
+                <input type="file" name="outfit_images">
+            </div>
+        </div>
+
+        <button type="button" id="add-image-input">＋追加</button>
     {% endif %}
 
     <div>
@@ -86,5 +100,18 @@
 
     <button type="submit" class="save-button">保存</button>
 </form>
+
+<script>
+    const addButton = document.getElementById("add-image-input");
+    const inputArea = document.getElementById("new-image-inputs");
+
+    if (addButton && inputArea){
+        addButton.addEventListener("click", function(){
+            const newRow = document.createElement("div");
+            newRow.className = "new-image-row";
+            newRow.innerHTML = '<input type="file" name="outfit_images">';
+        });
+    }
+</script>
 
 {% endblock %}
