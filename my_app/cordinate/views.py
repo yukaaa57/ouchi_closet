@@ -101,28 +101,36 @@ def outfit_update(request, pk):
     
     if request.method == "POST":
         form = OutfitForm(request.POST, instance=outfit)
-        image_form = OutfitImageForm(request.POST, request.FILES)
         
         if form.is_valid():
             form.save()
             
-            if outfit.outfit_type == 1 and request.FILES.get("outfit_image"):
-                if image_form.is_valid():
-                    outfit_image = image_form.save(commit=False)
-                    outfit_image.outfit = outfit
-                    outfit_image.save()
+            if outfit.outfit_type == 1:
+                upload_images = request.FILES.getlist("outfit_images")
+                
+                for image in upload_images:
+                    if image:
+                        OutfitImage.objects.create(
+                            outfit=outfit,
+                            outfit_image=image
+                        )
             
+            is_external = outfit.outfit_type == 1
+            is_favorite = outfit.is_favorite
+              
             if owner_type == "user":
+                if is_external or is_favorite:
+                    return redirect("user_favorite_outfit_list", owner_id=owner.pk)
                 return redirect("user_outfit_list", owner_id=owner.pk)
             else:
+                if is_external or is_favorite:
+                    return redirect("child_favorite_outfit_list", owner_id=owner.pk)
                 return redirect("child_outfit_list", owner_id=owner.pk)
     else:
         form = OutfitForm(instance=outfit)
-        image_form = OutfitImageForm()
     
     context = {
         "form": form,
-        "image_form": image_form,
         "outfit": outfit,
         "owner": owner,
         "owner_type": owner_type,
