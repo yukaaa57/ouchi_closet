@@ -12,7 +12,11 @@
     >コーデ編集
 </nav>
 
-
+{% if form.errors %}
+    <div>
+        {{ form.errors }}
+    </div>
+{% endif %}
 
 {% if outfit.outfit_type == 1 %}
     {% for image in outfit.outfit_images.all %}
@@ -32,13 +36,7 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    {% if form.errors %}
-        <div>
-            {{ form.errors }}
-        </div>
-    {% endif %}
-
-    {% if outfit.outfit_tyoe == 1 %}
+    {% if outfit.outfit_type == 1 %}
         <h3>画像を追加</h3>
 
         <div id="new-image-inputs">
@@ -110,6 +108,7 @@
             const newRow = document.createElement("div");
             newRow.className = "new-image-row";
             newRow.innerHTML = '<input type="file" name="outfit_images">';
+            inputArea.appendChild(newRow);
         });
     }
 </script>

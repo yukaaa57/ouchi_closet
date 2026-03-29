@@ -103,7 +103,7 @@ def outfit_update(request, pk):
         form = OutfitForm(request.POST, instance=outfit)
         
         if form.is_valid():
-            form.save()
+            outfit = form.save()
             
             if outfit.outfit_type == 1:
                 upload_images = request.FILES.getlist("outfit_images")
