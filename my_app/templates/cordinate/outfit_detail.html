@@ -28,18 +28,12 @@
     {% endif %}
 </div>
 
-<div>
-    <form method="post" action="{% url 'outfit_toggle_favorite' outfit.pk %}">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <button type="submit" style="background: none; border: none; font-size: 28px;">
-            {% if outfit.is_favorite %}
-                <span style="color: red;">♡</span>
-            {% else %}
-                <span style="color: grey;">♡</span>              
-            {% endif %}
-        </button>
-    </form>
+<div style="font-size: 28px;">
+    {% if outfit.is_favorite %}
+        <span style="color: red;">♡</span>
+    {% else %}
+        <span style="color: grey;">♡</span>
+    {% endif %}
 </div>
 
 <div>
