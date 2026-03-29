@@ -37,6 +37,11 @@
     {% endif %}
 
     <div>
+        <label for="{{ form.is_favorite.id_for_label }}">♡</label>
+        {{ form.is_favorite }}
+    </div>
+
+    <div>
         {{ form.note.label_tag }}
         {{ form.note }}
     </div>
