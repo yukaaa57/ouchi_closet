@@ -5,9 +5,11 @@
 <nav>
     <a href="{% url 'home' %}">ホーム</a> >
     {% if owner_type == "user" %}
-      <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+      <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a> >
+      <a href="{% url 'user_outfit_list' owner.pk %}">コーデ一覧</a> >
     {% else %}
-      <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+      <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a> >
+      <a href="{% url 'child_outfit_list' owner.pk %}">コーデ一覧</a> >
     {% endif %}
     >コーデ編集
 </nav>
@@ -18,6 +20,7 @@
     </div>
 {% endif %}
 
+<!--外部サイトコーデ：登録済み画像表示-->
 {% if outfit.outfit_type == 1 %}
     {% for image in outfit.outfit_images.all %}
         <div>
@@ -36,6 +39,7 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
+    <!--外部サイトコーデ：画像追加-->
     {% if outfit.outfit_type == 1 %}
         <h3>画像を追加</h3>
 
@@ -46,6 +50,41 @@
         </div>
 
         <button type="button" id="add-image-input">＋追加</button>
+    {% endif %}
+
+    <!--手持ちコーデ：既存アイテム表示-->
+    {% if outfit.outfit_type == 0 %}
+        <div id="selected-item-area">
+            {% for item in outfit.outfit_clothing_items.all %}
+                <div class="selected-item-slot">
+                    <div class="selected-item-preview">
+                        <img src="{{ item.clothing_item.photo.url }}" width="120" alt="洋服画像">
+                    </div>
+
+                    <div class="selected-item-action">
+                        <button type="button" class="open-clothing-modal">画像を選択</button>
+                        <button type="button" class="remove-item-slot">削除</button>
+                        <input type="hidden" name="selected_clothing_item_ids" value="{{ item.clothing_item.pk }}">
+                    </div>
+                </div>
+            {% empty %}
+                {% for i in "123" %}
+                    <div class="selected-item-slot">
+                        <div class="selected-item-preview">
+                            <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
+                        </div>
+
+                        <div class="selected-item-action">
+                            <button type="button" class="open-clothing-modal">画像を選択</button>
+                            <button type="button" class="remove-item-slot">削除</button>
+                            <input type="hidden" name="selected_clothing_item_ids" value="">
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        <button type="button" id="add-item-slot">＋追加</button>
     {% endif %}
 
     <div>
@@ -99,18 +138,164 @@
     <button type="submit" class="save-button">保存</button>
 </form>
 
-<script>
-    const addButton = document.getElementById("add-image-input");
-    const inputArea = document.getElementById("new-image-inputs");
+<!--手持ち用モーダル-->
+{% if outfit.outfit_type == 0 %}
+    <div id="clothing-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff;">
+        <button type="button" id="close-clothing-modal">✖︎</button>
 
-    if (addButton && inputArea){
-        addButton.addEventListener("click", function(){
+        <div id="modal-search-area">
+            <form  id="clothing-search-form" method="get" action="{% url 'clothing_item_search' outfit.pk %}">
+                <label>カテゴリ</label>
+                <select name="category">
+                    <option value="">---</option>
+                    {% for category in categories %}
+                        <option value="{{ category.pk }}"{% if selected_category == category.pk|stringformat:"s" %}selected{% endif %}>
+                            {{ category.name }}
+                        </option> 
+                    {% endfor %}
+                </select>
+
+                <label>カラー</label>
+                <select name="color">
+                    <option value="">---</option>
+                    {% for value, label in color_choices %}
+                        <option value="{{ value }}"{% if selected_color == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">検索</button>
+            </form>
+
+            <div id="search-result-grid">
+                {% for clothing in clothing_items %}
+                    <div class="search-result-item" data-id="{{ clothing.pk }}" data-image-url="{{ clothing.photo.url }}">
+                        <img src="{{ clothing.photo.url }}" width="90" alt="洋服画像">
+                    </div>
+                {% empty %}
+                    <p>該当するアイテムがありません</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="button" id="confirm-clothing-selection">確定</button>
+    </div> 
+{% endif %}
+
+<script>
+    //外部サイトコーデ：画像入力欄追加
+    const addImageButton = document.getElementById("add-image-input");
+    const newImageInputs = document.getElementById("new-image-inputs");
+
+    if (addImageButton && newImageInputs){
+        addImageButton.addEventListener("click", function(){
             const newRow = document.createElement("div");
             newRow.className = "new-image-row";
             newRow.innerHTML = '<input type="file" name="outfit_images">';
-            inputArea.appendChild(newRow);
+            newImageInputs.appendChild(newRow);
         });
     }
+
+    //手持ちコーデ：モーダル関連
+    const addItemSlotButton = document.getElementById("add-item-slot");
+    const selectedItemsArea = document.getElementById("selected-items-area");
+    const modal = document.getElementById("clothing-modal");
+    const closeModalButton = document.getElementById("close-clothing-modal");
+    const confirmButton = document.getElementById("confirm-clothing-selection");
+
+    let selectedCandidate = null;
+    let activeSlot = null;
+
+    //プラス追加で空枠を増やす
+    if (addItemSlotButton && selectedItemsArea){
+        addItemSlotButton.addEventListener("click", function(){
+            const newSlot = document.createElement("div");
+            newSlot.className = "selected-item-slot";
+
+            newSlot.innerHTML = `
+                <div class="selected-item-preview">
+                    <div style="width:120px; height:120px; border:1px solid #999;"></div>
+                </div>
+                <div class="selected-item-action">
+                    <button type="button" class="open-clothing-modal">画像を選択</button>
+                    <button type="button" class="remove-item-slot">削除</button>
+                    <input type="hidden" name="selected_clothing_item_ids" value="">
+                </div>
+            `;
+
+            selectedItemArea.appendChild(newSlot);
+        });
+    }
+
+    //画像を選択でモーダル開く
+    document.addEventListener("click", function (e) {
+        const openButton = e.target.closet(".open-clothing-modal");
+
+        if (openButton && modal) {
+            activeSlot = openButton.closet(".selected-item-slot");
+            modal.style.display = "block";
+        }
+    });
+
+    //モーダルを閉じる
+    if (closeModalButton && modal) {
+        closeModalButton.addEventListener("click", function () {
+            modal.style.display = "none";
+            selectedCandidate = null;
+        });
+    }
+
+    //検索結果を選択
+    document.addEventListener("click", function (e) {
+        const target = e.target.closet(".search-result-item");
+
+        if (target) {
+            document.querySelectorAll(".search-result-item").forEach(item => {
+                item.style.outline = "";
+            });
+
+            target.style.outline = "2px solid blue";
+
+            selectedCandidate = {
+                id: target.dateset.id,
+                imageUrl: target.dateset.imageUrl
+            };
+        }
+    });
+
+    //確定で枠に反映
+    if (confirmButton) {
+        confirmButton.addEventListener("click", function () {
+            if (!selectedCandidate || !activeSlot) {
+                return;
+            }
+
+            const hiddenInput = activeSlot.querySelector('input[name="selected_clothing_item_ids"]');
+            const previewArea = activeSlot.querySelector(".selected-item-preview");
+
+            hiddenInput.value = selectedCandidate.id;
+            previewArea.innerHTML = `<img src="${selectedCandidate.imageUrl}" width="120" alt="洋服画像">`;
+
+            if (modal) {
+                modal.style.display = "none";
+            }
+
+            selectedCandidate = null;
+        });
+    }
+
+    //枠を削除
+    document.addEventListener("click", function (e) {
+        const removeButton = e.target.closet(".remove-item-slot");
+
+        if (removeButton) {
+            const slot = removeButton.closet(".selected-item-slot");
+            if (slot) {
+                slot.remove();
+            }
+        }
+    });
 </script>
 
 {% endblock %}
