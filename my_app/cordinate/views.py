@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import User, Child
-from .models import Outfit, OutfitImage
+from closet.models import ClothingItem, Category
+from .models import Outfit, OutfitImage, OutfitClothingItem
 from .forms import OutfitForm, OutfitImageForm
 
 @login_required
@@ -105,6 +106,7 @@ def outfit_update(request, pk):
         if form.is_valid():
             outfit = form.save()
             
+            #外部サイトコーデ画像登録
             if outfit.outfit_type == 1:
                 upload_images = request.FILES.getlist("outfit_images")
                 
@@ -115,25 +117,63 @@ def outfit_update(request, pk):
                             outfit_image=image
                         )
             
-            is_external = outfit.outfit_type == 1
+            #手持ちコーデ画像登録
+            if outfit.outfit_tyoe == 0:
+                selected_ids = request.POST.gerlist("selected_clothing_item_ids")
+                
+                outfit.outfit_clothing_items.all().delete()
+                
+                if outfit.user:
+                    available_items = ClothingItem.objects.filter(user=outfit.user)
+                else:
+                    available_items = ClothingItem.objects.filter(child=outfit.child)
+                    
+                for clothing_item_id in selected_ids:
+                    if clothing_item_id:
+                        clothing_item = get_object_or_404(available_items, pk=clothing_item_id)
+                        OutfitClothingItem.objects.create(
+                            outfit=outfit,
+                            clothing_item=clothing_item
+                        )
+            
             is_favorite = outfit.is_favorite
               
             if owner_type == "user":
-                if is_external or is_favorite:
+                if is_favorite:
                     return redirect("user_favorite_outfit_list", owner_id=owner.pk)
                 return redirect("user_outfit_list", owner_id=owner.pk)
             else:
-                if is_external or is_favorite:
+                if is_favorite:
                     return redirect("child_favorite_outfit_list", owner_id=owner.pk)
                 return redirect("child_outfit_list", owner_id=owner.pk)
     else:
         form = OutfitForm(instance=outfit)
+        
+    if outfit.outfit_type == 0:
+        if outfit.user:
+            clothing_item = ClothingItem.objects.filter(user=outfit.user).exclude(
+                id__in=outfit.outfit_clothing_items.values_list("clothing_item_id", flat=True)
+            )
+        else:
+            clothing_item = ClothingItem.objects.filter(child=outfit.child).exclude(
+                id__in=outfit.outfit_clothing_items.values_list("clothing_item_id", flat=True)
+            )
+        
+        categories = Category.objects.filter(familt=request.user.family)
+    else:
+        clothing_items = []
+        categories = []
+        
     
     context = {
         "form": form,
         "outfit": outfit,
         "owner": owner,
         "owner_type": owner_type,
+        "clothing_items": clothing_items,
+        "categoties": categories,
+        "selected_category": "",
+        "selected_color": "",
     }
     
     return render(request, "cordinate/outfit_form.html", context)
