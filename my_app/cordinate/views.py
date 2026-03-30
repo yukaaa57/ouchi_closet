@@ -179,6 +179,43 @@ def outfit_update(request, pk):
     return render(request, "cordinate/outfit_form.html", context)
 
 @login_required
+def clothing_item_search(request, pk):
+    outfit = get_object_or_404(Outfit, pk=pk)
+    
+    if outfit.user:
+        if outfit.user.family != request.user.family:
+            return redirect("home")
+        clothing_items = ClothingItem.objects.filter(user=outfit.user)
+    else:
+        if outfit.child.family != request.user.family:
+            return redirect("home")
+        clothing_items = ClothingItem.objects.filter(child=outfit.child)
+        
+    category_id = request.GET.get("category")
+    color = request.GET.get("color")
+    
+    if category_id:
+        clothing_items = clothing_items.filter(category_id=category_id)
+        
+    if color:
+        clothing_items = clothing_items.filter(color=color)
+        
+    current_item_ids = outfit.outfit_clothing_items.values_list("clothing_item_id", flat=True)
+    clothing_items = clothing_items.exclude(id__in=current_item_ids)
+    
+    categories = Category.objects.filter(family=request.user.family)
+    
+    context = {
+        "outfit": outfit,
+        "clothing_items": clothing_items,
+        "caregories": categories,
+        "selected_category": category_id,
+        "selectes_color": color,
+    }
+    
+    return render(request, "cordinate/_clothing_item_search_results.html", context)
+
+@login_required
 def outfit_delete(request, pk):
     outfit = get_object_or_404(Outfit, pk=pk)
     
