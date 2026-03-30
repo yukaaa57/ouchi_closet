@@ -160,9 +160,12 @@ def outfit_update(request, pk):
             )
         
         categories = Category.objects.filter(familt=request.user.family)
+        color_choices = ClothingItem.COLOR_CHOICES
+        
     else:
         clothing_items = []
         categories = []
+        color_choices = []
         
     
     context = {
@@ -172,6 +175,7 @@ def outfit_update(request, pk):
         "owner_type": owner_type,
         "clothing_items": clothing_items,
         "categoties": categories,
+        "color_choices": color_choices,
         "selected_category": "",
         "selected_color": "",
     }
@@ -204,11 +208,13 @@ def clothing_item_search(request, pk):
     clothing_items = clothing_items.exclude(id__in=current_item_ids)
     
     categories = Category.objects.filter(family=request.user.family)
+    color_choices = ClothingItem.COLOR_CHOICES
     
     context = {
         "outfit": outfit,
         "clothing_items": clothing_items,
         "caregories": categories,
+        "color_choices": color_choices,
         "selected_category": category_id,
         "selectes_color": color,
     }
