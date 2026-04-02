@@ -28,7 +28,7 @@
 
             <form method="post" action="{% url 'outfit_image_delete' image.pk %}">
                 {% csrf_token %}
-                <button type="submit">この画像を削除</button>
+                <button type="submit">画像を削除</button>
             </form>
         </div>
     {% empty %}
@@ -230,10 +230,10 @@
 
     //画像を選択でモーダル開く
     document.addEventListener("click", function (e) {
-        const openButton = e.target.closet(".open-clothing-modal");
+        const openButton = e.target.closest(".open-clothing-modal");
 
         if (openButton && modal) {
-            activeSlot = openButton.closet(".selected-item-slot");
+            activeSlot = openButton.closest(".selected-item-slot");
             modal.style.display = "block";
         }
     });
@@ -248,7 +248,7 @@
 
     //検索結果を選択
     document.addEventListener("click", function (e) {
-        const target = e.target.closet(".search-result-item");
+        const target = e.target.closest(".search-result-item");
 
         if (target) {
             document.querySelectorAll(".search-result-item").forEach(item => {
@@ -287,10 +287,10 @@
 
     //枠を削除
     document.addEventListener("click", function (e) {
-        const removeButton = e.target.closet(".remove-item-slot");
+        const removeButton = e.target.closest(".remove-item-slot");
 
         if (removeButton) {
-            const slot = removeButton.closet(".selected-item-slot");
+            const slot = removeButton.closest(".selected-item-slot");
             if (slot) {
                 slot.remove();
             }
