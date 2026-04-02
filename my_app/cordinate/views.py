@@ -118,8 +118,8 @@ def outfit_update(request, pk):
                         )
             
             #手持ちコーデ画像登録
-            if outfit.outfit_tyoe == 0:
-                selected_ids = request.POST.gerlist("selected_clothing_item_ids")
+            if outfit.outfit_type == 0:
+                selected_ids = request.POST.getlist("selected_clothing_item_ids")
                 
                 outfit.outfit_clothing_items.all().delete()
                 
@@ -159,7 +159,7 @@ def outfit_update(request, pk):
                 id__in=outfit.outfit_clothing_items.values_list("clothing_item_id", flat=True)
             )
         
-        categories = Category.objects.filter(familt=request.user.family)
+        categories = Category.objects.filter(family=request.user.family)
         color_choices = ClothingItem.COLOR_CHOICES
         
     else:
@@ -174,7 +174,7 @@ def outfit_update(request, pk):
         "owner": owner,
         "owner_type": owner_type,
         "clothing_items": clothing_items,
-        "categoties": categories,
+        "categories": categories,
         "color_choices": color_choices,
         "selected_category": "",
         "selected_color": "",
@@ -213,10 +213,10 @@ def clothing_item_search(request, pk):
     context = {
         "outfit": outfit,
         "clothing_items": clothing_items,
-        "caregories": categories,
+        "categories": categories,
         "color_choices": color_choices,
         "selected_category": category_id,
-        "selectes_color": color,
+        "selected_color": color,
     }
     
     return render(request, "cordinate/_clothing_item_search_results.html", context)
@@ -244,7 +244,7 @@ def outfit_delete(request, pk):
         else:
             return redirect("child_outfit_list", owner_id=owner.pk)
     
-    return redirect("outfit_deteil", pk=outfit.pk)
+    return redirect("outfit_detail", pk=outfit.pk)
 
 @login_required
 def favorite_outfit_list(request, owner_type, owner_id):
@@ -298,7 +298,7 @@ def outfit_image_delete(request, pk):
     if request.method == "POST":
         outfit_image.delete()
         
-        return redirect("outfit_uodate", pk=outfit.pk)
+        return redirect("outfit_update", pk=outfit.pk)
     
-    return redirect("outfit_uodate", pk=outfit.pk)
+    return redirect("outfit_update", pk=outfit.pk)
      
