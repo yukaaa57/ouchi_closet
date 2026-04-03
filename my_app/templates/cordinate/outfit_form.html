@@ -54,7 +54,7 @@
 
 <!--手持ちコーデ：既存アイテム表示-->
 {% if outfit.outfit_type == 0 %}
-    <div id="selected-item-area">
+    <div id="selected-items-area">
         {% for item in outfit.outfit_clothing_items.all %}
             <div class="selected-item-slot">
                 <div class="selected-item-preview">
@@ -62,26 +62,24 @@
                 </div>
 
                 <div class="selected-item-action">
-                    <button type="button" class="open-clothing-modal">画像を選択</button>
                     <button type="button" class="remove-item-slot">削除</button>
                     <input type="hidden" name="selected_clothing_item_ids" value="{{ item.clothing_item.pk }}">
                 </div>
             </div>
-        {% empty %}
-            {% for i in "123" %}
-                <div class="selected-item-slot">
-                    <div class="selected-item-preview">
-                        <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
-                    </div>
-
-                    <div class="selected-item-action">
-                        <button type="button" class="open-clothing-modal">画像を選択</button>
-                        <button type="button" class="remove-item-slot">削除</button>
-                        <input type="hidden" name="selected_clothing_item_ids" value="">
-                    </div>
-                </div>
-            {% endfor %}
         {% endfor %}
+
+        <!--手持ちコーデ：アイテム追加-->
+        <h3>画像を追加</h3>
+        <div class="selected-item-slot">
+            <div class="selected-item-preview">
+                <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
+            </div>
+
+            <div class="selected-item-action">
+                <button type="button" class="open-clothing-modal">画像を選択</button>
+                <input type="hidden" name="selected_clothing_item_ids" value="">
+            </div>  
+        </div>   
     </div>
 
     <button type="button" id="add-item-slot">＋追加</button>
@@ -219,12 +217,11 @@
                 </div>
                 <div class="selected-item-action">
                     <button type="button" class="open-clothing-modal">画像を選択</button>
-                    <button type="button" class="remove-item-slot">削除</button>
                     <input type="hidden" name="selected_clothing_item_ids" value="">
                 </div>
             `;
 
-            selectedItemArea.appendChild(newSlot);
+            selectedItemsArea.appendChild(newSlot);
         });
     }
 
