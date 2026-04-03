@@ -58,7 +58,7 @@
         {% for item in outfit.outfit_clothing_items.all %}
             <div class="selected-item-slot">
                 <div class="selected-item-preview">
-                    <img src="{{ item.clothing_item.image.url }}" width="120" alt="洋服画像">
+                    <img src="{{ item.clothing_item.clothing_image.url }}" width="120" alt="洋服画像">
                 </div>
 
                 <div class="selected-item-action">
@@ -170,8 +170,8 @@
 
             <div id="search-result-grid">
                 {% for clothing in clothing_items %}
-                    <div class="search-result-item" data-id="{{ clothing.pk }}" data-image-url="{{ clothing.image.url }}">
-                        <img src="{{ clothing.image.url }}" width="90" alt="洋服画像">
+                    <div class="search-result-item" data-id="{{ clothing.pk }}" data-image-url="{{ clothing.clothing_image.url }}">
+                        <img src="{{ clothing.clothing_image.url }}" width="90" alt="洋服画像">
                     </div>
                 {% empty %}
                     <p>該当するアイテムがありません</p>

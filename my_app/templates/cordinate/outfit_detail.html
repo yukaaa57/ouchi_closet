@@ -21,7 +21,7 @@
         {% endfor %}
     {% else %}
         {% for item in outfit.outfit_clothing_items.all %}
-            <img src="{{ item.clothing_item.image.url }}" width="120" alt="使用アイテム画像">
+            <img src="{{ item.clothing_item.clothing_image.url }}" width="120" alt="使用アイテム画像">
         {% empty %}
             <p>画像は登録されていません</p>
         {% endfor %}

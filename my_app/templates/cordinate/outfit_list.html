@@ -39,7 +39,7 @@
               {% endfor %}
             {% else %}
               {% for item in outfit.outfit_clothing_items.all %}
-                <img src="{{ item.clothing_item.image.url }}" width="80" alt="コーデ画像">
+                <img src="{{ item.clothing_item.clothing_image.url }}" width="80" alt="コーデ画像">
               {% endfor %}
             {% endif %}
         </a>
