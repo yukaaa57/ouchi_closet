@@ -151,11 +151,11 @@ def outfit_update(request, pk):
         
     if outfit.outfit_type == 0:
         if outfit.user:
-            clothing_item = ClothingItem.objects.filter(user=outfit.user).exclude(
+            clothing_items = ClothingItem.objects.filter(user=outfit.user).exclude(
                 id__in=outfit.outfit_clothing_items.values_list("clothing_item_id", flat=True)
             )
         else:
-            clothing_item = ClothingItem.objects.filter(child=outfit.child).exclude(
+            clothing_items = ClothingItem.objects.filter(child=outfit.child).exclude(
                 id__in=outfit.outfit_clothing_items.values_list("clothing_item_id", flat=True)
             )
         
