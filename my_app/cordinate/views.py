@@ -159,7 +159,7 @@ def outfit_update(request, pk):
                 id__in=outfit.outfit_clothing_items.values_list("clothing_item_id", flat=True)
             )
         
-        categories = Category.objects.filter(family=request.user.family)
+        categories = Category.objects.all()
         color_choices = ClothingItem.COLOR_CHOICES
         
     else:
@@ -207,7 +207,7 @@ def clothing_item_search(request, pk):
     current_item_ids = outfit.outfit_clothing_items.values_list("clothing_item_id", flat=True)
     clothing_items = clothing_items.exclude(id__in=current_item_ids)
     
-    categories = Category.objects.filter(family=request.user.family)
+    categories = Category.objects.all()
     color_choices = ClothingItem.COLOR_CHOICES
     
     context = {
