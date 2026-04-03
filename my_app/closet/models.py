@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from accounts.models import Child, SIZE_CHOICES
+from accounts.models import Child, SIZE_CHOICES, Family
 
 User = get_user_model()
 
 class Category(models.Model):
+    family = models.ForeignKey(Family, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -90,4 +91,5 @@ class ClothingItem(models.Model):
             owner_name = "未設定"
         
         return f"{owner_name} / {self.category.name}"
+    
     

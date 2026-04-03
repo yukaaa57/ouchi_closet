@@ -52,40 +52,40 @@
         <button type="button" id="add-image-input">＋追加</button>
     {% endif %}
 
-    <!--手持ちコーデ：既存アイテム表示-->
-    {% if outfit.outfit_type == 0 %}
-        <div id="selected-item-area">
-            {% for item in outfit.outfit_clothing_items.all %}
+<!--手持ちコーデ：既存アイテム表示-->
+{% if outfit.outfit_type == 0 %}
+    <div id="selected-item-area">
+        {% for item in outfit.outfit_clothing_items.all %}
+            <div class="selected-item-slot">
+                <div class="selected-item-preview">
+                    <img src="{{ item.clothing_item.image.url }}" width="120" alt="洋服画像">
+                </div>
+
+                <div class="selected-item-action">
+                    <button type="button" class="open-clothing-modal">画像を選択</button>
+                    <button type="button" class="remove-item-slot">削除</button>
+                    <input type="hidden" name="selected_clothing_item_ids" value="{{ item.clothing_item.pk }}">
+                </div>
+            </div>
+        {% empty %}
+            {% for i in "123" %}
                 <div class="selected-item-slot">
                     <div class="selected-item-preview">
-                        <img src="{{ item.clothing_item.photo.url }}" width="120" alt="洋服画像">
+                        <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
                     </div>
 
                     <div class="selected-item-action">
                         <button type="button" class="open-clothing-modal">画像を選択</button>
                         <button type="button" class="remove-item-slot">削除</button>
-                        <input type="hidden" name="selected_clothing_item_ids" value="{{ item.clothing_item.pk }}">
+                        <input type="hidden" name="selected_clothing_item_ids" value="">
                     </div>
                 </div>
-            {% empty %}
-                {% for i in "123" %}
-                    <div class="selected-item-slot">
-                        <div class="selected-item-preview">
-                            <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
-                        </div>
-
-                        <div class="selected-item-action">
-                            <button type="button" class="open-clothing-modal">画像を選択</button>
-                            <button type="button" class="remove-item-slot">削除</button>
-                            <input type="hidden" name="selected_clothing_item_ids" value="">
-                        </div>
-                    </div>
-                {% endfor %}
             {% endfor %}
-        </div>
+        {% endfor %}
+    </div>
 
-        <button type="button" id="add-item-slot">＋追加</button>
-    {% endif %}
+    <button type="button" id="add-item-slot">＋追加</button>
+{% endif %}
 
     <div>
         {{ form.note.label_tag }}
@@ -170,8 +170,8 @@
 
             <div id="search-result-grid">
                 {% for clothing in clothing_items %}
-                    <div class="search-result-item" data-id="{{ clothing.pk }}" data-image-url="{{ clothing.photo.url }}">
-                        <img src="{{ clothing.photo.url }}" width="90" alt="洋服画像">
+                    <div class="search-result-item" data-id="{{ clothing.pk }}" data-image-url="{{ clothing.image.url }}">
+                        <img src="{{ clothing.image.url }}" width="90" alt="洋服画像">
                     </div>
                 {% empty %}
                     <p>該当するアイテムがありません</p>
