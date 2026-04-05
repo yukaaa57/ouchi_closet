@@ -219,6 +219,9 @@ def clothing_item_search(request, pk):
         "selected_color": color,
     }
     
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        return render(request, "cordinate/_clothing_item_search_results.html", context)
+    
     return render(request, "cordinate/_clothing_item_search_results.html", context)
 
 @login_required
