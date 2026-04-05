@@ -20,12 +20,11 @@
     </select>
 </form>
 
-<div id="search-result-grid">
-    {% for clothing in clothing_items %}
-        <div class="search-result-item" data-id="{{ clothing.pk }}" data-image-url="{{ clothing.clothing_image.url }}">
-            <img src="{{ clothing.clothing_image.url }}" width="90" alt="洋服画像">
-        </div>
-    {% empty %}
-        <p>該当するアイテムがありません</p>
-    {% endfor %}
-</div>
+
+{% for clothing in clothing_items %}
+    <div class="search-result-item" data-id="{{ clothing.pk }}" data-image-url="{{ clothing.clothing_image.url }}">
+        <img src="{{ clothing.clothing_image.url }}" width="90" alt="洋服画像">
+    </div>
+{% empty %}
+     <p>該当するアイテムがありません</p>
+{% endfor %}
