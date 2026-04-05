@@ -142,7 +142,7 @@
         <button type="button" id="close-clothing-modal">✖︎</button>
 
         <div id="modal-search-area">
-            <form  id="clothing-search-form" method="get" action="{% url 'clothing_item_search' outfit.pk %}">
+            <form id="clothing-search-form" method="get" action="{% url 'clothing_item_search' outfit.pk %}">
                 <label>カテゴリ</label>
                 <select name="category">
                     <option value="">---</option>
@@ -165,16 +165,16 @@
 
                 <button type="submit">検索</button>
             </form>
+        </div>
 
-            <div id="search-result-grid">
-                {% for clothing in clothing_items %}
-                    <div class="search-result-item" data-id="{{ clothing.pk }}" data-image-url="{{ clothing.clothing_image.url }}">
-                        <img src="{{ clothing.clothing_image.url }}" width="90" alt="洋服画像">
-                    </div>
-                {% empty %}
-                    <p>該当するアイテムがありません</p>
-                {% endfor %}
-            </div>
+        <div id="search-result-grid">
+            {% for clothing in clothing_items %}
+                <div class="search-result-item" data-id="{{ clothing.pk }}" data-image-url="{{ clothing.clothing_image.url }}">
+                    <img src="{{ clothing.clothing_image.url }}" width="90" alt="洋服画像">
+                </div>
+            {% empty %}
+                <p>該当するアイテムがありません</p>
+            {% endfor %}
         </div>
 
         <button type="button" id="confirm-clothing-selection">確定</button>
@@ -240,6 +240,32 @@
         closeModalButton.addEventListener("click", function () {
             modal.style.display = "none";
             selectedCandidate = null;
+        });
+    }
+
+    const clothingSearchForm = document.getElementById("clothing-search-form");
+    const searchResultGrid = document.getElementById("search-result-grid");
+
+    if (clothingSearchForm && searchResultGrid) {
+        clothingSearchForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(clothingSearchForm);
+            const params = new URLSearchParams(formData).toString();
+            const url = `${clothingSearchForm.action}?${params}`;
+
+            fetch(url, {
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                searchResultGrid.innerHTML = html;
+            })
+            .catch(error => {
+                console.error("検索エラー", error);
+            });
         });
     }
 
