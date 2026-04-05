@@ -1,26 +1,3 @@
-<form  id="clothing-search-form" method="get" action="{% url 'clothing_item_search' outfit.pk %}">
-    <label>カテゴリ</label>
-    <select name="category">
-        <option value="">---</option>
-        {% for category in categories %}
-            <option value="{{ category.pk }}"{% if selected_category == category.pk|stringformat:"s" %}selected{% endif %}>
-                {{ category.name }}
-            </option>
-        {% endfor %}
-    </select>
-
-    <label>カラー</label>
-    <select name="color" >
-        <option value="">---</option>
-        {% for value, label in color_choices %}
-            <option value="{{ value }}"{% if selected_color == value %}selected{% endif %}>
-                {{ label }}
-            </option>
-        {% endfor %}
-    </select>
-</form>
-
-
 {% for clothing in clothing_items %}
     <div class="search-result-item" data-id="{{ clothing.pk }}" data-image-url="{{ clothing.clothing_image.url }}">
         <img src="{{ clothing.clothing_image.url }}" width="90" alt="洋服画像">
