@@ -225,6 +225,7 @@
 
         if (openButton && modal) {
             activeSlot = openButton.closest(".selected-item-slot");
+
             modal.style.display = "block";
         }
     });
@@ -259,7 +260,6 @@
                 searchResultGrid.innerHTML = html;
             })
             .catch(error => {
-                console.error("検索エラー", error);
             });
         });
     }
@@ -276,8 +276,8 @@
             target.style.outline = "2px solid blue";
 
             selectedCandidate = {
-                id: target.dateset.id,
-                imageUrl: target.dateset.imageUrl
+                id: target.dataset.id,
+                imageUrl: target.dataset.imageUrl
             };
         }
     });
@@ -286,6 +286,7 @@
     if (confirmButton) {
         confirmButton.addEventListener("click", function () {
             if (!selectedCandidate || !activeSlot) {
+                console.log("selectedCandidate か activeSlot が入っていない");
                 return;
             }
 
@@ -295,11 +296,9 @@
             hiddenInput.value = selectedCandidate.id;
             previewArea.innerHTML = `<img src="${selectedCandidate.imageUrl}" width="120" alt="洋服画像">`;
 
-            if (modal) {
-                modal.style.display = "none";
-            }
-
+            modal.style.display = "none";
             selectedCandidate = null;
+            activeSlot = null;
         });
     }
 
