@@ -90,6 +90,22 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
                 
             outfit.save()
             
+            if int(outfit_type) == 0:
+                selected_ids = request.POST.getlist("selected_clothing_item_ids")
+                
+                if owner_type == "user":
+                    available_items = ClothingItem.objects.filter(user=owner)
+                else:
+                    available_items = ClothingItem.objects.filter(child=owner)
+                
+                for clothing_item_id in selected_ids:
+                    if clothing_item_id:
+                        clothing_item = get_object_or_404(available_items, pk=clothing_item_id)
+                        OutfitClothingItem.objects.create(
+                            outfit=outfit,
+                            clothing_item=clothing_item
+                        )
+            
             if owner_type == "user":
                 if outfit.is_favorite:
                     return redirect("user_favorite_outfit_list", owner_id=owner.pk)
@@ -134,6 +150,35 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
     }
     
     return render(request, "cordinate/outfit_form.html", context)
+
+@login_required
+def clothing_item_search_create(request, owner_type, owner_id):
+    if owner_type == "user":
+        owner = get_object_or_404(User, pk=owner_id)
+        if owner.family != request.user.family:
+            return redirect("home")
+        clothing_items = ClothingItem.objects.filter(user=owner)
+    else:
+        owner = get_object_or_404(Child, pk=owner_id)
+        if owner.family != request.user.family:
+            return redirect ("home")
+        clothing_items = ClothingItem.objects.filter(child=owner)
+        
+    category_id = request.GET.get("category")
+    color = request.GET.get("color")
+    
+    if category_id:
+        clothing_items = clothing_items.filter(category_id=category_id)
+        
+    if color:
+        clothing_items = clothing_items.filter(color=color)
+        
+    context = {
+        "clothing_items": clothing_items,
+    }
+    
+    return render(request, "coedinate/clothing_item_search_results.html", context)
+    
 
 @login_required
 def outfit_detail(request, pk):

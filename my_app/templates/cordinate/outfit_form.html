@@ -161,12 +161,21 @@
 </form>
 
 <!--手持ち用モーダル-->
-{% if outfit.outfit_type == 0 %}
+{% if outfit_type == 0 %}
     <div id="clothing-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff;">
         <button type="button" id="close-clothing-modal">✖︎</button>
 
         <div id="modal-search-area">
-            <form id="clothing-search-form" method="get" action="{% url 'clothing_item_search' outfit.pk %}">
+            {% if is_create %}
+                {% if owner_type == "user" %}
+                    <form id="clothing-search-form" method="get" action="{% url 'user_clothing_item_search_create' owner.pk %}">
+                {% else %}
+                    <form id="clothing-search-form" method="get" action="{% url 'child_clothing_item_search_create' owner.pk %}">
+                {% endif %}
+            {%else %}
+                <form id="clothing-search-form" method="get" action="{% url 'clothing_item_search' outfit.pk %}">
+            {% endif %}
+            
                 <label>カテゴリ</label>
                 <select name="category">
                     <option value="">---</option>
