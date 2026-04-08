@@ -11,7 +11,12 @@
       <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a> >
       <a href="{% url 'child_outfit_list' owner.pk %}">コーデ一覧</a> >
     {% endif %}
-    >コーデ編集
+
+    {% if is_create %}
+        コーデ登録
+    {% else %}
+        コーデ編集
+    {% endif %}
 </nav>
 
 {% if form.errors %}
@@ -53,33 +58,49 @@
     {% endif %}
 
 <!--手持ちコーデ：既存アイテム表示-->
-{% if outfit.outfit_type == 0 %}
+{% if outfit_type == 0 %}
     <div id="selected-items-area">
-        {% for item in outfit.outfit_clothing_items.all %}
+
+        {% if is_create %}
+            {% for i in initial_slots %}
+                <div class="delected-item-slot">
+                    <div class="selected-item-preview">
+                        <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
+                    </div>
+
+                    <div class="selected-item-action">
+                        <button type="button" class="open-clothing-modal">画像を選択</button>
+                        <input type="hidden" name="selected_clothing_item_ids" value="">
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            {% for item in outfit.outfit_clothing_items.all %}
+                <div class="selected-item-slot">
+                    <div class="selected-item-preview">
+                        <img src="{{ item.clothing_item.clothing_image.url }}" width="120" alt="洋服画像">
+                    </div>
+
+                    <div class="selected-item-action">
+                        <button type="button" class="remove-item-slot">削除</button>
+                        <input type="hidden" name="selected_clothing_item_ids" value="{{ item.clothing_item.pk }}">
+                    </div>
+                </div>
+            {% endfor %}
+
+        <!--手持ちコーデ：アイテム追加-->
+            <p>画像を追加</p>
             <div class="selected-item-slot">
                 <div class="selected-item-preview">
-                    <img src="{{ item.clothing_item.clothing_image.url }}" width="120" alt="洋服画像">
+                    <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
                 </div>
 
                 <div class="selected-item-action">
-                    <button type="button" class="remove-item-slot">削除</button>
-                    <input type="hidden" name="selected_clothing_item_ids" value="{{ item.clothing_item.pk }}">
-                </div>
-            </div>
-        {% endfor %}
-
-        <!--手持ちコーデ：アイテム追加-->
-        <h3>画像を追加</h3>
-        <div class="selected-item-slot">
-            <div class="selected-item-preview">
-                <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
-            </div>
-
-            <div class="selected-item-action">
-                <button type="button" class="open-clothing-modal">画像を選択</button>
-                <input type="hidden" name="selected_clothing_item_ids" value="">
-            </div>  
-        </div>   
+                    <button type="button" class="open-clothing-modal">画像を選択</button>
+                    <input type="hidden" name="selected_clothing_item_ids" value="">
+                </div>  
+            </div> 
+        {% endif %}  
     </div>
 
     <button type="button" id="add-item-slot">＋追加</button>
@@ -90,10 +111,13 @@
         {{ form.note }}
     </div>
 
-    <div>
-        {{ form.external_url.label_tag }}
-        {{ form.external_url }}
-    </div>
+    {% if outfit_type == 1 %}
+        <div>
+            {{ form.external_url.label_tag }}
+            {{ form.external_url }}
+        </div>
+    {% endif %}
+    
 
     <div class="favorite-area">
         {{ form.is_favorite }}

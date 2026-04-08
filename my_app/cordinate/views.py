@@ -124,6 +124,7 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
         "owner_type": owner_type,
         "outfit_type": int(outfit_type),
         "initial_slot_count": initial_slot_count,
+        "initial_slots": range(initial_slot_count),
         "clothing_items": clothing_items,
         "categories": categories,
         "color_choices": color_choices,
