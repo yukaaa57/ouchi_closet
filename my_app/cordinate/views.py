@@ -60,6 +60,81 @@ def outfit_toggle_favorite(request, pk):
     return redirect("home")
 
 @login_required
+def outfit_create(request, owner_type, owner_id, outfit_type):
+    if owner_type == "user":
+        owner = get_object_or_404(User, pk=owner_id)
+        if owner.family != request.user.family:
+            return redirect("home")
+    else:
+        owner = get_object_or_404(Child, pk=owner_id)
+        if owner.family != request.user.family:
+            return redirect ("home")
+    
+    if request.method == "POST":
+        form = OutfitForm(request.POST)
+        
+        if form.is_valid():
+            outfit = form.save(commit=False)
+            
+            if owner_type == "user":
+                outfit.user = owner
+                outfit.child = None
+            else:
+                outfit.child = owner
+                outfit.user = None
+                
+            outfit.outfit_type = int(outfit_type)
+            
+            if int(outfit_type) == 1:
+                outfit.is_favorite = True
+                
+            outfit.save()
+            
+            if owner_type == "user":
+                if outfit.is_favorite:
+                    return redirect("user_favorite_outfit_list", owner_id=owner.pk)
+                return redirect("user_outfit_list", owner_id=owner.pk)
+            else:
+                if outfit.is_favorite:
+                    return redirect("child_favorite_outfit_list", owner_id=owner.pk)
+                return redirect("child_outfit_list", owner_id=owner.pk)
+            
+    else:
+        initial_data = {}
+        
+        if int(outfit_type) == 1:
+            initial_data["is_favorite"] = True
+            
+        form = OutfitForm(initial=initial_data)
+        
+    if int(outfit_type) == 0:
+        initial_slot_count = 3
+        clothing_items = ClothingItem.objects.filter(user=owner) if owner_type == "user" else ClothingItem.objects.filter(child=owner)
+        categories = Category.objects.all()
+        color_choices = ClothingItem.COLOR_CHOICES
+    else:
+        initial_slot_count = 2
+        clothing_items = []
+        categories = []
+        color_choices = []
+        
+    context = {
+        "form": form,
+        "owner": owner,
+        "owner_type": owner_type,
+        "outfit_type": int(outfit_type),
+        "initial_slot_count": initial_slot_count,
+        "clothing_items": clothing_items,
+        "categories": categories,
+        "color_choices": color_choices,
+        "selected_category": "",
+        "selected_color": "",
+        "is_create": True,
+    }
+    
+    return render(request, "cordinate/outfit_form.html", context)
+
+@login_required
 def outfit_detail(request, pk):
     outfit = get_object_or_404(Outfit, pk=pk)
     
