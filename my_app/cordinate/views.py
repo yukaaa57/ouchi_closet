@@ -240,6 +240,7 @@ def outfit_delete(request, pk):
         owner_type = "child"
     
     if request.method == "POST":
+        next_url = request.POST.get("next", "")
         outfit.delete()
         
         if owner_type == "user":
