@@ -258,6 +258,8 @@
 
         if (openButton && modal) {
             activeSlot = openButton.closest(".selected-item-slot");
+            console.log("画像を選択ボタンを押した");
+            console.log("activeSlot set =", activeSlot);
 
             modal.style.display = "block";
         }
@@ -302,6 +304,8 @@
         const target = e.target.closest(".search-result-item");
 
         if (target) {
+            console.log("画像クリックされた");
+
             document.querySelectorAll(".search-result-item").forEach(item => {
                 item.style.outline = "";
             });
@@ -312,12 +316,18 @@
                 id: target.dataset.id,
                 imageUrl: target.dataset.imageUrl
             };
+
+            console.log("selectedCandidate set =", selectedCandidate);
         }
     });
 
     //確定で枠に反映
     if (confirmButton) {
         confirmButton.addEventListener("click", function () {
+            console.log("確定押された");
+            console.log("selectedCandidate =", selectedCandidate);
+            console.log("activeSlot =", activeSlot);
+
             if (!selectedCandidate || !activeSlot) {
                 console.log("selectedCandidate か activeSlot が入っていない");
                 return;
@@ -325,6 +335,14 @@
 
             const hiddenInput = activeSlot.querySelector('input[name="selected_clothing_item_ids"]');
             const previewArea = activeSlot.querySelector(".selected-item-preview");
+
+            console.log("hiddenInput =", hiddenInput);
+            console.log("previewArea =", previewArea);
+
+            if (!hiddenInput || !previewArea) {
+                console.log("hiddenInputかpreviewAreaが見つからない");
+                return;
+            }
 
             hiddenInput.value = selectedCandidate.id;
             previewArea.innerHTML = `<img src="${selectedCandidate.imageUrl}" width="120" alt="洋服画像">`;

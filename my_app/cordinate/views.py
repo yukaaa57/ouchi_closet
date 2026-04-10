@@ -294,6 +294,8 @@ def outfit_update(request, pk):
         "outfit": outfit,
         "owner": owner,
         "owner_type": owner_type,
+        "outfit_type": outfit.outfit_type,
+        "is_create": False,
         "clothing_items": clothing_items,
         "categories": categories,
         "color_choices": color_choices,
