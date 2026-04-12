@@ -25,45 +25,79 @@
     </div>
 {% endif %}
 
-<!--外部サイトコーデ：登録済み画像表示-->
-{% if outfit.outfit_type == 1 %}
-    {% for image in outfit.outfit_images.all %}
-        <div>
-            <img src="{{ image.outfit_image.url }}" width="120" alt="コーデ画像">
-
-            <form method="post" action="{% url 'outfit_image_delete' image.pk %}">
-                {% csrf_token %}
-                <button type="submit">画像を削除</button>
-            </form>
-        </div>
-    {% empty %}
-        <p>登録されている画像はありません</p>
-    {% endfor %}
-{% endif %}
-
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
     <!--外部サイトコーデ：画像追加-->
-    {% if outfit.outfit_type == 1 %}
-        <h3>画像を追加</h3>
+    {% if outfit_type == 1 %}
+        <p>画像を追加</p>
 
         <div id="new-image-inputs">
-            <div class="new-image-row">
-                <input type="file" name="outfit_images">
-            </div>
+            {% if is_create %}
+                {% for i in initial_slots %}
+                    <div class="new-image-row" style="margin-bottom: 12px;">
+                        <div class="image-preview-box" style="width: 120px; height: 120px; border: 1px solid #999; margin-bottom: 8px;"></div>
+                        <input type="file" name="outfit_images" class="outfit-image-input">
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% for image in outfit.outfit_images.all %}
+                    <div class="external-image-slot" style="margin-bottom: 12px;">
+                        <div class="external-image-preview">
+                            <img src="{{ image.outfit_image.url }}" width="120" alt="コーデ画像">
+                        </div>
+
+                        <div class="external-image-action">
+                            <button type="button" class="remove-external-image-slot">削除</button>
+                            <input type="hidden" name="keep_outfit_image_ids" id="{{ image.pk }}">
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="new-image-row" style="margin-bottom: 12px;">
+                    <div class="image-preview-box" style="width: 120px; height: 120px; border: 1px solid #999; margin-bottom: 8px;"></div>
+                    <input type="file" name="outfit_images" class="outfit-image-input">
+                </div>
+            {% endif %}
         </div>
 
         <button type="button" id="add-image-input">＋追加</button>
     {% endif %}
 
-<!--手持ちコーデ：既存アイテム表示-->
-{% if outfit_type == 0 %}
-    <div id="selected-items-area">
+    <!--手持ちコーデ：既存アイテム表示-->
+    {% if outfit_type == 0 %}
+        <div id="selected-items-area">
 
-        {% if is_create %}
-            {% for i in initial_slots %}
-                <div class="delected-item-slot">
+            {% if is_create %}
+                {% for i in initial_slots %}
+                    <div class="delected-item-slot">
+                        <div class="selected-item-preview">
+                            <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
+                        </div>
+
+                        <div class="selected-item-action">
+                            <button type="button" class="open-clothing-modal">画像を選択</button>
+                            <input type="hidden" name="selected_clothing_item_ids" value="">
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% for item in outfit.outfit_clothing_items.all %}
+                    <div class="selected-item-slot">
+                        <div class="selected-item-preview">
+                            <img src="{{ item.clothing_item.clothing_image.url }}" width="120" alt="洋服画像">
+                        </div>
+
+                        <div class="selected-item-action">
+                            <button type="button" class="remove-item-slot">削除</button>
+                            <input type="hidden" name="selected_clothing_item_ids" value="{{ item.clothing_item.pk }}">
+                        </div>
+                    </div>
+                {% endfor %}
+
+            <!--手持ちコーデ：アイテム追加-->
+                <p>画像を追加</p>
+                <div class="selected-item-slot">
                     <div class="selected-item-preview">
                         <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
                     </div>
@@ -71,40 +105,14 @@
                     <div class="selected-item-action">
                         <button type="button" class="open-clothing-modal">画像を選択</button>
                         <input type="hidden" name="selected_clothing_item_ids" value="">
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            {% for item in outfit.outfit_clothing_items.all %}
-                <div class="selected-item-slot">
-                    <div class="selected-item-preview">
-                        <img src="{{ item.clothing_item.clothing_image.url }}" width="120" alt="洋服画像">
-                    </div>
+                    </div>  
+                </div> 
+            {% endif %}  
+        </div>
 
-                    <div class="selected-item-action">
-                        <button type="button" class="remove-item-slot">削除</button>
-                        <input type="hidden" name="selected_clothing_item_ids" value="{{ item.clothing_item.pk }}">
-                    </div>
-                </div>
-            {% endfor %}
-
-        <!--手持ちコーデ：アイテム追加-->
-            <p>画像を追加</p>
-            <div class="selected-item-slot">
-                <div class="selected-item-preview">
-                    <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
-                </div>
-
-                <div class="selected-item-action">
-                    <button type="button" class="open-clothing-modal">画像を選択</button>
-                    <input type="hidden" name="selected_clothing_item_ids" value="">
-                </div>  
-            </div> 
-        {% endif %}  
-    </div>
-
-    <button type="button" id="add-item-slot">＋追加</button>
-{% endif %}
+        <button type="button" id="add-item-slot">＋追加</button>
+    {% endif %}
+</form>
 
     <div>
         {{ form.note.label_tag }}
@@ -217,7 +225,12 @@
         addImageButton.addEventListener("click", function(){
             const newRow = document.createElement("div");
             newRow.className = "new-image-row";
-            newRow.innerHTML = '<input type="file" name="outfit_images">';
+            newRow.style.marginBottom = "12px";
+
+            newRow.innerHTML = `
+                <div class="image-preview-box" style="width:120px; height:120px; border:1px solid #999; margin-bottom:8px;"></div>
+                <input type="file" name="outfit_images" class="outfit-image-input">
+            `;
             newImageInputs.appendChild(newRow);
         });
     }
@@ -363,6 +376,36 @@
                 slot.remove();
             }
         }
+    });
+
+    //プレビュー表示
+    document.addEventListener("change", function(e) {
+        const fileInput = e.target.closest(".outfit-image-input");
+
+        if (!fileInput) {
+            return;
+        }
+
+        const file = fileInput.files[0];
+        if (!file) {
+            return;
+        }
+
+        const previewBox = fileInput
+            .closest(".new-image-row")
+            .querySelector(".image-preview-box");
+        
+        if (!previewBox) {
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+            previewBox.innerHTML = `<img src="${event.target.result}" width="120" height="120" style="object-fit: cover;" alt="プレビュー画像">`;   
+        };
+
+        reader.readAsDataURL(file);
     });
 </script>
 

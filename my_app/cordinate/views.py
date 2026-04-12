@@ -90,6 +90,16 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
                 
             outfit.save()
             
+            if int(outfit_type) == 1:
+                upload_images = request.FILES.getlist("outfit_images")
+                
+                for image in upload_images:
+                    if image:
+                        OutfitImage.objects.create(
+                            outfit=outfit,
+                            outfit_image=image
+                        )
+            
             if int(outfit_type) == 0:
                 selected_ids = request.POST.getlist("selected_clothing_item_ids")
                 
