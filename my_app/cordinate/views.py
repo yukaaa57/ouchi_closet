@@ -187,7 +187,7 @@ def clothing_item_search_create(request, owner_type, owner_id):
         "clothing_items": clothing_items,
     }
     
-    return render(request, "coedinate/clothing_item_search_results.html", context)
+    return render(request, "cordinate/_clothing_item_search_results.html", context)
     
 
 @login_required
@@ -239,6 +239,10 @@ def outfit_update(request, pk):
             
             #外部サイトコーデ画像登録
             if outfit.outfit_type == 1:
+                keep_image_ids = request.POST.getlist("keep_outfit_image_ids")
+                
+                outfit.outfit_images.exclude(pk__in=keep_image_ids).delete()
+                
                 upload_images = request.FILES.getlist("outfit_images")
                 
                 for image in upload_images:

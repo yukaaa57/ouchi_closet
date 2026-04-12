@@ -49,7 +49,7 @@
 
                         <div class="external-image-action">
                             <button type="button" class="remove-external-image-slot">削除</button>
-                            <input type="hidden" name="keep_outfit_image_ids" id="{{ image.pk }}">
+                            <input type="hidden" name="keep_outfit_image_ids" value="{{ image.pk }}">
                         </div>
                     </div>
                 {% endfor %}
@@ -70,7 +70,7 @@
 
             {% if is_create %}
                 {% for i in initial_slots %}
-                    <div class="delected-item-slot">
+                    <div class="selected-item-slot">
                         <div class="selected-item-preview">
                             <div style="width: 120px; height: 120px; border: 1px solid #999;"></div>
                         </div>
@@ -112,7 +112,6 @@
 
         <button type="button" id="add-item-slot">＋追加</button>
     {% endif %}
-</form>
 
     <div>
         {{ form.note.label_tag }}
@@ -234,6 +233,18 @@
             newImageInputs.appendChild(newRow);
         });
     }
+
+    //外部コーデ：画像削除
+    document.addEventListener("click", function (e) {
+        const removeExternalButton = e.target.closest(".remove-external-image-slot");
+
+        if (removeExternalButton) {
+            const slot = removeExternalButton.closest(".external-image-slot");
+            if (slot) {
+                slot.remove();
+            }
+        }
+    });
 
     //手持ちコーデ：モーダル関連
     const addItemSlotButton = document.getElementById("add-item-slot");
