@@ -119,12 +119,36 @@
     </div>
 
     {% if outfit_type == 1 %}
-        <div>
-            {{ form.external_url.label_tag }}
-            {{ form.external_url }}
+        <div style="margin-top: 20px;">
+            <p>URLを追加</p>
+
+            <div id="url-inputs">
+                {% if is_create %}
+                    <div class="url-input-row" style="margin-bottom: 12px;">
+                        <input type="url" name="outfit_urls" placeholder="URLを入力">
+                    </div>
+                {% else %}
+                    {% if outfit.outfit_urls.all %}
+                        {% for outfit_url in outfit.outfit_urls.all %}
+                            <div class="url-input-row" style="margin-bottom: 12px;">
+                                <input type="url" name="outfit_urls" value="{{ outfit_url.url }}" placeholder="URLを入力">
+                            </div>
+                        {% endfor %}
+                    {% elif  outfit.external_url %}
+                        <div class="url-input-row" style="margin-bottom: 12px;">
+                            <input type="url" name="outfit_urls" value="{{ outfit.external_url }}" placeholder="URLを入力">
+                        </div>
+                    {% endif %}
+
+                    <div class="url-input-row" style="margin-bottom: 12px;">
+                        <input type="url" name="outfit_urls" placeholder="URLを入力">
+                    </div>
+                {% endif %}
+            </div>
+            
+            <button type="button" id="add-url-input">＋</button>
         </div>
     {% endif %}
-    
 
     <div class="favorite-area">
         {{ form.is_favorite }}
@@ -245,6 +269,24 @@
             }
         }
     });
+
+    //外部コーデURL欄追加
+    const addUrlButton = document.getElementById("add-url-input");
+    const urlInputs = document.getElementById("url-inputs");
+
+    if (addUrlButton && urlInputs) {
+        addUrlButton.addEventListener("click", function () {
+            const newRow = document.createElement("div");
+            newRow.className = "url-input-row";
+            newRow.style.marginBottom = "12px";
+
+            newRow.innerHTML = `
+                <input type="url" name="outfit_urls" placeholder="URLを入力">
+            `;
+
+            urlInputs.appendChild(newRow);
+        });
+    }
 
     //手持ちコーデ：モーダル関連
     const addItemSlotButton = document.getElementById("add-item-slot");
