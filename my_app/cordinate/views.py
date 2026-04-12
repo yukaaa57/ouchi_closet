@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import User, Child
 from closet.models import ClothingItem, Category
-from .models import Outfit, OutfitImage, OutfitClothingItem
+from .models import Outfit, OutfitImage, OutfitClothingItem, OutfitUrl
 from .forms import OutfitForm, OutfitImageForm
 
 @login_required
@@ -98,6 +98,14 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
                         OutfitImage.objects.create(
                             outfit=outfit,
                             outfit_image=image
+                        )
+                        
+                urls = request.POST.getlist("outfit_urls")
+                for uel in urls:
+                    if url.strip():
+                        OutfitUrl.objects.create(
+                            outfit=outfit,
+                            url=url.strip()
                         )
             
             if int(outfit_type) == 0:
@@ -251,6 +259,18 @@ def outfit_update(request, pk):
                             outfit=outfit,
                             outfit_image=image
                         )
+            
+                #外部サイトコーデURL保存
+                outfit.outfit_urls.all().delete()
+                
+                urls = request.POST.getlist("outfit_urls")
+                for url in urls:
+                    if url.strip():
+                        OutfitUrl.objects.create(
+                            outfit=outfit,
+                            url=url.strip()
+                        )
+            
             
             #手持ちコーデ画像登録
             if outfit.outfit_type == 0:
