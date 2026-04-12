@@ -96,5 +96,16 @@ class OutfitImage(models.Model):
     def __str__(self):
         return f"{self.outfit}の画像"
     
+class OutfitUrl(models.Model):
+    outfit = models.ForeignKey(
+        "Outfit",
+        on_delete=models.CASCADE,
+        related_name="outfit_urls"
+    )
+    url = models.URLField()
+    
+    def __str__(self):
+        return self.url
+    
             
         
