@@ -40,10 +40,21 @@
     <p>メモ：{{ outfit.note|default:"" }}</p>
 </div>
 
-{% if outfit.outfit_type == 1 and outfit.external_url %}
+{% if outfit.outfit_type == 1 %}
     <div>
         <p>URL：</p>
-        <p><a href="{{ outfit.external_url }}" target="_blank">{{ outfit.external_url }}</a></p>
+
+        {% if outfit.outfit_urls.all %}
+            {% for outfit_url in outfit.outfit_urls.all %}
+                <p>
+                    <a href="{{ outfit_url.url }}" target="_blank" rel="noopener noreferrer">
+                        {{ outfit_url.url }}
+                    </a>
+                </p>
+            {% endfor %}
+        {% else %}
+            <p>URLは登録されていません</p>
+        {% endif %}
     </div>
 {% endif %}
 
