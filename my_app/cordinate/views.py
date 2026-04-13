@@ -463,6 +463,20 @@ def outfit_image_delete(request, pk):
     
     return redirect("outfit_update", pk=outfit.pk)
 
-def outfit_select(request):
-    return render(request, "cordinate/outfit_select.html")
+def outfit_select(request, owner_type, owner_id):
+    if owner_type == "user":
+        owner = get_object_or_404(User, pk=owner_id)
+        if owner.family != request.user.family:
+            return redirect("home")
+    else:
+        owner = get_object_or_404(Child, pk=owner_id)
+        if owner.family != request.user.family:
+            return redirect("home")
+        
+    context = {
+        "owner": owner,
+        "owner_type": owner_type,
+    }
+            
+    return render(request, "cordinate/outfit_select.html", context)
      
