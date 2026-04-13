@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav>
+    <a href="{% url 'home' %}">ホーム</a> >
+    {% if owner_type == "user" %}
+      <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% else %}
+      <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    {% endif %}
+    >コーデ登録
+</nav>
+
+<div style="margin-top: 30px;">
+    {% if owner_type == "user" %}
+        <p>
+            <a href="{% url 'user_outfit_create' owner_id=owner.pk outfit_type=0 %}">
+                <button type="button">手持ちアイテムから登録</button>
+            </a>
+        </p>
+
+        <p>
+            <a href="{% url 'user_outfit_create' owner_id=owner.pk outfit_type=1 %}">
+                <button type="button">外部サイトから登録</button>
+            </a>
+        </p>
+    {% else %}
+        <p>
+            <a href="{% url 'child_outfit_create' owner_id=owner.pk outfit_type=0 %}">
+                <button type="button">手持ちアイテムから登録</button>
+            </a>
+        </p>
+
+        <p>
+            <a href="{% url 'child_outfit_create' owner_id=owner.pk outfit_type=1 %}">
+                <button type="button">外部サイトから登録</button>
+            </a>
+        </p>
+    {% endif %}
+</div>
+
+{% endblock %}
