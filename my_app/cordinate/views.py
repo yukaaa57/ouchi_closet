@@ -101,7 +101,7 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
                         )
                         
                 urls = request.POST.getlist("outfit_urls")
-                for uel in urls:
+                for url in urls:
                     if url.strip():
                         OutfitUrl.objects.create(
                             outfit=outfit,
