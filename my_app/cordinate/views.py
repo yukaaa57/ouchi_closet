@@ -462,4 +462,7 @@ def outfit_image_delete(request, pk):
         return redirect("outfit_update", pk=outfit.pk)
     
     return redirect("outfit_update", pk=outfit.pk)
+
+def outfit_select(request):
+    return render(request, "cordinate/outfit_select.html")
      

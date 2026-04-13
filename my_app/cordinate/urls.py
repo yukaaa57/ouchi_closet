@@ -6,6 +6,7 @@ urlpatterns = [
     path("child/<int:owner_id>/", views.outfit_list, {"owner_type": "child"}, name="child_outfit_list"),
     path("user/<int:owner_id>/favorite/", views.favorite_outfit_list, {"owner_type": "user"}, name="user_favorite_outfit_list"),
     path("child/<int:owner_id>/favorite/", views.favorite_outfit_list, {"owner_type": "child"}, name="child_favorite_outfit_list"),
+    path("outfit/select/", views.outfit_select, name="outfit_select"),
     path("user/<int:owner_id>/create/<int:outfit_type>/", views.outfit_create, {"owner_type": "user"}, name="user_outfit_create"),
     path("child/<int:owner_id>/create/<int:outfit_type>/", views.outfit_create, {"owner_type": "child"}, name="child_outfit_create"),
     path("user/<int:owner_id>/create/clothing_search/", views.clothing_item_search_create, {"owner_type": "user"}, name="user_clothing_item_search_create" ),
