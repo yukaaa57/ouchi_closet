@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import User, Child
 from closet.models import ClothingItem, Category
-from .models import Outfit, OutfitImage, OutfitClothingItem, OutfitUrl
-from .forms import OutfitForm, OutfitImageForm
+from .models import Outfit, OutfitImage, OutfitClothingItem, OutfitUrl, NurseryItem
+from .forms import OutfitForm, OutfitImageForm, NurseryItemForm
 
 @login_required
 def outfit_list(request, owner_type, owner_id):
@@ -479,4 +479,26 @@ def outfit_select(request, owner_type, owner_id):
     }
             
     return render(request, "cordinate/outfit_select.html", context)
+
+def nursery_item_create(request, child_id):
+    child = get_object_or_404(Child, pk=child_id)
+    
+    if child.family != request.user.family:
+        return redirect("home")
+    
+    if request.method == "POST":
+        form = NurseryItemForm(request.POST)
+        if form.is_valid():
+            nursery_item = form.save(commit=False)
+            nursery_item.child = child
+            nursery_item.save()
+            return redirect("nursery_item_list", child_id=child.pk)
+    else:
+        form = NurseryItemForm()
+    
+    context = {
+        "child": child,
+        "form": form,
+    }
+    return render(request, "cordinate/nursery_item_form.html", context)
      
