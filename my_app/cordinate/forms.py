@@ -29,6 +29,10 @@ class NurseryItemForm(forms.ModelForm):
             "item_type": forms.RadioSelect,
             "name": forms.TextInput(attrs={"placeholder": "アイテム名を入力"}),
         }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["item_type"].choices = NurseryItem.ITEM_TYPE_CHOICES
 
     
         
