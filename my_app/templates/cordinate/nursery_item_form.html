@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav>
+    <a href="{% url 'home' %}">ホーム</a> >
+    <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
+    >保育園必需品登録
+</nav>
+
+<h3>保育園必需品登録</h3>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div>
+        {{ form.item_type }}
+    </div>
+
+    <div style="margin-top: 20px;">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button type="submit" class="save-button">保存</button>
+    </div>
+</form>
+{% endblock %}
