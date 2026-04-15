@@ -524,6 +524,6 @@ def nursery_item_list(request, child_id):
         "stock_items": stock_items,
     }
     
-    return render (request, "coedinate/nursery_item_list.html", context)
+    return render (request, "cordinate/nursery_item_list.html", context)
     
      
