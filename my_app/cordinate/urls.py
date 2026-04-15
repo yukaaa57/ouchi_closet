@@ -18,4 +18,5 @@ urlpatterns = [
     path("item/<int:pk>/favorite/", views.outfit_toggle_favorite, name="outfit_toggle_favorite"),
     path("item/<int:pk>/clothing-search", views.clothing_item_search, name="clothing_item_search"),
     path("nursery/<int:child_id>/create/", views.nursery_item_create, name="nursery_item_create"),
+    path("nursery/<int:child_id>/", views.nursery_item_list, name="nursery_item_list"),
 ]
