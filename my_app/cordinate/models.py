@@ -118,7 +118,7 @@ class NurseryItem(models.Model):
         on_delete=models.CASCADE,
         related_name="nursery_items"
     )
-    item_type = models.ImageField(choices=ITEM_TYPE_CHOICES)
+    item_type = models.IntegerField(choices=ITEM_TYPE_CHOICES)
     name = models.CharField(max_length=50)
     is_checked = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
