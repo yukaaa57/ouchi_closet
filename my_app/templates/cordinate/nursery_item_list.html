@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<nav>
+    <a href="{% url 'home' %}">ホーム</a> >
+    <a href="{% url 'child_closet' child.pk %}">{{ owner.nickname }}のクローゼット</a>
+    >保育園必需品一覧
+</nav>  
+
+<h3>保育園必需品</h3>
+
+<div style="margin-top: 20px;">
+    <h4>持ち物</h4>
+
+    {% if carry_items %}
+        {% for item in carry_items %}
+            <div>
+                <label>
+                    <input type="checkbox" {% if item.is_checked %}checked{% endif %}>
+                    {{ item.name }}
+                </label>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>持ち物は登録されていません</p>
+    {% endif %}
+</div>
+
+<div style="margin-top: 30px;">
+    <h4>必要な物</h4>
+
+    {% if stock_items %}
+        {% for item in stock_items %}
+            <div>
+                <label>
+                    <input type="checkbox" {% if item.is_checked %}checked{% endif %}>
+                    {{ item.name }}
+                </label>
+            </div>      
+        {% endfor %}
+    {% else %}
+        <p>必要な物は登録されていません</p>
+    {% endif %}
+</div>
+
+<div style="margin-top: 30px;">
+    <a href="{% url 'nursery_item_create' child.pk %}">＋追加</a>
+</div>
+{% endblock %}
