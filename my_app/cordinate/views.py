@@ -501,4 +501,29 @@ def nursery_item_create(request, child_id):
         "form": form,
     }
     return render(request, "cordinate/nursery_item_form.html", context)
+
+def nursery_item_list(request, child_id):
+    child = get_object_or_404(Child, pk=child_id)
+    
+    if child.family != request.user.family:
+        return redirect("home")
+    
+    carry_items = NurseryItem.objects.filter(
+        child=child,
+        item_type=0
+    ).order_by("created_at")
+    
+    stock_items = NurseryItem.objects.filter(
+        child=child,
+        item_type=1
+    ).order_by("created_at")
+    
+    context = {
+        "child": child,
+        "carry_items": carry_items,
+        "stock_items": stock_items,
+    }
+    
+    return render (request, "coedinate/nursery_item_list.html", context)
+    
      
