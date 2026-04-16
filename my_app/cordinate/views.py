@@ -537,5 +537,19 @@ def nursery_item_check(request, item_id):
         item.save()
         
     return redirect("nursery_item_list", child_id=item.child.pk)
+
+def nursery_item_reset(request, child_id, item_type):
+    child = get_object_or_404(Child, pk=child_id)
+    
+    if child.family != request.user.family:
+        return redirect("home")
+    
+    if request.method == "POST":
+        NurseryItem.objects.filter(
+            child=child,
+            item_type=item_type,
+        ).update(is_checked=False)
+        
+    return redirect("nursery_item_list", child_id=child.pk)
     
      
