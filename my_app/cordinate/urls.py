@@ -19,4 +19,6 @@ urlpatterns = [
     path("item/<int:pk>/clothing-search", views.clothing_item_search, name="clothing_item_search"),
     path("nursery/<int:child_id>/create/", views.nursery_item_create, name="nursery_item_create"),
     path("nursery/<int:child_id>/", views.nursery_item_list, name="nursery_item_list"),
+    path("nursery/item/<int:item_id>/check/", views.nursery_item_check, name="nursery_item_check"),
+    path("nursery/<int:child_id>/reset/<int:item_type>/", views.nursery_item_reset, name="nursery_item_reset"),
 ]
