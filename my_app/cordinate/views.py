@@ -525,5 +525,17 @@ def nursery_item_list(request, child_id):
     }
     
     return render (request, "cordinate/nursery_item_list.html", context)
+
+def nursery_item_check(request, item_id):
+    item = get_object_or_404(NurseryItem, pk=item_id)
+    
+    if item.child.family != request.user.family:
+        return redirect("home")
+    
+    if request.method == "POST":
+        item.is_checked = True
+        item.save()
+        
+    return redirect("nursery_item_list", child_id=item.child.pk)
     
      
