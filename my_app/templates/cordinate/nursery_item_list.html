@@ -12,13 +12,26 @@
 <div style="margin-top: 20px;">
     <h4>持ち物</h4>
 
+    <form method="post" action="{% url 'nursery_item_reset' child.pk 0 %}">
+        {% csrf_token %}
+        <button type="submit">リセット</button>
+    </form>
+
     {% if carry_items %}
         {% for item in carry_items %}
-            <div>
-                <label>
-                    <input type="checkbox" {% if item.is_checked %}checked{% endif %}>
-                    {{ item.name }}
-                </label>
+            <div style="margin-top: 10px;">
+                <form method="post" action="{% url 'nursery_item_check' item.pk %}">
+                    {% csrf_token %}
+                    <label>
+                        <input
+                            type="checkbox"
+                            {% if item.is_checked %}checked{% endif %}
+                            {% if item.is_checked %}disabled{% endif %}
+                            onchange="this.form.submit()"
+                        >
+                        {{ item.name }}
+                    </label>
+                </form>
             </div>
         {% endfor %}
     {% else %}
@@ -28,14 +41,27 @@
 
 <div style="margin-top: 30px;">
     <h4>必要な物</h4>
+    
+    <form method="post" action="{% url 'nursery_item_reset' child.pk 1 %}">
+        {% csrf_token %}
+        <button type="submit">リセット</button>
+    </form>
 
     {% if stock_items %}
         {% for item in stock_items %}
-            <div>
-                <label>
-                    <input type="checkbox" {% if item.is_checked %}checked{% endif %}>
-                    {{ item.name }}
-                </label>
+            <div style="margin-top: 10px;">
+                <form method="post" action="{% url 'nursery_item_check' item.pk %}">
+                    {% csrf_token %}
+                    <label>
+                        <input
+                            type="checkbox"
+                            {% if item.is_checked %}checked{% endif %}
+                            {% if item.is_checked %}disabled{% endif %}
+                            onchange="this.form.submit()"
+                        >
+                        {{ item.name }}
+                    </label>
+                </form>
             </div>      
         {% endfor %}
     {% else %}
