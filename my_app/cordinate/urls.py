@@ -21,4 +21,6 @@ urlpatterns = [
     path("nursery/<int:child_id>/", views.nursery_item_list, name="nursery_item_list"),
     path("nursery/item/<int:item_id>/check/", views.nursery_item_check, name="nursery_item_check"),
     path("nursery/<int:child_id>/reset/<int:item_type>/", views.nursery_item_reset, name="nursery_item_reset"),
+    path("nursery/<int:child_id>/update/", views.nursery_item_update, name="nursery_item_update"),
+    path("nursery/<int:child_id>/delete/", views.nursery_item_delete, name="nursery_item_delete"),
 ]
