@@ -570,5 +570,21 @@ def nursery_item_update(request, child_id):
                 ).update(name=name.atrip())
     
     return redirect("nursery_item_list", child_id=child.pk)
+
+def nursery_item_delete(request, child_id):
+    child = get_object_or_404(Child, pk=child_id)
+    
+    if child.family != request.user.family:
+        return redirect("home")
+    
+    if request.method == "POST":
+        delete_item_ids = request.POST.getlist("delete_items")
+        
+        NurseryItem.objects.filter(
+            child=child,
+            pk__in=delete_item_ids
+        ).delete()
+        
+    return redirect ("nursery_item_list", child_id=child.pk)
     
      
