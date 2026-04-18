@@ -567,7 +567,7 @@ def nursery_item_update(request, child_id):
                 NurseryItem.objects.filter(
                     pk=item_id,
                     child=child
-                ).update(name=name.atrip())
+                ).update(name=name.strip())
     
     return redirect("nursery_item_list", child_id=child.pk)
 

@@ -138,16 +138,37 @@
 
 
 <script>
-const editModal = document.getElementById("edit-modal");
-const openEditModalButton = document.getElementById("open-edit-modal");
-const closeEditModalButton = document.getElementById("close-edit-modal");
+const carryEditModal = document.getElementById("carry-edit-modal");
+const stockEditModal = document.getElementById("stock-edit-modal")
 
-openEditModalButton.addEventListener("click", function() {
-    editModal.style.display = "block";
-});
+const openCarryEditModalButton = document.getElementById("open-carry-edit-modal");
+const closeCarryEditModalButton = document.getElementById("close-carry-edit-modal");
 
-closeEditModalButton.addEventListener("click", function() {
-    editModal.style.display = "none";
-});
+const openStockEditModalButton = document.getElementById("open-stock-edit-modal");
+const closeStockEditModalButton = document.getElementById("close-stock-edit-modal");
+
+if (openCarryEditModalButton && carryEditModal) {
+    openCarryEditModalButton.addEventListener("click", function() {
+        carryEditModal.style.display = "block";
+    });
+}
+
+if (closeCarryEditModalButton && carryEditModal) {
+    closeCarryEditModalButton.addEventListener("click", function() {
+        carryEditModal.style.display = "none";
+    });
+}
+
+if (openStockEditModalButton && stockEditModal) {
+    openStockEditModalButton.addEventListener("click", function() {
+        stockEditModal.style.display = "block";
+    });
+}
+
+if (closeStockEditModalButton && stockEditModal) {
+    closeStockEditModalButton.addEventListener("click", function() {
+        stockEditModal.style.display = "none";
+    });
+}
 </script>
 {% endblock %}
