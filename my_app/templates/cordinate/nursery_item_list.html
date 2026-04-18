@@ -39,9 +39,35 @@
     {% endif %}
 
     <div style="margin-top: 20px;">
-        <button type="button" id="open-edit-modal">✏️</button>
-        <button type="button" id="open-delete-modal">🗑</button>
+        <button type="button" id="open-carry-edit-modal">✏️</button>
+        <button type="button" id="open-carry-delete-modal">🗑</button>
     </div>
+</div>
+
+<!--編集モーダル-->
+<div id="carry-edit-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; margin-top: 20px;">
+    <button type="button" id="close-carry-edit-modal">×</button>
+
+    <h3>編集✏️</h3>
+    <p>変更内容を入力し変更ボタンを押下してください。</p>
+
+    <form method="post" action="{% url 'nursery_item_update' child.pk %}">
+        {% csrf_token %}
+
+        <input type="hidden" name="item_type" value="0">
+
+        <h4>持ち物</h4>
+        {% for item in carry_items %}
+            <div style="margin-bottom: 10px;">
+                <input type="hidden" name="item_ids" value="{{ item.pk }}">
+                <input type="text" name="item_names" value="{{ item.name }}">
+            </div>
+        {% endfor %}
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="save-button">変更</button>
+        </div>
+    </form>
 </div>
 
 <div style="margin-top: 30px;">
@@ -74,18 +100,14 @@
     {% endif %}
 
     <div style="margin-top: 20px;">
-        <button type="button" id="open-edit-modal">✏️</button>
-        <button type="button" id="open-delete-modal">🗑</button>
+        <button type="button" id="open-stock-edit-modal">✏️</button>
+        <button type="button" id="open-stock-delete-modal">🗑</button>
     </div>
 </div>
 
-<div style="margin-top: 30px;">
-    <a href="{% url 'nursery_item_create' child.pk %}">＋追加</a>
-</div>
-
-#編集モーダル
-<div id="edit-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff;">
-    <button type="button" id="close-edit-modal">×</button>
+<!--編集モーダル-->
+<div id="stock-edit-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; margin-top: 20px;">
+    <button type="button" id="close-stock-edit-modal">×</button>
 
     <h3>編集✏️</h3>
     <p>変更内容を入力し変更ボタンを押下してください。</p>
@@ -93,15 +115,9 @@
     <form method="post" action="{% url 'nursery_item_update' child.pk %}">
         {% csrf_token %}
 
-        <h4>持ち物</h4>
-        {% for item in carry_items %}
-            <div style="margin-bottom: 10px;">
-                <input type="hidden" name="item_ids" value="{{ item.pk }}">
-                <input type="text" name="item_names" value="{{ item.name }}">
-            </div>
-        {% endfor %}
+        <input type="hidden" name="item_type" value="1">
 
-        <h4 style="margin-top: 20px;">必要な物</h4>
+        <h4>必要な物</h4>
         {% for item in stock_items %}
             <div style="margin-top: 10px;">
                 <input type="hidden" name="item_ids" value="{{ item.pk }}">
@@ -114,6 +130,12 @@
         </div>
     </form>
 </div>
+
+<div style="margin-top: 30px;">
+    <a href="{% url 'nursery_item_create' child.pk %}">＋追加</a>
+</div>
+
+
 
 <script>
 const editModal = document.getElementById("edit-modal");
