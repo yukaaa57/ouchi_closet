@@ -114,4 +114,18 @@
         </div>
     </form>
 </div>
+
+<script>
+const editModal = document.getElementById("edit-modal");
+const openEditModalButton = document.getElementById("open-edit-modal");
+const closeEditModalButton = document.getElementById("close-edit-modal");
+
+openEditModalButton.addEventListener("click", function() {
+    editModal.style.display = "block";
+});
+
+closeEditModalButton.addEventListener("click", function() {
+    editModal.style.display = "none";
+});
+</script>
 {% endblock %}
