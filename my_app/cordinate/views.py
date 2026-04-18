@@ -551,5 +551,24 @@ def nursery_item_reset(request, child_id, item_type):
         ).update(is_checked=False)
         
     return redirect("nursery_item_list", child_id=child.pk)
+
+def nursery_item_update(request, child_id):
+    child = get_object_or_404(Child, pk=child_id)
+    
+    if child.family != request.user.family:
+        return redirect("home")
+    
+    if request.method == "POST":
+        item_ids = request.POST.getlist("item_ids")
+        names = request.POST.getlist("item_names")
+        
+        for item_id, name in zip(item_ids, names):
+            if name.strip():
+                NurseryItem.objects.filter(
+                    pk=item_id,
+                    child=child
+                ).update(name=name.atrip())
+    
+    return redirect("nursery_item_list", child_id=child.pk)
     
      
