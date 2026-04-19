@@ -192,12 +192,20 @@
 <script>
 const carryEditModal = document.getElementById("carry-edit-modal");
 const stockEditModal = document.getElementById("stock-edit-modal")
+const carryDeleteModal = document.getElementById("carry-delete-modal");
+const stockDeleteModal = document.getElementById("stock-delete-modal");
 
 const openCarryEditModalButton = document.getElementById("open-carry-edit-modal");
 const closeCarryEditModalButton = document.getElementById("close-carry-edit-modal");
 
 const openStockEditModalButton = document.getElementById("open-stock-edit-modal");
 const closeStockEditModalButton = document.getElementById("close-stock-edit-modal");
+
+const openCarryDeleteModalButton = document.getElementById("open-carry-delete-modal");
+const closeCarryDeleteModalButton = document.getElementById("close-carry-delete-modal");
+
+const openStockDeleteModalButton = document.getElementById("open-stock-delete-modal");
+const closeStockDeleteModalButton = document.getElementById("close-stock-delete-modal");
 
 if (openCarryEditModalButton && carryEditModal) {
     openCarryEditModalButton.addEventListener("click", function() {
@@ -220,6 +228,30 @@ if (openStockEditModalButton && stockEditModal) {
 if (closeStockEditModalButton && stockEditModal) {
     closeStockEditModalButton.addEventListener("click", function() {
         stockEditModal.style.display = "none";
+    });
+}
+
+if (openCarryDeleteModalButton && carryDeleteModal) {
+    openCarryDeleteModalButton.addEventListener("click", function() {
+        carryDeleteModal.style.display = "block";
+    });
+}
+
+if (closeCarryDeleteModalButton && carryDeleteModal) {
+    closeCarryDeleteModalButton.addEventListener("click", function() {
+        carryDeleteModal.style.display = "none";
+    });
+}
+
+if (openStockDeleteModalButton && stockDeleteModal) {
+    openStockDeleteModalButton.addEventListener("click", function() {
+        stockDeleteModal.style.display = "block";
+    });
+}
+
+if (closeStockDeleteModalButton && stockDeleteModal) {
+    closeStockDeleteModalButton.addEventListener("click", function() {
+        stockDeleteModal.style.display = "none";
     });
 }
 </script>
