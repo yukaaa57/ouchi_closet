@@ -14,7 +14,7 @@
     </div>
 
     <!-- ハンバーガーメニュー（後でJSでサイドバー開く） -->
-    <div id="humburger">
+    <div id="hamburger">
         ≡
     </div>
 
@@ -25,13 +25,61 @@
 </header>
 
 <!-- サイドバー枠 -->
-<aside id="sidebar" style="display:none;">
-  <!-- 後でメニュー入れる -->
+<aside id="sidebar" style="display:none; border: 1px solid #999; padding: 20px; background: #fff; width: 220px;">
+    <div style="margin-bottom: 20px;">
+        <button type="button" id="close-sidebar">×</button>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <a href="#">クローゼット</a>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <a href="#">アイテム検索</a>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <a href="#">＋アイテム登録</a>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <a href="#">登録コーデ一覧</a>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <a href="#">♡お気に入りコーデ</a>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <a href="#">＋コーデ登録</a>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <a href="#">保育園必需品</a>
+    </div>
 </aside>
 
 <main>
     {% block content %}{% endblock %}
 </main>
+
+<script>
+const hamburgerButton = document.getElementById("hamburger");
+const sidebar = document.getElementById("sidebar");
+const closeSidebarButton = document.getElementById("close-sidebar");
+
+if (hamburgerButton && sidebar) {
+    hamburgerButton.addEventListener("click", function() {
+        sidebar.style.display = "block";
+    });
+}
+
+if (closeSidebarButton && sidebar) {
+    closeSidebarButton.addEventListener("click", function() {
+        sidebar.style.display = "none";
+    });
+}
+</script>
 
 </body>
 </html>
