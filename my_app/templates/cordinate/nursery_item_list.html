@@ -70,6 +70,32 @@
     </form>
 </div>
 
+<!--削除モーダル-->
+<div id="carry-delete-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; margin-top: 20px;">
+    <button type="button" id="close-carry-delete-modal">×</button>
+
+    <h3>削除🗑</h3>
+    <p>削除したい物にチェックを入れて削除ボタンを押下してください</p>
+
+    <form method="post" action="{% url 'nursery_item_delete' child.pk %}">
+        {% csrf_token %}
+
+        <h4>持ち物</h4>
+        {% for item in carry_items %}
+            <div style="margin-bottom: 10px;">
+                <label>
+                    <input type="checkbox" name="delete_items" value="{{ item.pk }}">
+                    {{ item.name }}
+                </label>
+            </div>
+        {% endfor %}
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="logout-button">削除</button>
+        </div>
+    </form>
+</div>
+
 <div style="margin-top: 30px;">
     <h4>必要な物</h4>
     
@@ -127,6 +153,32 @@
 
         <div style="margin-top: 20px;">
             <button type="submit" class="save-button">変更</button>
+        </div>
+    </form>
+</div>
+
+<!--削除モーダル-->
+<div id="stock-delete-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; margin-top: 20px;">
+    <button type="button" id="close-stock-delete-modal">×</button>
+    
+    <h3>削除🗑</h3>
+    <p>削除したい物にチェックを入れて削除ボタンを押下してください</p>
+
+    <form method="post" action="{% url 'nursery_item_delete' child.pk %}">
+        {% csrf_token %}
+
+        <h4>必要な物</h4>
+        {% for item in stock_items %}
+            <div style="margin-bottom: 10px;">
+                <label>
+                    <input type="checkbox" name="delete_items" value="{{ item.pk }}">
+                    {{ item.name }}
+                </label>
+            </div>
+        {% endfor %}
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="logout-button">削除</button>
         </div>
     </form>
 </div>
