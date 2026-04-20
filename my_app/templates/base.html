@@ -10,7 +10,7 @@
 <header>
     <!-- アカウントアイコン（後で画像ボタンに） -->
     <div id="account-icon">
-        <a href="/accounts/me/">画像</a>
+        <button type="button" id="open-account-sidebar">画像</button>
     </div>
 
     <!-- ハンバーガーメニュー（後でJSでサイドバー開く） -->
@@ -24,7 +24,7 @@
     </nav>
 </header>
 
-<!-- サイドバー枠 -->
+<!-- サイドバー枠（ハンバーガーメニュー） -->
 <aside id="sidebar" style="display:none; border: 1px solid #999; padding: 20px; background: #fff; width: 220px;">
     <div style="margin-bottom: 20px;">
         <button type="button" id="close-sidebar">×</button>
@@ -99,11 +99,49 @@
     </div>
 </aside>
 
+<!-- サイドバー枠（アカウントアイコン） -->
+ <aside id="account-sidebar" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; width: 220px; ">
+    <div style="margin-bottom: 20px;">
+        <button type="button" id="close-account-sidebar">×</button>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <a href="{% url 'me' %}">アカウント管理</a>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <a href="{% url 'invite' %}">家族招待</a>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <a href="{% url '#' %}">設定</a>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <button type="button" id="open-logout-modal" class="logout-button">ログアウト</button>
+    </div>
+ </aside>
+
+ <!-- ログアウト確認モーダル -->
+<div id="logout-modal" style="display: none; border: 1px solid #999; padding: 20px; width: 260px; margin-top: 20px; ">
+    <p>ログアウトしますか？</p>
+
+    <div style="margin-top: 20px;">
+        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">はい</button>
+        </form>
+
+        <button type="button" id="close-logout-modal">いいえ</button>
+    </div>
+</div>
+
 <main>
     {% block content %}{% endblock %}
 </main>
 
 <script>
+//ハンバーガーメニューサイドバー
 const hamburgerButton = document.getElementById("hamburger");
 const sidebar = document.getElementById("sidebar");
 const closeSidebarButton = document.getElementById("close-sidebar");
@@ -117,6 +155,40 @@ if (hamburgerButton && sidebar) {
 if (closeSidebarButton && sidebar) {
     closeSidebarButton.addEventListener("click", function() {
         sidebar.style.display = "none";
+    });
+}
+
+//アカウントアイコンサイドバー
+const openAccountSidebarButton = document.getElementById("open-account-sidebar");
+const accountSidebar = document.getElementById("account-sidebar");
+const closeAccountSidebarButton = document.getElementById("close-account-sidebar");
+
+if (openAccountSidebarButton && accountSidebar) {
+    openAccountSidebarButton.addEventListener("click", function () {
+        accountSidebar.style.display = "block";
+    });
+}
+
+if (closeAccountSidebarButton && accountSidebar) {
+    closeAccountSidebarButton.addEventListener("click", function () {
+        accountSidebar.style.display = "none";
+    });
+}
+
+//ログアウトモーダル
+const openLogoutModalButton = document.getElementById("open-logout-modal");
+const logoutModal = document.getElementById("logout-modal");
+const closeLogoutModalButton = document.getElementById("close-logout-modal");
+
+if (openLogoutModalButton && logoutModal) {
+    openLogoutModalButton.addEventListener("click", function () {
+        logoutModal.style.display = "block";
+    });
+}
+
+if (closeLogoutModalButton && logoutModal) {
+    closeLogoutModalButton.addEventListener("click", function () {
+        logoutModal.style.display = "none";
     });
 }
 </script>
