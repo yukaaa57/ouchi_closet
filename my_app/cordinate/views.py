@@ -232,6 +232,11 @@ def outfit_detail(request, pk):
         "next_url": next_url,
     }
     
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
+    
     return render(request, "cordinate/outfit_detail.html", context)
 
 @login_required
@@ -346,6 +351,11 @@ def outfit_update(request, pk):
         "selected_category": "",
         "selected_color": "",
     }
+    
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
     
     return render(request, "cordinate/outfit_form.html", context)
 

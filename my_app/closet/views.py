@@ -96,6 +96,11 @@ def clothing_list(request, owner_type, owner_id, category):
         "is_search_result": False,
     }
     
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
+    
     return render(request, "closet/clothing_list.html", context)
 
 @login_required
@@ -185,6 +190,11 @@ def clothing_update(request, pk):
         "category_form": CategoryForm(),
     }
     
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
+    
     return render(request, "closet/clothing_form.html", context)
 
 @login_required
@@ -210,6 +220,11 @@ def clothing_detail(request, pk):
         "owner_type": owner_type,
         "next_url": next_url,
     }
+    
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
     
     return render(request, "closet/clothing_detail.html", context)
 
@@ -331,6 +346,11 @@ def clothing_search_results(request, owner_type, owner_id):
         "is_search_result": True,
         "selected_season_ids": request.GET.getlist("season"),
     }
+    
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
     
     return render(request, "closet/clothing_list.html", context)
 

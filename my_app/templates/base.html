@@ -82,9 +82,9 @@
 
     <div style="margin-bottom: 12px;">
         {% if current_child %}
-            <a href="{% url 'child_outfit_create' current_child.pk 0 %}">＋コーデ登録</a>
+            <a href="{% url 'outfit_select' 'child' current_child.pk %}">＋コーデ登録</a>
         {% elif current_user_owner %}
-            <a href="{% url 'user_outfit_create' current_user_owner.pk 0 %}">＋コーデ登録</a>
+            <a href="{% url 'outfit_select' 'user' current_user_owner.pk %}">＋コーデ登録</a>
         {% else %}
             <span>＋コーデ登録</span>          
         {% endif %}
