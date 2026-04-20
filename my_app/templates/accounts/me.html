@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyAccount</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block  content%}
+  
     <h2>アカウント管理画面</h2>
 
     {% if user_obj.profile_image %}
@@ -24,5 +20,4 @@
     <br>
     <a href="{% url 'login' %}"　class="logout-link">ログアウト</a>
     
-</body>
-</html>
+{% endblock %}
