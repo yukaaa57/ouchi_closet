@@ -18,6 +18,7 @@ def user_closet(request, pk):
     context = {
         "owner": user,
         "owner_type": "user",
+        "current_user_owner": user,
         "tops_category": get_object_or_404(Category, name="トップス"),
         "bottoms_category": get_object_or_404(Category, name="ボトムス"),
         "onepiece_category": get_object_or_404(Category, name="ワンピース"),
@@ -40,7 +41,7 @@ def child_closet(request, pk):
     
     context = {
         "owner": child,
-        "owner_type": "childr",
+        "owner_type": "child",
         "tops_category": get_object_or_404(Category, name="トップス"),
         "bottoms_category": get_object_or_404(Category, name="ボトムス"),
         "onepiece_category": get_object_or_404(Category, name="ワンピース"),
@@ -49,6 +50,7 @@ def child_closet(request, pk):
         "shoes_category": get_object_or_404(Category, name="シューズ"),
         "accessory_category": get_object_or_404(Category, name="小物"),
         "bag_category": get_object_or_404(Category, name="バッグ"),
+        "current_child": child,
     }
     
     return render(request, "closet/child_closet.html", context)
@@ -138,6 +140,11 @@ def clothing_create(request, owner_type, owner_id):
         "owner_type": owner_type,
         "category_form": CategoryForm(),
     }
+    
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
     
     return render(request, "closet/clothing_form.html", context)
 
@@ -254,6 +261,11 @@ def clothing_search(request, owner_type, owner_id):
         "owner": owner,
         "owner_type": owner_type,
     }
+    
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
     
     return render(request, "closet/clothing_search.html", context)
 

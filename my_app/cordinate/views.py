@@ -36,6 +36,11 @@ def outfit_list(request, owner_type, owner_id):
         "order": order,
     }
     
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
+        
     return render(request, "cordinate/outfit_list.html", context)
 
 @login_required
@@ -166,6 +171,11 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
         "selected_color": "",
         "is_create": True,
     }
+    
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
     
     return render(request, "cordinate/outfit_form.html", context)
 
@@ -438,6 +448,11 @@ def favorite_outfit_list(request, owner_type, owner_id):
         "order": order,
     }
     
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
+    
     return render(request, "cordinate/favorite_outfit_list.html", context)
 
 @login_required
@@ -499,6 +514,7 @@ def nursery_item_create(request, child_id):
     context = {
         "child": child,
         "form": form,
+        "current_child": child,
     }
     return render(request, "cordinate/nursery_item_form.html", context)
 
@@ -522,6 +538,7 @@ def nursery_item_list(request, child_id):
         "child": child,
         "carry_items": carry_items,
         "stock_items": stock_items,
+        "current_child": child,
     }
     
     return render (request, "cordinate/nursery_item_list.html", context)

@@ -31,31 +31,71 @@
     </div>
 
     <div style="margin-bottom: 12px;">
-        <a href="#">クローゼット</a>
+        {% if current_child %}
+            <a href="{% url 'child_closet' current_child.pk %}">クローゼット</a>
+        {% elif current_user_owner %}
+            <a href="{% url 'user_closet' current_user_owner.pk %}">クローゼット</a>
+        {% else %}
+            <span>クローゼット</span>          
+        {% endif %}
     </div>
 
     <div style="margin-bottom: 12px;">
-        <a href="#">アイテム検索</a>
+        {% if current_child %}
+            <a href="{% url 'clothing_search' 'child' current_child.pk %}">アイテム検索</a>
+        {% elif current_user_owner %}
+            <a href="{% url 'clothing_search' 'user' current_user_owner.pk %}">アイテム検索</a>
+        {% else %}
+            <span>アイテム検索</span>          
+        {% endif %}
     </div>
 
     <div style="margin-bottom: 12px;">
-        <a href="#">＋アイテム登録</a>
+        {% if current_child %}
+            <a href="{% url 'clothing_create' 'child' current_child.pk %}">＋アイテム登録</a>
+        {% elif current_user_owner %}
+            <a href="{% url 'clothing_create' 'user' current_user_owner.pk %}">＋アイテム登録</a>
+        {% else %}
+            <span>＋アイテム登録</span>          
+        {% endif %}
     </div>
 
     <div style="margin-bottom: 12px;">
-        <a href="#">登録コーデ一覧</a>
+        {% if current_child %}
+            <a href="{% url 'child_outfit_list' owner_id=current_child.pk %}">登録コーデ一覧</a>
+        {% elif current_user_owner %}
+            <a href="{% url 'user_outfit_list' owner_id=current_user_owner.pk %}">登録コーデ一覧</a>
+        {% else %}
+            <span>登録コーデ一覧</span>          
+        {% endif %}
     </div>
 
     <div style="margin-bottom: 12px;">
-        <a href="#">♡お気に入りコーデ</a>
+        {% if current_child %}
+            <a href="{% url 'child_favorite_outfit_list' owner_id=current_child.pk %}">♡お気に入りコーデ</a>
+        {% elif current_user_owner %}
+            <a href="{% url 'user_favorite_outfit_list' owner_id=current_user_owner.pk %}">♡お気に入りコーデ</a>
+        {% else %}
+            <span>♡お気に入りコーデ</span>          
+        {% endif %}
     </div>
 
     <div style="margin-bottom: 12px;">
-        <a href="#">＋コーデ登録</a>
+        {% if current_child %}
+            <a href="{% url 'child_outfit_create' current_child.pk 0 %}">＋コーデ登録</a>
+        {% elif current_user_owner %}
+            <a href="{% url 'user_outfit_create' current_user_owner.pk 0 %}">＋コーデ登録</a>
+        {% else %}
+            <span>＋コーデ登録</span>          
+        {% endif %}
     </div>
 
     <div style="margin-bottom: 12px;">
-        <a href="#">保育園必需品</a>
+        {% if current_child %}
+            <a href="{% url 'nursery_item_list' child_id=current_child.pk %}">保育園必需品</a>
+        {% else %}
+            <span>保育園必需品</span>          
+        {% endif %}
     </div>
 </aside>
 
