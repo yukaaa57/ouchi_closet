@@ -12,4 +12,5 @@ urlpatterns = [
     path("item/<int:pk>/edit/", views.clothing_update, name="clothing_update"),
     path("item/<int:pk>/delete", views.clothing_delete, name="clothing_delete"),
     path("<str:owner_type>/<int:owner_id>/<str:category>/", views.clothing_list, name="clothing_list"),
+    path("category/setting/", views.category_setting, name="category_setting"),
 ]
