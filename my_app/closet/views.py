@@ -376,6 +376,16 @@ def category_create(request):
     
     return render(request, "closet/category_form.html", context)
 
+@login_required
+def category_setting(request):
+    categories = Category.objects.filter(family=request.user.family)
+    
+    context = {
+        "categories": categories,
+    }
+    
+    return render(request, closet/category_setting.html, context)
+
 
 
     
