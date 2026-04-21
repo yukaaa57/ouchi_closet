@@ -384,7 +384,7 @@ def category_setting(request):
         "categories": categories,
     }
     
-    return render(request, closet/category_setting.html, context)
+    return render(request, "closet/category_setting.html", context)
 
 
 

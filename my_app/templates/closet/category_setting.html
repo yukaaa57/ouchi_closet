@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>カテゴリ設定</h2>
+
+<ul>
+    {% for category in categories %}
+        <li>
+            {{ category.name }}
+            <button>編集</button>
+            <button>削除</button>
+        </li>
+    {% endfor %}
+</ul>
+  
+{% endblock %}
