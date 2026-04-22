@@ -380,7 +380,7 @@ def category_create(request):
 
 @login_required
 def category_setting(request):
-    categories = Category.objects.all()
+    categories = Category.objects.filter(family=request.user.family)
     
     context = {
         "categories": categories,
