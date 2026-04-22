@@ -8,10 +8,52 @@
     {% for category in categories %}
         <li>
             {{ category.name }}
-            <button>編集</button>
+            <button type="button" class="open-edit-modal" data-category-id="{{ category.pk }}" data-category-name="{{ category.name }}">編集</button>
             <button>削除</button>
         </li>
     {% endfor %}
 </ul>
+
+<div id="edit-modal" style="display: none; border: 1px solid #999; padding: 20px; width: 260px; margin-top: 20px;"> 
+    <button type="button" id="close-edit-momdal">×</button>
+
+    <h3>カテゴリ編集</h3>
+
+    <form method="post" id="edit-form">
+        {% csrf_token %}
+
+        <div style="margin-top: 20px;">
+            <label for="edit-category-name">カテゴリ：</label>
+            <input type="text" id="edit-category-name" name="name">
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="save-button">保存</button>
+        </div>
+    </form>
+</div>
+
+<script>
+const editModal = document.getElementById("edit-modal");
+const closeEditModalButton = document.getElementById("close-edit-modal");
+const editForm = document.getElementById("edit-form");
+const editCategoryNameInput = document.getElementById("edit-category-name");
+const openEditButtons = document.getElementById(".open-edit-modal");
+
+openEditButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        const categoryId = button.dataset.categoryId;
+        const categoryName = button.dataset.categoryName;
+
+        editCategoryNameInput.value = categoryName;
+        editForm.action = `/closet/category/${categoryId}/update/`;
+        editModal.style.display = "block";
+    });
+});
+
+closeEditModalButton.addEventListener("click", function() {
+    editModal.style.display ="none";
+});
+</script>
   
 {% endblock %}
