@@ -361,7 +361,9 @@ def category_create(request):
         next_url = request.POST.get("next", "")
         
         if form.is_valid():
-            form.save()
+            category = form.save(commit=False)
+            category.family = request.user.family
+            category.save()
             
             if next_url:
                 return redirect(next_url)
@@ -378,7 +380,7 @@ def category_create(request):
 
 @login_required
 def category_setting(request):
-    categories = Category.objects.filter(family=request.user.family)
+    categories = Category.objects.all()
     
     context = {
         "categories": categories,
