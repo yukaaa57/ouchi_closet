@@ -388,6 +388,23 @@ def category_setting(request):
     
     return render(request, "closet/category_setting.html", context)
 
+@login_required
+def category_update(request, pk):
+    category = get_object_or_404(
+        Category,
+        pk=pk,
+        family=request.user.family
+    )
+    
+    if request.method == "POST":
+        new_name = request.POST.get("name")
+        
+        if new_name and new_name.strip():
+            category.name = new_name.strip()
+            category.save()
+        
+        return redirect("category_setting")
+
 
 
     
