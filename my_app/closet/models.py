@@ -5,7 +5,7 @@ from accounts.models import Child, SIZE_CHOICES, Family
 User = get_user_model()
 
 class Category(models.Model):
-    family = models.ForeignKey(Family, on_delete=models.CASCADE, null=True, blank=True)
+    family = models.ForeignKey(Family, on_delete=models.CASCADE, null=False, blank=False)
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
