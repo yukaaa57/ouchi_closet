@@ -2,40 +2,54 @@
 {% block hamburger %}{% endblock %}
 {% block breadcrumbs_wrapper %}{% endblock %}
 
+{% load static %}
+
 {% block content %}
-<h1>Ouchi Closet</h1>
 
-<div>
-  {% for user in family_users %}
-    <div>
-      <a href="{% url 'user_closet' user.pk %}">
-        {% if user.profile_image %}
-          <img src="{{ user.profile_image.url }}" width="100">
-        {% else %}
-          <p>画像なし</p>
-        {% endif %}
-      </a>
-      <p>{{ user.nickname }}</p>
+<div class="home-page">
+    
+    <div class="home-logo">
+        <div class="logo-roof"></div>
+        <h1>ouchi<br>closet</h1>
     </div>
-  {% endfor %}
 
-  {% for child in children %}
-    <div>
-      <a href="{% url 'child_closet' child.pk %}">
-        {% if child.profile_image %}
-          <img src="{{ child.profile_image.url }}" width="100">
-        {% else %}
-          <p>画像なし</p>
-        {% endif %}
-      </a>
-      <p>{{ child.nickname }}
-        <a href="{% url 'child_edit' child.pk %}">✏️</a> 
-      </p>
+    <div class="family-grid">
+
+        {% for user in family_users %}
+            <div class="family-card">
+                <a href="{% url 'user_closet' user.pk %}">
+                    {% if user.profile_image %}
+                        <img src="{{ user.profile_image.url }}" alt="{{ user.nickname }}">
+                    {% else %}
+                        <div class="no-image">👤</div>
+                    {% endif %}
+                </a>
+                <p>{{ user.nickname }}</p>
+            </div>
+        {% endfor %}
+
+        {% for child in children %}
+            <div class="family-card">
+                <a href="{% url 'child_closet' child.pk %}">
+                    {% if child.profile_image %}
+                        <img src="{{ child.profile_image.url }}" alt="{{ child.nickname }}">
+                    {% else %}
+                        <div class="no-image">👤</div>
+                    {% endif %}
+                </a>
+                <p>{{ child.nickname }}
+                   <a href="{% url 'child_edit' child.pk %}" class="edit-kink">✏️</a> 
+                </p>
+            </div>
+        {% endfor %}
+
     </div>
-  {% endfor %}
+
+    <a href="{% url 'child_add' %}" class="add-child-button">
+        <div class="add-circle">＋</div>
+        <span>子どもを追加</span>
+    </a>
+    
 </div>
 
-<p>
-  <a href="{% url 'child_add' %}">＋　子どもを追加</a>
-</p>
 {% endblock %}
