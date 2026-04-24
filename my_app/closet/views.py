@@ -404,6 +404,19 @@ def category_update(request, pk):
             category.save()
         
         return redirect("category_setting")
+    
+@login_required
+def category_delete(request, pk):
+    category = get_object_or_404(
+        Category,
+        pk=pk,
+        family=request.user.family
+    )
+    
+    if request.method == "POST":
+        category.delete()
+        
+    return redirect("category_setting")
 
 
 
