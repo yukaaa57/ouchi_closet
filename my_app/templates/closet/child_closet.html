@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
+{% block breadcrumbs %}
+    <a href="{% url 'home' %}">ホーム</a> >
+    {{ owner.nickname }}のクローゼット
+{% endblock %}
+
 {% block content %}
-  <h2>{{ owner.nickname }}のクローゼット</h2>
 
   <div>
     <ul class="category_all">

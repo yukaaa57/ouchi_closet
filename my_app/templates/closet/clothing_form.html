@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
-{% block content %}
-
-<nav>
+{% block breadcrumbs %}
     <a href="{% url 'home' %}">ホーム</a>
     {% if owner_type == "user" %}
       <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
@@ -11,7 +9,9 @@
     {% endif %}
     >
     {% if is_edit %}編集{% else %}登録{% endif %}
-</nav>
+{% endblock %}
+
+{% block content %}
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}

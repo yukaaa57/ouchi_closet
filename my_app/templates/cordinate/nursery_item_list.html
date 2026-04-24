@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
-{% block content %}
-<nav>
+{% block breadcrumbs %}
     <a href="{% url 'home' %}">ホーム</a> >
     <a href="{% url 'child_closet' child.pk %}">{{ owner.nickname }}のクローゼット</a>
     >保育園必需品一覧
-</nav>  
+{% endblock %} 
+
+{% block content %}
 
 <h3>保育園必需品</h3>
 

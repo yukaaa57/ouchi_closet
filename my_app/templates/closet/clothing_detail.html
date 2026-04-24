@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 
-{% block content %}
-
 <!--パンくず-->
-<nav>
+{% block breadcrumbs %}
     <a href="{% url 'home' %}">ホーム</a> >
     {% if owner_type == "user" %}
       <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
@@ -12,7 +10,9 @@
     {% endif %}
     >
     アイテム詳細
-</nav>
+{% endblock %}
+
+{% block content %}
 
 <div>
     <img src="{{ clothing.clothing_image.url }}" width="200">
