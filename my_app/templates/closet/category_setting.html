@@ -9,7 +9,7 @@
         <li>
             {{ category.name }}
             <button type="button" class="open-edit-modal" data-category-id="{{ category.pk }}" data-category-name="{{ category.name }}">編集</button>
-            <button>削除</button>
+            <button type="button" class="open-delete-modal" data-category-id="{{ category.pk }}" data-category-name="{{ category.name}}">削除</button>
         </li>
     {% endfor %}
 </ul>
@@ -33,7 +33,23 @@
     </form>
 </div>
 
+<div id="delete-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; margin-top: 20px;">
+    <button type="button" id="close-delete-modal">×</button>
+
+    <h3>カテゴリ削除</h3>
+    <p>「<span id="delete-category-name"></span>」を削除しますか？</p>
+
+    <form method="post" id="delete-form">
+        {% csrf_token %}
+
+        <div style="margin-top: 20px;">
+            <button type="submit">削除</button>
+        </div>
+    </form>
+</div>
+
 <script>
+//編集モーダル
 const editModal = document.getElementById("edit-modal");
 const closeEditModalButton = document.getElementById("close-edit-modal");
 const editForm = document.getElementById("edit-form");
@@ -53,6 +69,28 @@ openEditButtons.forEach(function(button) {
 
 closeEditModalButton.addEventListener("click", function() {
     editModal.style.display ="none";
+});
+
+//削除モーダル
+const deleteModal = document.getElementById("delete-modal");
+const closeDeleteModalButton = document.getElementById("close-delete-modal");
+const deleteForm = document.getElementById("delete-form");
+const deleteCategoryName = document.getElementById("delete-category-name");
+const openDeleteButtons = document.querySelectorAll(".open-delete-modal");
+
+openDeleteButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        const categoryId = button.dataset.categoryId;
+        const categoryName = button.dataset.categoryName;
+
+        deleteCategoryName.textContent = categoryName;
+        deleteForm.action = `/closet/category/${categoryId}/delete/`;
+        deleteModal.style.display = "block";
+    });
+});
+
+closeDeleteModalButton.addEventListener("click", function() {
+    deleteModal.style.display = "none";
 });
 </script>
   
