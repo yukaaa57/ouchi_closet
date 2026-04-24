@@ -1,150 +1,156 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} Ouchi Closet{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+    <div class="app-container">
 
-<header>
-    <!-- アカウントアイコン（後で画像ボタンに） -->
-    {% block account_icon %}
-    <div id="account-icon">
-        <button type="button" id="open-account-sidebar">画像</button>
+        <header>
+            <!-- アカウントアイコン（後で画像ボタンに） -->
+            {% block account_icon %}
+            <div id="account-icon">
+                <button type="button" id="open-account-sidebar">画像</button>
+            </div>
+            {% endblock %}
+
+            <!-- ハンバーガーメニュー（後でJSでサイドバー開く） -->
+            {% block hamburger %}
+            <div id="hamburger">
+                ≡
+            </div>
+            {% endblock %}
+
+            <!-- パンくず（後でblock差し替え） -->
+            {% block breadcrumbs_wrapper %}
+            <nav>
+                {% block breadcrumbs %}{% endblock %}
+            </nav>
+            {% endblock %}
+        </header>
+
+        <!-- サイドバー枠（ハンバーガーメニュー） -->
+        <aside id="sidebar" style="display:none; border: 1px solid #999; padding: 20px; background: #fff; width: 220px;">
+            <div style="margin-bottom: 20px;">
+                <button type="button" id="close-sidebar">×</button>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                {% if current_child %}
+                    <a href="{% url 'child_closet' current_child.pk %}">クローゼット</a>
+                {% elif current_user_owner %}
+                    <a href="{% url 'user_closet' current_user_owner.pk %}">クローゼット</a>
+                {% else %}
+                    <span>クローゼット</span>          
+                {% endif %}
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                {% if current_child %}
+                    <a href="{% url 'clothing_search' 'child' current_child.pk %}">アイテム検索</a>
+                {% elif current_user_owner %}
+                    <a href="{% url 'clothing_search' 'user' current_user_owner.pk %}">アイテム検索</a>
+                {% else %}
+                    <span>アイテム検索</span>          
+                {% endif %}
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                {% if current_child %}
+                    <a href="{% url 'clothing_create' 'child' current_child.pk %}">＋アイテム登録</a>
+                {% elif current_user_owner %}
+                    <a href="{% url 'clothing_create' 'user' current_user_owner.pk %}">＋アイテム登録</a>
+                {% else %}
+                    <span>＋アイテム登録</span>          
+                {% endif %}
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                {% if current_child %}
+                    <a href="{% url 'child_outfit_list' owner_id=current_child.pk %}">登録コーデ一覧</a>
+                {% elif current_user_owner %}
+                    <a href="{% url 'user_outfit_list' owner_id=current_user_owner.pk %}">登録コーデ一覧</a>
+                {% else %}
+                    <span>登録コーデ一覧</span>          
+                {% endif %}
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                {% if current_child %}
+                    <a href="{% url 'child_favorite_outfit_list' owner_id=current_child.pk %}">♡お気に入りコーデ</a>
+                {% elif current_user_owner %}
+                    <a href="{% url 'user_favorite_outfit_list' owner_id=current_user_owner.pk %}">♡お気に入りコーデ</a>
+                {% else %}
+                    <span>♡お気に入りコーデ</span>          
+                {% endif %}
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                {% if current_child %}
+                    <a href="{% url 'outfit_select' 'child' current_child.pk %}">＋コーデ登録</a>
+                {% elif current_user_owner %}
+                    <a href="{% url 'outfit_select' 'user' current_user_owner.pk %}">＋コーデ登録</a>
+                {% else %}
+                    <span>＋コーデ登録</span>          
+                {% endif %}
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                {% if current_child %}
+                    <a href="{% url 'nursery_item_list' child_id=current_child.pk %}">保育園必需品</a>
+                {% else %}
+                    <span>保育園必需品</span>          
+                {% endif %}
+            </div>
+        </aside>
+
+        <!-- サイドバー枠（アカウントアイコン） -->
+        <aside id="account-sidebar" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; width: 220px; ">
+            <div style="margin-bottom: 20px;">
+                <button type="button" id="close-account-sidebar">×</button>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <a href="{% url 'me' %}">アカウント管理</a>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <a href="{% url 'invite' %}">家族招待</a>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <a href="{% url 'category_setting' %}">設定</a>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <button type="button" id="open-logout-modal" class="logout-button">ログアウト</button>
+            </div>
+        </aside>
+
+        <!-- ログアウト確認モーダル -->
+        <div id="logout-modal" style="display: none; border: 1px solid #999; padding: 20px; width: 260px; margin-top: 20px; ">
+            <p>ログアウトしますか？</p>
+
+            <div style="margin-top: 20px;">
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">はい</button>
+                </form>
+
+                <button type="button" id="close-logout-modal">いいえ</button>
+            </div>
+        </div>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
     </div>
-    {% endblock %}
 
-    <!-- ハンバーガーメニュー（後でJSでサイドバー開く） -->
-    {% block hamburger %}
-    <div id="hamburger">
-        ≡
-    </div>
-    {% endblock %}
-
-    <!-- パンくず（後でblock差し替え） -->
-    {% block breadcrumbs_wrapper %}
-    <nav>
-        {% block breadcrumbs %}{% endblock %}
-    </nav>
-    {% endblock %}
-</header>
-
-<!-- サイドバー枠（ハンバーガーメニュー） -->
-<aside id="sidebar" style="display:none; border: 1px solid #999; padding: 20px; background: #fff; width: 220px;">
-    <div style="margin-bottom: 20px;">
-        <button type="button" id="close-sidebar">×</button>
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        {% if current_child %}
-            <a href="{% url 'child_closet' current_child.pk %}">クローゼット</a>
-        {% elif current_user_owner %}
-            <a href="{% url 'user_closet' current_user_owner.pk %}">クローゼット</a>
-        {% else %}
-            <span>クローゼット</span>          
-        {% endif %}
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        {% if current_child %}
-            <a href="{% url 'clothing_search' 'child' current_child.pk %}">アイテム検索</a>
-        {% elif current_user_owner %}
-            <a href="{% url 'clothing_search' 'user' current_user_owner.pk %}">アイテム検索</a>
-        {% else %}
-            <span>アイテム検索</span>          
-        {% endif %}
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        {% if current_child %}
-            <a href="{% url 'clothing_create' 'child' current_child.pk %}">＋アイテム登録</a>
-        {% elif current_user_owner %}
-            <a href="{% url 'clothing_create' 'user' current_user_owner.pk %}">＋アイテム登録</a>
-        {% else %}
-            <span>＋アイテム登録</span>          
-        {% endif %}
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        {% if current_child %}
-            <a href="{% url 'child_outfit_list' owner_id=current_child.pk %}">登録コーデ一覧</a>
-        {% elif current_user_owner %}
-            <a href="{% url 'user_outfit_list' owner_id=current_user_owner.pk %}">登録コーデ一覧</a>
-        {% else %}
-            <span>登録コーデ一覧</span>          
-        {% endif %}
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        {% if current_child %}
-            <a href="{% url 'child_favorite_outfit_list' owner_id=current_child.pk %}">♡お気に入りコーデ</a>
-        {% elif current_user_owner %}
-            <a href="{% url 'user_favorite_outfit_list' owner_id=current_user_owner.pk %}">♡お気に入りコーデ</a>
-        {% else %}
-            <span>♡お気に入りコーデ</span>          
-        {% endif %}
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        {% if current_child %}
-            <a href="{% url 'outfit_select' 'child' current_child.pk %}">＋コーデ登録</a>
-        {% elif current_user_owner %}
-            <a href="{% url 'outfit_select' 'user' current_user_owner.pk %}">＋コーデ登録</a>
-        {% else %}
-            <span>＋コーデ登録</span>          
-        {% endif %}
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        {% if current_child %}
-            <a href="{% url 'nursery_item_list' child_id=current_child.pk %}">保育園必需品</a>
-        {% else %}
-            <span>保育園必需品</span>          
-        {% endif %}
-    </div>
-</aside>
-
-<!-- サイドバー枠（アカウントアイコン） -->
- <aside id="account-sidebar" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; width: 220px; ">
-    <div style="margin-bottom: 20px;">
-        <button type="button" id="close-account-sidebar">×</button>
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        <a href="{% url 'me' %}">アカウント管理</a>
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        <a href="{% url 'invite' %}">家族招待</a>
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        <a href="{% url 'category_setting' %}">設定</a>
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        <button type="button" id="open-logout-modal" class="logout-button">ログアウト</button>
-    </div>
- </aside>
-
- <!-- ログアウト確認モーダル -->
-<div id="logout-modal" style="display: none; border: 1px solid #999; padding: 20px; width: 260px; margin-top: 20px; ">
-    <p>ログアウトしますか？</p>
-
-    <div style="margin-top: 20px;">
-        <form method="post" action="{% url 'logout' %}" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit">はい</button>
-        </form>
-
-        <button type="button" id="close-logout-modal">いいえ</button>
-    </div>
-</div>
-
-<main>
-    {% block content %}{% endblock %}
-</main>
 
 <script>
 //ハンバーガーメニューサイドバー
