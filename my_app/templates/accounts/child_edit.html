@@ -1,13 +1,15 @@
 {% extends "base.html" %}
+{% block hamburger %}{% endblock %}
+{% block breadcrumbs_wrapper %}{% endblock %}
 
 {% block breadcrumbs %}
     <a href="{% url 'home' %}">ホーム</a> >
-    アカウント変更
+    子どもアカウント変更
 {% endblock %}
 
 {% block  content%}
 
-    <h2>アカウント変更画面</h2>
+    <h2>子どもアカウント変更</h2>
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
