@@ -11,28 +11,30 @@
 <body>
     <div class="app-container">
 
-        <header>
+        <!--　上のアイコンだけ　-->
+        <header class="app-top">
             <!-- アカウントアイコン（後で画像ボタンに） -->
             {% block account_icon %}
-            <div id="account-icon">
-                <button type="button" id="open-account-sidebar">画像</button>
+            <div id="account-icon" class="account-area">
+                <button type="button" id="open-account-sidebar" class="icon-button">画像</button>
             </div>
             {% endblock %}
 
             <!-- ハンバーガーメニュー（後でJSでサイドバー開く） -->
             {% block hamburger %}
-            <div id="hamburger">
+            <div id="hamburger" class="icon-button">
                 ≡
             </div>
             {% endblock %}
-
-            <!-- パンくず（後でblock差し替え） -->
-            {% block breadcrumbs_wrapper %}
-            <nav>
-                {% block breadcrumbs %}{% endblock %}
-            </nav>
-            {% endblock %}
         </header>
+
+        <!-- パンくず（後でblock差し替え） -->
+        {% block breadcrumbs_wrapper %}
+        <nav class="breadcrumb">
+            {% block breadcrumbs %}{% endblock %}
+        </nav>
+        {% endblock %}
+        
 
         <!-- サイドバー枠（ハンバーガーメニュー） -->
         <aside id="sidebar" style="display:none; border: 1px solid #999; padding: 20px; background: #fff; width: 220px;">
