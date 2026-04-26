@@ -104,3 +104,74 @@ button {
 }
 
 /* 家族アイコンを２列に並べる　*/
+.family-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 34px 32px;
+    margin-bottom: 44px;
+}
+
+/* 一人分のカード　*/
+.family-card {
+    text-align: center;
+}
+
+.family-card a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* 丸い写真　*/
+.family-card img,
+.no-image {
+    width: 118px;
+    height: 118px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #eee9e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 42px;
+}
+
+/* 名前　*/
+.family-card p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* 鉛筆リンク　*/
+.edit-link {
+    margin-left: 4px;
+    font-size: 16px;
+}
+
+/* 子ども追加　*/
+.add-child-button {
+    text-decoration: none;
+    color: #c98787;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-circle {
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    border: 2px dashed #d9a0a0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    color: #c98787;
+}
+
+.add-child-button span {
+    font-size: 18px;
+    border-bottom: 1px solid #c98787;
+}
