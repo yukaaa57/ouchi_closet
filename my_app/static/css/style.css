@@ -67,8 +67,8 @@ button {
 
 .logo-roof {
     width: 120px;
-    height: 60px;
-    margin: 0 auto -10px;
+    height: 40px;
+    margin: 0 auto 10px;
     position: relative;
 }
 
@@ -76,21 +76,21 @@ button {
 .logo-roof::after {
     content: "";
     position: absolute;
-    top: 30px;
-    width: 80px;
+    top: 20px;
+    width: 70px;
     height: 2px;
     background-color: #c98787;
 }
 
 .logo-roof::before {
     left: 0;
-    transform: rotate(-35deg);
+    transform: rotate(-25deg);
     transform-origin: right center;
 }
 
 .logo-roof::after {
     right: 0;
-    transform: rotate(35deg);
+    transform: rotate(25deg);
     transform-origin: left center;
 }
 
