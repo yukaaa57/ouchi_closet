@@ -12,6 +12,8 @@ body {
     background-color: #fffaf7;
     padding: 16px;
     box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
 }
 
 /* 画面上部のアイコン配置　*/
@@ -226,7 +228,7 @@ button {
 }
 
 /* 背景カバー */
-.sidebar-overlay {
+.side-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -241,21 +243,19 @@ button {
     z-index: 50;
 }
 
-.sidebar-overlay.active {
+.side-overlay.active {
     opacity: 1;
     visibility: visible;
 }
 
 /* 共通サイドパネル */
 .side-panel {
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 260px;
-    height: 100vh;
+    height: 100%;
 
     background-color: #fffaf7;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-
     padding: 28px 24px;
     box-sizing: border-box;
 
