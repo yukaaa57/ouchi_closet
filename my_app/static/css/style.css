@@ -224,3 +224,97 @@ button {
     font-size: 18px;
     border-bottom: 1px solid #c98787;
 }
+
+/* 背景カバー */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.25);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 50;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 共通サイドパネル */
+.side-panel {
+    position: fixed;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+
+    background-color: #fffaf7;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+    padding: 28px 24px;
+    box-sizing: border-box;
+
+    transition: 0.3s;
+    z-index: 100;
+}
+
+/* アカウントサイドバー：左から */
+.account-panel {
+    left: 0;
+    transform: translateX(-100%);
+}
+
+.account-panel.active {
+    transform: translateX(0);
+}
+
+/* メニューサイドバー：右から */
+.menu-panel {
+    right: 0;
+    transform: translateX(100%);
+}
+
+.menu-panel.active {
+    transform: translateX(0);
+}
+
+/* 閉じるボタン */
+.side-close {
+    border: none;
+    background-color: transparent;
+    color: #9f7770;
+    font-size: 28px;
+    display: block;
+    margin-left: auto;
+    margin-bottom: 28px;
+}
+
+/* サイドバー内メニュー */
+.side-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.side-menu a {
+    color: #5a4a45;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* ログアウトボタン */
+.logout-button {
+    margin-top: 32px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+
+    background-color: #e6a2a2;
+    color: white;
+    font-size: 16px;
+}
