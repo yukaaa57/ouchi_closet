@@ -318,3 +318,73 @@ button {
     color: white;
     font-size: 16px;
 }
+
+/* ログアウト確認モーダルの背景 */
+.logout-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.2);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 200;
+}
+
+/* 表示する時用 */
+.logout-modal.active {
+    display: flex;
+}
+
+/* モーダルの白い箱 */
+.logout-modal-box {
+    width: 260px;
+    padding: 28px 22px 24px;
+    background-color: #fffaf7;
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    text-align: center;
+}
+
+/* 文言 */
+.logout-modal-text {
+    margin: 0 0 24px;
+    font-size: 17px;
+    color: #5a4a45;
+    font-weight: 600;
+}
+
+/* ボタン横並び */
+.logout-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+/* はい、いいえ共通 */
+.logout-modal-actions button {
+    min-width: 76px;
+    padding: 9px 16px;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* はい */
+.logout-yes-button {
+    border: none;
+    background-color: #f6d6d6;
+    color: #b35b5b;
+}
+
+/* いいえ */
+.logout-no-button {
+    border: 1px solid #8fa89b;
+    background-color: #e3efe8;
+    color: #4f6b5e;
+}
