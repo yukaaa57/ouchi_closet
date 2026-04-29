@@ -8,13 +8,13 @@
 {% block content %}
 
   <div>
-    <ul class="category_all">
+    <ul class="category-all">
       <li>
         <a href="{% url 'clothing_list' owner_type owner.pk 'all' %}">すべて</a>
       </li>
     </ul>
 
-    <ul class="category_list">
+    <ul class="category-list">
       <li>
         <a href="{% url 'clothing_list' owner_type owner.pk tops_category.id %}">トップス</a>
       </li>
@@ -51,10 +51,10 @@
   </div>
 
   <p>
-    <a href="{% url 'clothing_search' owner_type owner.pk %}">検索</a>
+    <a href="{% url 'clothing_search' owner_type owner.pk %}" class="search-button">検索</a>
   </p>
 
   <p>
-    <a href="{% url 'clothing_create' owner_type owner.pk %}">＋アイテムを登録</a>
+    <a href="{% url 'clothing_create' owner_type owner.pk %}" class="save-link">＋アイテムを登録</a>
   </p>
 {% endblock content %}

@@ -388,3 +388,57 @@ button {
     background-color: #e3efe8;
     color: #4f6b5e;
 }
+
+/* カテゴリ全体 */
+.category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 36px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2列 */
+    gap: 18px 20px;
+    max-width: 320px;
+}
+
+/* liの余計なマージン消す */
+.category-list li {
+    list-style: none;
+}
+
+/* ボタンデザイン */
+.category-list a {
+    display: block;
+    text-align: center;
+    padding: 14px 0;
+    border: 1px solid #e5ddd8;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #5a4a45;
+}
+
+/* 押した時 */
+.category-button:active {
+    transform: scale(0.97);
+    background: #f8f8f8;
+}
+
+/* 全て */
+.category-all {
+    margin: 24px 0 16px;
+}
+
+.category-all li {
+    list-style: none;
+}
+
+.category-all a {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 22px;
+    background: #f3efec;
+    text-decoration: none;
+    color: #5a4a45;
+    font-size: 16px;
+    font-weight: 550;
+}
