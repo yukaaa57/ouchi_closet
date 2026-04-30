@@ -224,7 +224,6 @@ button {
 
 .add-child-button span {
     font-size: 18px;
-    border-bottom: 1px solid #c98787;
 }
 
 /* 背景カバー */
@@ -452,7 +451,8 @@ button {
 /* ボタン */
 .search-button {
     display: inline-block;
-    padding: 12px 40px;
+    width: auto;
+    padding: 12px 20px;
 
     border: 1px solid #c8e6cf;
     border-radius: 10px;
@@ -461,10 +461,30 @@ button {
     color: #5c7a65;
     text-decoration: none;
     font-size: 14px;
+    margin-bottom: 10px;
 }
 
 /* 押した時 */
 .search-button:active {
     transform: scale(0.96);
     background-color: #f7f3f0;
+}
+
+/* ＋追加、登録リンク */
+.save-link-wrapper {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.save-link {
+    display: inline;
+    padding: 2px 6px;
+
+    background-color: #fdecec;
+    border-radius: 4px;
+
+    color: #c97a7a;
+    text-decoration: underline;
+
+    font-size: 18px;
 }

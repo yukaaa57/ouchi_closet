@@ -54,7 +54,7 @@
     <a href="{% url 'clothing_search' owner_type owner.pk %}" class="search-button">🔍検索</a>
   </div>
 
-  <p>
+  <div class="save-link-wrapper">
     <a href="{% url 'clothing_create' owner_type owner.pk %}" class="save-link">＋アイテムを登録</a>
-  </p>
+  </div>
 {% endblock content %}
