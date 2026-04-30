@@ -50,9 +50,9 @@
     </ul>
   </div>
 
-  <p>
-    <a href="{% url 'clothing_search' owner_type owner.pk %}" class="search-button">検索</a>
-  </p>
+  <div class="search-button-wrap">
+    <a href="{% url 'clothing_search' owner_type owner.pk %}" class="search-button">🔍検索</a>
+  </div>
 
   <p>
     <a href="{% url 'clothing_create' owner_type owner.pk %}" class="save-link">＋アイテムを登録</a>
