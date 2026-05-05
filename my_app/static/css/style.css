@@ -516,7 +516,7 @@ form select {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    margin-top: 14px;
+    margin-top: 16px;
 }
 
 /* １つ分の枠 */
@@ -535,4 +535,165 @@ form select {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+/* =====アイテム詳細画面===== */
+.clothing-detail-page {
+    padding: 8px 24px 40px;
+    text-align: center;
+}
+
+.detail-image-wrap {
+    margin: 8px auto 24px;
+}
+
+.detail-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #e5ddd8;
+}
+
+.detail-info {
+    width: 260px;
+    margin: 0 auto 28px;
+    text-align: left;
+}
+
+.detail-info p {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #5a4a45;
+    line-height: 1.6;
+}
+
+.detail-info span {
+    color: #9f8f89;
+    font-weight: 600;
+}
+
+.detail-actions {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 16px;
+} 
+
+/* 共通 */
+.edit-link,
+.delete-link {
+    font-size: 20px;
+    padding: 0 2px;
+    text-decoration: underline;
+    color: #6f6f6f;
+}
+
+/* 編集 */
+.edit-link {
+    background: linear-gradient(transparent 10%, #dff2fa 10%);
+}
+
+/* 削除 */
+.delete-link {
+    background: linear-gradient(transparent 10%, #f6d6d6 10%);
+}
+
+/*
+.detail-edit-link,
+.detail-delete-button {
+    font-size: 15px;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.detail-edit-link {
+    color: #7d6f6a;
+}
+
+.detail-delete-button {
+    color: #c97a7a;
+} */
+
+.back-link-wrap {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.back-link {
+    color: #b88b8b;
+    text-decoration: none;
+    font-size: 14px;
+    background-color: #fdecec;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* 削除確認モーダル */
+.delete-modal {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 200;
+}
+
+.delete-modal-box {
+    width: 260px;
+    padding: 28px 22px 24px;
+    background-color: #fffaf7;
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    text-align: center;
+
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.delete-modal-box p {
+    margin: 0 0 22px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #5a4a45;
+}
+
+.delete-modal-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.delete-modal-actions form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.delete-yes-button,
+.delete-no-button {
+    width: 100px;
+    height: 44px;
+    padding: 0;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 44px;
+    text-align: center;
+}
+
+.delete-yes-button {
+    border: none;
+    background-color: #f6d6d6;
+    color: #a85a5a;
+}
+
+.delete-no-button {
+    border: 1px solid #8fa89b;
+    background-color: #d7e8df;
+    color: #4f6b5e;
 }

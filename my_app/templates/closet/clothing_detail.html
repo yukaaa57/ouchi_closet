@@ -14,43 +14,49 @@
 
 {% block content %}
 
-<div>
-    <img src="{{ clothing.clothing_image.url }}" width="200">
-</div>
+<div class="clothing-detail-page">
 
-<div>
-    <p>カテゴリ：{{ clothing.category.name }}</p>
-    <p>サイズ：{{ clothing.size }}</p>
-    <p>カラー：{{ clothing.color }}</p>
-    <p>季節：
-      {% for season in clothing.seasons.all %}
-        {{ season.name }}
-      {% endfor %}
-    </p>
-    <p>着用状況：{{ clothing.wear_status }}</p>
-    <p>メモ：{{ clothing.note }}</p>
-</div>
+  <div class="detail-image-wrap">
+      <img src="{{ clothing.clothing_image.url }}" class="detail-image">
+  </div>
 
-<p>
-  <a href="{% url 'clothing_update' clothing.pk %}">編集</a>
-</p>
+  <div class="detail-info">
+      <p><span>カテゴリ：</span>{{ clothing.category.name }}</p>
+      <p><span>サイズ：</span>{{ clothing.size }}</p>
+      <p><span>カラー：</span>{{ clothing.color }}</p>
+      <p><span>季節：</span>
+        {% for season in clothing.seasons.all %}
+          {{ season.name }}
+        {% endfor %}
+      </p>
+      <p><span>着用状況：</span>{{ clothing.wear_status }}</p>
+      <p><span>メモ：</span>{{ clothing.note }}</p>
+  </div>
 
-<p>
-  <button type="button" onclick="document.getElementById('delete-modal').style.display='block'">削除</button>
-</p>
+  <div class="detail-actions">
+    <a href="{% url 'clothing_update' clothing.pk %}" class="edit-link">編集</a>
+    <span class="delete-link" onclick="document.getElementById('delete-modal').style.display='block'">削除</span>
+  </div>
 
-<div id="delete-modal" style="display:none;">
-    <p>削除しますか？</p>
-    <form method="post" action="{% url 'clothing_delete' clothing.pk %}">
-      {% csrf_token %}
-      <input type="hidden" name="next" value="{{ next_url }}">
-      <button type="submit">はい</button>
-      <button type="button" onclick="document.getElementById('delete-modal').style.display='none'">いいえ</button>
-    </form>
-</div>
-
-<p>
-  <a href=" javascript:history.back() ">←アイテム一覧へ戻る</a>
-</p>
+  <div id="delete-modal" class="delete-modal"">
+    <div class="delete-modal-box">
+      <p>削除しますか？</p>
   
+      <div class="delete-modal-actions">
+        <form method="post" action="{% url 'clothing_delete' clothing.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ next_url }}">
+          <button type="submit" class="delete-yes-button">はい</button>
+        </form>
+
+        <button type="button" class="delete-no-button" onclick="document.getElementById('delete-modal').style.display='none'">いいえ</button>
+      </div>
+    </div> 
+  </div>
+
+  <div class="back-link-wrap">
+    <a href=" javascript:history.back()" class="back-link">←アイテム一覧へ戻る</a>
+  </div>
+
+</div>
 {% endblock %}
