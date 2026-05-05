@@ -52,12 +52,12 @@
     </select>
 </form>
 
-<div class="clothing_list">
+<div class="clothing-list">
 
     {% for clothing in clothes %}
-        <div class="clothing_item">
+        <div class="clothing-item">
             <a href="{% url 'clothing_detail' clothing.pk %}?next={{ request.get_full_path|urlencode }}">
-                <img src="{{ clothing.clothing_image.url }}" width="120">
+                <img src="{{ clothing.clothing_image.url }}">
             </a>
         </div>
     {% empty %}
