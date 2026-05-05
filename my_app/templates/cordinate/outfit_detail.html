@@ -58,22 +58,24 @@
     </div>
 {% endif %}
 
-<p>
-    <a href="{% url 'outfit_update' outfit.pk %}">編集</a>
-</p>
-
-<p>
-    <button type="button" onclick="document.getElementById('delete-modal').style.display='block'">削除</button>
-</p>
-
-<div id="delete-modal" style="display: none;">
-    <p>削除しますか？</p>
-    <form method="post" action="{% url 'outfit_delete' outfit.pk %}">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ next_url }}">
-        <button type="submit">はい</button>
-        <button type="button" onclick="document.getElementById('delete-modal').style.display='none'">いいえ </button>
-    </form>
+<div class="detail-actions"></div>
+    <a href="{% url 'outfit_update' outfit.pk %}" class="edit-link">編集</a>
+    <span class="delete-link" onclick="document.getElementById('delete-modal').style.display='block'">削除</span>
 </div>
+
+<div id="delete-modal" class="delete-modal">
+    <div class="delete-modal-box">
+      <p>削除しますか？</p>
+  
+      <div class="delete-modal-actions">
+        <form method="post" action="{% url 'outfit_delete' outfit.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ next_url }}">
+          <button type="submit" class="delete-yes-button">はい</button>
+        </form>
+
+        <button type="button" class="delete-no-button" onclick="document.getElementById('delete-modal').style.display='none'">いいえ</button>
+      </div>
+    </div> 
 
 {% endblock %}
