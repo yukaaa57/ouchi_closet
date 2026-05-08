@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'home' %}">ホーム</a>
+    <a href="{% url 'home' %}">ホーム</a> >
     {% if owner_type == "user" %}
       <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
     {% else %}
@@ -13,7 +13,7 @@
 
 {% block content %}
 
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="clothing-form">
     {% csrf_token %}
 
     <p>
@@ -27,7 +27,7 @@
     </p>
 
     <p>
-        <button type="button" onclick="document.getElementById('category-modal').style.display='block'">＋カテゴリを追加</button>
+        <button type="button" onclick="document.getElementById('category-modal').style.display='flex'">＋カテゴリを追加</button>
     </p>
 
     <p>
@@ -55,24 +55,26 @@
         {{ form.note }}
     </p>
 
-    <button type="submit" class="save_button">保存</button>
+    <button type="submit" class="save-button">保存</button>
 </form>
 
-<div id="category-modal" style="display: none;">
-    <p>カテゴリ追加</p>
+<div id="category-modal" class="category-modal" style="display: none;">
+    <div class="category-modal-box">
+        <p>カテゴリ追加</p>
 
-    <form method="post" action="{% url 'category_create' %}">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <form method="post" action="{% url 'category_create' %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
 
-        <p>
-            {{ category_form.name.label_tag }}
-            {{ category_form.name }}
-        </p>
+            <div class="category-modal-row">
+                {{ category_form.name.label_tag }}
+                {{ category_form.name }}
+            </div>
 
-        <button type="submit" class="save-button">追加</button>
-        <button type="button" onclick="document.getElementById('category-modal').style.display='none'">×</button>
-    </form>
+            <button type="submit" class="save-button">追加</button>
+            <button type="button" class="modal-close-button" onclick="document.getElementById('category-modal').style.display='none'">×</button>
+        </form>
+    </div>
 </div>
   
 {% endblock %}
