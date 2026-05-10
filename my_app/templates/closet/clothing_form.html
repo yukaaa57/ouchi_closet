@@ -16,46 +16,94 @@
 <form method="post" enctype="multipart/form-data" class="clothing-form">
     {% csrf_token %}
 
-    <p>
-        {{ form.clothing_image }}
-        {{ form.clothing_image.label_tag }}
-    </p>
+    <div class="image-upload-area">
+        <div class="image-preview-box">
+            {% if form.instance.clothing_image %}
+                <img src="{{ form.instance.clothing_image.url }}" class="image-preview">
+            {% endif %}
+        </div>
 
-    <p>
-        {{ form.category.label_tag }}
-        {{ form.category }}
-    </p>
+        <label class="image-select-link">
+            画像を選択
+            {{ form.clothing_image }}
+        </label>
+    </div>
 
-    <p>
-        <button type="button" onclick="document.getElementById('category-modal').style.display='flex'">＋カテゴリを追加</button>
-    </p>
+    <div class="section-title">
+        <p>基本情報（入力必須）</p>
+    </div>
 
-    <p>
-        {{ form.size.label_tag }}
-        {{ form.size }}
-    </p>
+    <div class="form-row">
+        <label class="form-label">
+            {{ form.category.label_tag }}
+        </label>
 
-    <p>
-        {{ form.color.label_tag }}
-        {{ form.color }}
-    </p>
+        <div class="form-input">
+            {{ form.category }}
+        </div>
+    </div>
 
-    <p>
-        {{ form.seasons.label_tag }}
-        {{ form.seasons }}
-    </p>
+    <div class="category-add-link-area">
+        <button type="button" class="add-category-link" onclick="document.getElementById('category-modal').style.display='flex'">＋カテゴリを追加</button>
+    </div>
 
-    <p>
-        {{ form.wear_status.label_tag }}
-        {{ form.wear_status }}
-    </p>
+    <div class="form-row">
+        <label class="form-label">
+            {{ form.size.label_tag }}
+        </label>
 
-    <p>
-        {{ form.note.label_tag }}
-        {{ form.note }}
-    </p>
+        <div class="form-input">
+            {{ form.size }}
+        </div>
+    </div>
 
-    <button type="submit" class="save-button">保存</button>
+    <div class="form-row">
+        <label class="form-label">
+            {{ form.color.label_tag }}
+        </label>
+
+        <div class="form-input">
+            {{ form.color }}
+        </div>
+    </div>
+
+    <div class="form-row season-row">
+        <label class="form-label">
+            {{ form.seasons.label_tag }}
+        </label>
+
+        <div>
+            {{ form.seasons }}
+        </div>
+    </div>
+
+    <div class="section-title">
+        <p>詳細情報（任意）</p>
+    </div>
+
+    <div class="form-row">
+        <label class="form-label">
+            {{ form.wear_status.label_tag }}
+        </label>
+
+        <div class="form-input">
+            {{ form.wear_status }}
+        </div>
+    </div>
+
+    <div class="form-row memo-row">
+        <label class="form-label">
+            {{ form.note.label_tag }}
+        </label>
+
+        <div class="form-input">
+            {{ form.note }}
+        </div>
+    </div>
+    
+    <div class="save-area">
+        <button type="submit" class="save-button">保存</button>
+    </div>
 </form>
 
 <div id="category-modal" class="category-modal" style="display: none;">
@@ -71,10 +119,35 @@
                 {{ category_form.name }}
             </div>
 
-            <button type="submit" class="save-button">追加</button>
+            <div class="save-area">
+                <button type="submit" class="save-button">追加</button>
+            </div>
             <button type="button" class="modal-close-button" onclick="document.getElementById('category-modal').style.display='none'">×</button>
         </form>
     </div>
 </div>
-  
+
+<script>
+const imageInput = document.querySelector('input[type="file"]');
+const previewBox = document.querySelector('.image-preview-box');
+
+imageInput.addEventListener('change', function () {
+    const file = this.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        previewBox.innerHTML = `
+            <img src ="${e.target.result}" class="image-preview">
+        `;
+    };
+
+    reader.readAsDataURL(file);
+});
+</script>
+
 {% endblock %}

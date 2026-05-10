@@ -706,6 +706,258 @@ form select {
     text-align: left;
 }
 
+/* １項目ずつのまとまり */
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+/* 左側ラベル */
+.form-label {
+    width: 90px;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #8a817c;
+    text-align: left;
+    padding-top: 0;
+    margin-bottom: 0;
+}
+
+/* 右側入力欄 */
+.form-input {
+    width: 220px;
+    flex-shrink: 0;
+}
+
+/* 季節チェックボックス */
+.season-row .form-label {
+    padding-top: 2px;
+}
+
+/*
+.season-row .form-input {
+    width: auto;
+    flex: none;
+} */
+
+/* メモテキスト入力部分 */
+.memo-row {
+    align-items: flex-start;
+}
+
+.memo-row .form-label {
+    padding-top: 2px;
+}
+
+/* ラベル */
+.form-row label {
+    width: 80px;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #8a817c;
+} 
+
+/* 入力欄 */
+.form-input input,
+.form-input select,
+.form-input textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 9px 10px;
+    border: 1px solid #ddd4cf;
+    border-radius: 8px;
+    background-color: #fffdfb;
+    font-size: 14px;
+    color: #5a4a45;
+}  
+
+.form-input select,
+.form-input textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-input select {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* メモ欄 */
+.clothing-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* ファイル選択だけは普通の形に近く */
+.clothing-form input[type="file"] {
+    padding: 8px 0;
+    background-color: transparent;
+    border: none;
+}
+
+/* カテゴリ追加リンクエリア */
+.category-add-link-area {
+    text-align: right;
+    margin-top: -18px;
+    margin-bottom:18px;
+}
+
+/* カテゴリ追加リンク */
+.add-category-link {
+    border: none;
+    background: none;
+    padding: 0;
+    font-size: 13px;
+    color: #7da4c7;
+    cursor: pointer;
+}
+
+/* ホバー時 */
+.add-category-link:hover {
+    color: #5f89ae;
+    text-decoration: underline;
+}
+
+/* カテゴリ追加ボタン */
+/*
+.add-category-button {
+    margin: 4px 0 20px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    background-color: #d97992;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+} */
+
+/* 季節の行 */
+.season-row {
+    margin-bottom: 20px;
+}
+
+/* 季節の選択肢全体 */
+#id_seasons {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+/* 季節ひとつずつ */
+#id_seasons > div {
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    flex: 0 0 auto;
+}
+
+/* 季節の文字と丸を横並び */
+#id_seasons label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* チェックボックスを丸にする */
+.clothing-form input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    min-width: 12px;
+    min-height: 12px;
+    border: 1.5px solid #8a817c;
+    border-radius: 50%;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* 選択したら黒丸 */
+.clothing-form input[type="checkbox"]:checked {
+    background-color: #5a4a45;
+    border-color: #5a4a45;
+}
+
+.form-row {
+    display: flex;
+    align-items: center !important;
+}
+
+.form-label,
+.form-row label {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    padding-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.memo-row {
+    align-items: flex-start !important;
+}
+
+.memo-row .form-label,
+.memo-row label {
+    height: auto;
+    padding-top: 2px !important;
+}
+
+#id_seasons {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+    justify-content: flex-start !important;
+    width: fit-content !important;
+}
+
+#id_seasons > div {
+    width: auto !important;
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+}
+
+#id_seasons label {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    width: auto !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+}
+
+
+
+/* 保存ボタンを中央へ */
+.save-area {
+    text-align: center;
+    margin-top: 26px;
+}
+
+/* 保存・登録・変更ボタン */
+.save-button {
+    border: none;
+    border-radius: 12px;
+    padding: 11px 34px;
+    background-color: #f1d5b8;
+    color: #5a4a45;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+/*
 .clothing-form p {
     margin-bottom: 16px;
 }
@@ -775,7 +1027,6 @@ form select {
 .clothing-form input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
-    flex: none;
     width: 12px;
     height: 12px;
     min-width: 12px;
@@ -791,9 +1042,10 @@ form select {
 .clothing-form input[type="checkbox"]:checked {
     background-color: #5a4a45;
     border-color: #5a4a45;
-}
+} 
 
 /* 保存・登録・変更ボタン */
+/*
 .save-button {
     display: block;
     margin: 32px auto 0;
@@ -805,7 +1057,7 @@ form select {
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-}
+} */
 
 /* カテゴリ追加モーダル */
 .category-modal {
@@ -889,4 +1141,51 @@ form select {
     line-height: 30px;
     text-align: center;
     cursor: pointer;
+}
+
+/* 画像アップロード */
+.image-upload-area {
+    text-align: center;
+    margin: 24px 0 28px;
+}
+
+/* プレビューボックス */
+.image-preview-box {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 8px;
+    border: 1px solid #ddd4cf;
+    background-color: #fffdfb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 画像選択リンク */
+.image-select-link {
+    font-size: 13px;
+    color: #7da4c7;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.image-select-link input[type="file"] {
+    display: none;
+}
+
+/* 基本情報、詳細情報 */
+.section-title {
+    margin: 18px 0 10px;
+}
+
+.section-title p {
+    font-size: 12px;
+    color: #d89a9a;
+    font-weight: 600;
 }
