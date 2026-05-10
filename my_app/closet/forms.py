@@ -65,7 +65,7 @@ class ClothingSearchForm(forms.Form):
         label="カラー",
     )
     
-    season = forms.ModelMultipleChoiceField(
+    seasons = forms.ModelMultipleChoiceField(
         queryset=Season.objects.all(),
         required=False,
         label="季節",

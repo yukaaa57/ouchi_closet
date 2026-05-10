@@ -13,35 +13,66 @@
 
 {% block content %}
 
-<h2>アイテム検索</h2>
+<h2 class="search-title">アイテム検索</h2>
 
-<form method="get" action="{% url 'clothing_search_results' owner_type owner.pk %}">
-  <p>
-    {{ form.category.label_tag }}
-    {{ form.category }}
-  </p>
+<p class="search-note">条件は複数選択可</p>
 
-  <p>
-    {{ form.size.label_tag }}
-    {{ form.size }}
-  </p>
+<form method="get" action="{% url 'clothing_search_results' owner_type owner.pk %}" class="clothing-form">
 
-  <p>
-    {{ form.color.label_tag }}
-    {{ form.color }}
-  </p>
 
-  <p>
-    {{ form.season.label_tag }}
-    {{ form.season }}
-  </p>
+    <div class="form-row">
+        <label class="form-label">
+            {{ form.category.label_tag }}
+        </label>
 
-  <p>
-    {{ form.wear_status.label_tag }}
-    {{ form.wear_status }}
-  </p>
+        <div class="form-input">
+            {{ form.category }}
+        </div>
+    </div>
 
-  <button type="submit" class="search_button">🔍検索</button>
+    <div class="form-row">
+        <label class="form-label">
+            {{ form.size.label_tag }}
+        </label>
+
+        <div class="form-input">
+            {{ form.size }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <label class="form-label">
+            {{ form.color.label_tag }}
+        </label>
+
+        <div class="form-input">
+            {{ form.color }}
+        </div>
+    </div>
+
+    <div class="form-row season-row">
+        <label class="form-label">
+            {{ form.seasons.label_tag }}
+        </label>
+
+        <div>
+            {{ form.seasons }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <label class="form-label">
+            {{ form.wear_status.label_tag }}
+        </label>
+
+        <div class="form-input">
+            {{ form.wear_status }}
+        </div>
+    </div>
+
+    <div class="search-button-area">
+        <button type="submit" class="search-button">🔍検索</button>
+    </div>
 </form>
   
 {% endblock %}
