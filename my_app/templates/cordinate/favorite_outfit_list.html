@@ -12,57 +12,66 @@
 
 {% block content %}
 
-<h2>♡お気に入り♡</h2>
+<h2 class="outfit-title">♡お気に入り♡</h2>
 
-{% if owner_type == "user" %}
-  <a href="{% url 'user_outfit_list' owner.pk %}">←登録コーデへ</a>
-{% else %}
-  <a href="{% url 'child_outfit_list' owner.pk %}">←登録コーデへ</a>
-{% endif %}
+<div class="outfit-list-menu">
+  {% if owner_type == "user" %}
+    <a href="{% url 'user_outfit_list' owner.pk %}">←登録コーデへ</a>
+  {% else %}
+    <a href="{% url 'child_outfit_list' owner.pk %}">←登録コーデへ</a>
+  {% endif %}
 
-<form  method="get">
+  <form  method="get" class="sort-form">
     <label for="order">並び順</label>
     <select name="order" id="order" onchange="this.form.submit()">
-        <option value="new" {% if order == "new" %}selected{% endif %}>新しい順</option>
-        <option value="old" {% if order == "old" %}selected{% endif %}>古い順</option>
+      <option value="new" {% if order == "new" %}selected{% endif %}>新しい順</option>
+      <option value="old" {% if order == "old" %}selected{% endif %}>古い順</option>
     </select>
-</form>
+  </form>
+</div>
 
-<div class="outfit-grid"></div>
+<div class="outfit-list">
     {% for outfit in outfits %}
       
-      <div class="outfit-item">
+      <div class="outfit-card">
         <a href="{% url 'outfit_detail' outfit.pk %}?next={{ request.get_full_path|urlencode }}">
+          <div class="outfit-images">
             {% if outfit.outfit_type == 1 %}
               {% for image in outfit.outfit_images.all %}
-                <img src="{{ image.outfit_image.url }}" width="80" alt="コーデ画像">
+                <div class="outfit-image-box">
+                  <img src="{{ image.outfit_image.url }}" alt="コーデ画像">
+                </div>
               {% endfor %}
             {% else %}
               {% for item in outfit.outfit_clothing_items.all %}
-                <img src="{{ item.clothing_item.clothing_image.url }}" width="80" alt="コーデ画像">
+                <div class="outfit-image-box">
+                  <img src="{{ item.clothing_item.clothing_image.url }}" alt="コーデ画像">
+                </div>
               {% endfor %}
             {% endif %}
+          </div>
         </a>
 
-        <form method="post" action="{% url 'outfit_toggle_favorite' outfit.pk %}">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <form method="post" action="{% url 'outfit_toggle_favorite' outfit.pk %}" class="favorite-button">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.get_full_path }}">
 
-            <button type="submit" style="background: none; border: none; padding: 0; font-size: 20px;">
-                {% if outfit.is_favorite %}
-                  <span style="color: red;">♡</span>
-                {% else %}
-                  <span style="color: grey;">♡</span>
-                {% endif %}
-            </button>
+          <button type="submit" style="background: none; border: none; padding: 0; font-size: 20px;">
+            {% if outfit.is_favorite %}
+              <span style="color: red;">♥</span>
+            {% else %}
+              <span style="color: grey;">♡</span>
+            {% endif %}
+          </button>
         </form>
       </div>
     {% empty%}
       <p>登録されているコーデはありません</p>
     {% endfor %}
+</div>
 
-    <a href="#" class="save-link">＋コーディネートを登録</a>
-
+<div class="add-outfit-wrapper">
+  <a href="{% url 'outfit_select' owner_type owner.id %}" class="save-link">＋コーディネートを登録</a>
 </div>
   
 {% endblock %}
