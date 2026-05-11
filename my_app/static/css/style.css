@@ -1218,3 +1218,94 @@ form select {
     text-align: center;
     margin-top: 36px;
 }
+
+/* =====コーデ一覧画面===== */
+
+/* 見出し真ん中へ */
+.outfit-title {
+    text-align: center;
+}
+
+/* ←コーデへと並び順ボックスを横並びに */
+.outfit-list-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px 0;
+}
+
+.sort-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* コーデ一覧全体 */
+.outfit-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 16px;
+}
+
+/* コーデ写真 */
+.outfit-card {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    padding: 8px;
+}
+
+/* コーデ写真詳細 */
+.outfit-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.outfit-images img {
+    width: 100px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+.outfit-image-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.outfit-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* お気に入りボタン */
+.favorite-button {
+    position: absolute;
+    right: 8px;
+    bottom: -8px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #d66;
+}
+
+/* リンクを真ん中に */
+.add-outfit-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
