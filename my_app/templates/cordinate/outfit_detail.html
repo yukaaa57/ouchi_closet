@@ -12,70 +12,79 @@
 
 {% block content %}
 
-<div>
-    {% if outfit.outfit_type == 1 %}
-        {% for image in outfit.outfit_images.all %}
-            <img src="{{ image.outfit_image.url }}" width="120" alt="コーデ画像">
-        {% empty %}
-            <p>画像は登録されていません</p>
-        {% endfor %}
-    {% else %}
-        {% for item in outfit.outfit_clothing_items.all %}
-            <img src="{{ item.clothing_item.clothing_image.url }}" width="120" alt="使用アイテム画像">
-        {% empty %}
-            <p>画像は登録されていません</p>
-        {% endfor %}
-    {% endif %}
-</div>
+<div class="outfit-detail">
 
-<div style="font-size: 28px;">
-    {% if outfit.is_favorite %}
-        <span style="color: red;">♥</span>
-    {% else %}
-        <span style="color: grey;">♡</span>
-    {% endif %}
-</div>
-
-<div>
-    <p>メモ：{{ outfit.note|default:"" }}</p>
-</div>
-
-{% if outfit.outfit_type == 1 %}
-    <div>
-        <p>URL：</p>
-
-        {% if outfit.outfit_urls.all %}
-            {% for outfit_url in outfit.outfit_urls.all %}
-                <p>
-                    <a href="{{ outfit_url.url }}" target="_blank" rel="noopener noreferrer">
-                        {{ outfit_url.url }}
-                    </a>
-                </p>
+    <div class="outfit-detail-images">
+        {% if outfit.outfit_type == 1 %}
+            {% for image in outfit.outfit_images.all %}
+                <div class="outfit-detail-image-box">
+                    <img src="{{ image.outfit_image.url }}" alt="コーデ画像">
+                </div>
+            {% empty %}
+                <p>画像は登録されていません</p>
             {% endfor %}
         {% else %}
-            <p>URLは登録されていません</p>
+            {% for item in outfit.outfit_clothing_items.all %}
+                <div class="outfit-detail-image-box">
+                    <img src="{{ item.clothing_item.clothing_image.url }}" alt="コーデ画像">
+                </div>
+            {% empty %}
+                <p>画像は登録されていません</p>
+            {% endfor %}
         {% endif %}
+    
+
+        <div class="favorite-button detail-favorite-button">
+            {% if outfit.is_favorite %}
+                <span style="color: red;">♥</span>
+            {% else %}
+                <span style="color: grey;">♡</span>
+            {% endif %}
+        </div>
     </div>
-{% endif %}
 
-<div class="detail-actions"></div>
-    <a href="{% url 'outfit_update' outfit.pk %}" class="edit-link">編集</a>
-    <span class="delete-link" onclick="document.getElementById('delete-modal').style.display='block'">削除</span>
-</div>
+    <div class="outfit-detail-section">
+        <p class="detail-label">メモ：</p>
+        <p>{{ outfit.note|default:"" }}</p>
+    </div>
 
-<div id="delete-modal" class="delete-modal">
-    <div class="delete-modal-box">
-      <p>削除しますか？</p>
-  
-      <div class="delete-modal-actions">
-        <form method="post" action="{% url 'outfit_delete' outfit.pk %}">
-          {% csrf_token %}
-          <input type="hidden" name="next" value="{{ next_url }}">
-          <button type="submit" class="delete-yes-button">はい</button>
-        </form>
+    {% if outfit.outfit_type == 1 %}
+        <div class="outfit-detail-section">
+            <p class="detail-label">URL：</p>
 
-        <button type="button" class="delete-no-button" onclick="document.getElementById('delete-modal').style.display='none'">いいえ</button>
-      </div>
-    </div> 
+            {% if outfit.outfit_urls.all %}
+                {% for outfit_url in outfit.outfit_urls.all %}
+                    <p>
+                        <a href="{{ outfit_url.url }}" target="_blank" rel="noopener noreferrer">
+                            {{ outfit_url.url }}
+                        </a>
+                    </p>
+                {% endfor %}
+            {% else %}
+                <p>URLは登録されていません</p>
+            {% endif %}
+        </div>
+    {% endif %}
 
+    <div class="detail-actions">
+        <a href="{% url 'outfit_update' outfit.pk %}" class="edit-link">編集</a>
+        <span class="delete-link" onclick="document.getElementById('delete-modal').style.display='block'">削除</span>
+    </div>
+
+    <div id="delete-modal" class="delete-modal">
+        <div class="delete-modal-box">
+            <p>削除しますか？</p>
+    
+            <div class="delete-modal-actions">
+                <form method="post" action="{% url 'outfit_delete' outfit.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next_url }}">
+                    <button type="submit" class="delete-yes-button">はい</button>
+                </form>
+
+                <button type="button" class="delete-no-button" onclick="document.getElementById('delete-modal').style.display='none'">いいえ</button>
+            </div>
+        </div>
+    </div>
+</div> 
 {% endblock %}
