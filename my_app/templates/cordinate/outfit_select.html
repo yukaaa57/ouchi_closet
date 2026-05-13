@@ -12,29 +12,29 @@
 
 {% block content %}
 
-<div style="margin-top: 30px;">
+<div class="outfit-select">
     {% if owner_type == "user" %}
         <p>
-            <a href="{% url 'user_outfit_create' owner_id=owner.pk outfit_type=0 %}">
-                <button type="button">手持ちアイテムから登録</button>
+            <a href="{% url 'user_outfit_create' owner_id=owner.pk outfit_type=0 %}" class="outfit-select-card">
+                手持ちアイテムから<br>登録
             </a>
         </p>
 
         <p>
-            <a href="{% url 'user_outfit_create' owner_id=owner.pk outfit_type=1 %}">
-                <button type="button">外部サイトから登録</button>
+            <a href="{% url 'user_outfit_create' owner_id=owner.pk outfit_type=1 %}" class="outfit-select-card">
+                外部サイトから<br>登録
             </a>
         </p>
     {% else %}
         <p>
-            <a href="{% url 'child_outfit_create' owner_id=owner.pk outfit_type=0 %}">
-                <button type="button">手持ちアイテムから登録</button>
+            <a href="{% url 'child_outfit_create' owner_id=owner.pk outfit_type=0 %}" class="outfit-select-card">
+                手持ちアイテムから<br>登録
             </a>
         </p>
 
         <p>
-            <a href="{% url 'child_outfit_create' owner_id=owner.pk outfit_type=1 %}">
-                <button type="button">外部サイトから登録</button>
+            <a href="{% url 'child_outfit_create' owner_id=owner.pk outfit_type=1 %}" class="outfit-select-card">
+                外部サイトから<br>登録
             </a>
         </p>
     {% endif %}
