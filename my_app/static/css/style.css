@@ -1421,7 +1421,7 @@ form select {
     box-sizing: border-box;
 }
 
-/* =====コーデ登録・編集画面===== */
+/* =====手持ちコーデ登録・編集画面===== */
 /* 登録・編集画面全体 */
 .outfit-form {
     padding: 24px;
@@ -1581,4 +1581,21 @@ form select {
 /* チェックされたら❤︎を表示 */
 #id_is_favorite:checked + .favorite-label .heart-active {
     display: inline;
+}
+
+/* =====外部コーデ登録・編集画面===== */
+.image-select-link {
+    border: none;
+    background-color: #ffe7c7;
+    color: #666;
+    font-size: 15px;
+    font-weight: normal;
+    padding: 0;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.image-select-link input {
+    display: none;
 }

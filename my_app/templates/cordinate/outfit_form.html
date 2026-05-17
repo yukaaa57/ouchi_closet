@@ -28,45 +28,58 @@
 <form method="post" enctype="multipart/form-data" class="outfit-form">
     {% csrf_token %}
 
-    <!--外部サイトコーデ：画像追加-->
+    <!--外部サイトコーデ-->
     {% if outfit_type == 1 %}
-        <div class="add-image-area">
-            <p class="add-image-title">画像を追加</p>
+        <div id="new-image-inputs" class="outfit-form-image-area">
 
-            <div id="new-image-inputs">
-                {% if is_create %}
-                    {% for i in initial_slots %}
-                        <div class="new-image-row" style="margin-bottom: 12px;">
-                            <div class="image-preview-box" style="width: 120px; height: 120px; border: 1px solid #999; margin-bottom: 8px;"></div>
-                            <input type="file" name="outfit_images" class="outfit-image-input">
+            {% if is_create %}
+                {% for i in initial_slots %}
+                    <div class="selected-item-slot outfit-form-slot">
+                        <div class="selected-item-preview  outfit-form-preview"></div>
+
+                        <div class="selected-item-action">
+                            <label class="image-select-link">
+                                画像を選択
+                                <input type="file" name="outfit_images" class="outfit-image-input">
+                            </label>
                         </div>
-                    {% endfor %}
-                {% else %}
-                    {% for image in outfit.outfit_images.all %}
-                        <div class="external-image-slot" style="margin-bottom: 12px;">
-                            <div class="external-image-preview">
-                                <img src="{{ image.outfit_image.url }}" width="120" alt="コーデ画像">
-                            </div>
-
-                            <div class="external-image-action">
-                                <button type="button" class="remove-external-image-slot">画像を削除</button>
-                                <input type="hidden" name="keep_outfit_image_ids" value="{{ image.pk }}">
-                            </div>
-                        </div>
-                    {% endfor %}
-
-                    <div class="new-image-row">
-                        <div class="image-preview-box"></div>
-                        <input type="file" name="outfit_images" class="outfit-image-input">
                     </div>
-                {% endif %}
-            </div>
+                {% endfor %}
+            {% else %}
+                {% for item in outfit.outfit_clothing_items.all %}
+                    <div class="selected-item-slot outfit-form-slot">
+                        <div class="selected-item-preview outfit-form-preview">
+                            <img src="{{ image.outfit_image.url }}" alt="コーデ画像">
+                        </div>
+
+                        <div class="selected-item-action">
+                            <button type="button" class="remove-item-slot">画像を削除</button>
+                            <input type="hidden" name="keep_outfit_image_ids" value="{{ image.pk }}">
+                        </div>
+                    </div>
+                {% endfor %}
+
+            <!--外部コーデ：アイテム追加-->
+                <div class="add-image-area">
+                    <p class="add-image-title">画像を追加</p>
+                    <div class="selected-item-slot outfit-form-slot">
+                        <div class="selected-item-preview outfit-form-preview"> </div>
+
+                        <div class="selected-item-action">
+                            <label class="image-select-link">
+                                画像を選択
+                                <input type="file" name="outfit_images" class="outfit-image-input">
+                            </label>
+                        </div>  
+                    </div>
+                </div> 
+            {% endif %}  
         </div>
 
-        <button type="button" id="add-image-input">＋追加</button>
+        <button type="button" id="add-item-slot" class="outfit-form-add-button">＋追加</button>
     {% endif %}
 
-    <!--手持ちコーデ：既存アイテム表示-->
+    <!--手持ちコーデ：-->
     {% if outfit_type == 0 %}
         <div id="selected-items-area" class="outfit-form-image-area">
 
@@ -99,9 +112,7 @@
                 <div class="add-image-area">
                     <p class="add-image-title">画像を追加</p>
                     <div class="selected-item-slot outfit-form-slot">
-                        <div class="selected-item-preview outfit-form-preview">
-                            <div></div>
-                        </div>
+                        <div class="selected-item-preview outfit-form-preview"> </div>
 
                         <div class="selected-item-action">
                             <button type="button" class="open-clothing-modal">画像を選択</button>
