@@ -52,15 +52,15 @@
           </div>
         </a>
 
-        <form method="post" action="{% url 'outfit_toggle_favorite' outfit.pk %}" class="favorite-button">
+        <form method="post" action="{% url 'outfit_toggle_favorite' outfit.pk %}" class="favorite-button list-favorite-button">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ request.get_full_path }}">
 
-            <button type="submit" style="background: none; border: none; padding: 0; font-size: 20px;">
+            <button type="submit">
                 {% if outfit.is_favorite %}
-                  <span style="color: red;">♥</span>
+                  <span class="heart-active">♥</span>
                 {% else %}
-                  <span style="color: grey;">♡</span>
+                  <span class="heart-inactive">♡</span>
                 {% endif %}
             </button>
         </form>

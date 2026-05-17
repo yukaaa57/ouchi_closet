@@ -1289,9 +1289,6 @@ form select {
 
 /* お気に入りボタン */
 .favorite-button {
-    position: absolute;
-    right: 8px;
-    bottom: -8px;
     width: 42px;
     height: 42px;
     border-radius: 50%;
@@ -1302,6 +1299,35 @@ form select {
     align-items: center;
     font-size: 24px;
     color: #d66;
+}
+
+.favorite-button button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+.heart-active {
+    color: #e56b6f;
+}
+
+.heart-inactive {
+    color: #bcbcbc;
+}
+
+/* お気に入り一覧用 */
+.list-favorite-button {
+    position: absolute;
+    right: 8px;
+    bottom: -8px;
 }
 
 /* リンクを真ん中に */
@@ -1342,6 +1368,13 @@ form select {
     object-fit: cover;
 }
 
+/* お気に入り詳細用 */
+.detail-favorite-button {
+    position: absolute;
+    right: -10px;
+    bottom: -50px;
+}
+
 /* コーデのメモ・URL（詳細情報のまとまり） */
 .outfit-detail-section {
     display: flex;
@@ -1363,15 +1396,6 @@ form select {
 .outfit-detail-section p {
     margin: 0;
 }
-
-/* ♡の位置（コーデ詳細画面）変更 */
-.detail-favorite-button {
-    position: absolute;
-    right: -10px;
-    bottom: -50px;
-}
-
-/* =====コーデ登録選択画面===== */
 
 /* セレクト全体 */
 .outfit-select {
@@ -1395,4 +1419,154 @@ form select {
     font-weight: bold;
     text-align: center;
     box-sizing: border-box;
+}
+
+/* =====コーデ登録・編集画面===== */
+/* 登録・編集画面全体 */
+.outfit-form {
+    padding: 24px;
+}
+
+/* 洋服画像の枠をまとめる箱 */
+.outfit-form-image-area {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 画像1枚分のまとまりを作る */
+.outfit-form-slot {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 16px;
+}
+
+/* 選択した画像を表示 */
+.outfit-form-preview {
+    width: 120px;
+    height: 120px;
+    border: 1px solid #999;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.outfit-form-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 画像選択ボタン押下時の操作 */
+.selected-item-action {
+    display: flex;
+    align-items: center;
+}
+
+/* 画像を選択ボタン */
+.open-clothing-modal {
+    border: none;
+    background-color: #ffe7c7;
+    color: #666;
+    font-size: 15px;
+    font-weight: normal;
+    padding: 0;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* 画像追加エリア */
+.add-image-area {
+    width: fit-content;
+    margin-top: 16px auto o;
+}
+
+.add-image-title {
+    text-align: left;
+    margin: 0 0 8px 0;
+    color: #555;
+    font-weight: bold;
+}
+
+/* 画像追加ボタン */
+.outfit-form-add-button {
+    display: block;
+    width: fit-content;
+    margin: 18px auto 24px;
+    padding: 4px 14px;
+    border: 1px solid #999;
+    background-color: #fff;
+    color: #555;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* メモ */
+.outfit-form-note {
+    margin-top: 24px;
+}
+
+.outfit-form-note label {
+    text-align: left;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.outfit-form-note textarea {
+    width: 90%;
+    min-height: 80px;
+    box-sizing: border-box;
+}
+
+/* 画像を削除ボタン */
+.remove-item-slot,
+.remove-external-image-slot {
+    background-color: #ffe1e7;
+    border: none;
+    color: #7d7d7d;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 0;
+    display: inline-block;
+    border-radius: 3px;
+    font-weight: normal;
+}
+
+/* お気に入り登録・編集用 */
+.favorite-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+#id_is_favorite {
+    display: none;
+}
+
+.favorite-label {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.favorite-label .heart-active {
+    display: none;
+}
+
+.favorite-label .heart-inactive {
+    display: inline;
+}
+
+#id_is_favorite:checked + .favorite-label .heart-inactive {
+    display: none;
 }
