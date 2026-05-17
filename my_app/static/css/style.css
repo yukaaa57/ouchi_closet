@@ -1542,10 +1542,12 @@ form select {
     margin-top: 16px;
 }
 
+/* お気に入り登録・編集用（チェックボックス本体は隠す） */
 #id_is_favorite {
     display: none;
 }
 
+/* 丸いハートボタン */
 .favorite-label {
     width: 42px;
     height: 42px;
@@ -1559,14 +1561,24 @@ form select {
     cursor: pointer;
 }
 
-.favorite-label .heart-active {
-    display: none;
-}
-
+/* 最初は♡を表示 */
 .favorite-label .heart-inactive {
     display: inline;
+    color: #bcbcbc;
 }
 
+/* 最初は❤︎を隠す */
+.favorite-label .heart-active {
+    display: none;
+    color: #e56d6f;
+}
+
+/* チェックされたら♡を隠す */
 #id_is_favorite:checked + .favorite-label .heart-inactive {
     display: none;
+}
+
+/* チェックされたら❤︎を表示 */
+#id_is_favorite:checked + .favorite-label .heart-active {
+    display: inline;
 }
