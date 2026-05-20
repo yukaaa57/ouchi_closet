@@ -180,49 +180,63 @@
 
 <!--手持ち用モーダル-->
 {% if outfit_type == 0 %}
-    <div id="clothing-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff;">
-        <button type="button" id="close-clothing-modal">✖︎</button>
+    <div id="clothing-modal" class="clothing-modal">
+        <button type="button" id="close-clothing-modal" class="modal-close-button">×</button>
 
-        <div id="modal-search-area">
-            {% if is_create %}
-                {% if owner_type == "user" %}
-                    <form id="clothing-search-form" method="get" action="{% url 'user_clothing_item_search_create' owner.pk %}">
-                {% else %}
-                    <form id="clothing-search-form" method="get" action="{% url 'child_clothing_item_search_create' owner.pk %}">
+        <div class="modal-inner">
+
+            <p class="modal-breadcrumb">#</p>
+
+            <div id="modal-search-area">
+                {% if is_create %}
+                    {% if owner_type == "user" %}
+                        <form id="clothing-search-form" method="get" action="{% url 'user_clothing_item_search_create' owner.pk %}" class="modal-search-form">
+                    {% else %}
+                        <form id="clothing-search-form" method="get" action="{% url 'child_clothing_item_search_create' owner.pk %}" class="modal-search-form">
+                    {% endif %}
+                {%else %}
+                    <form id="clothing-search-form" method="get" action="{% url 'clothing_item_search' outfit.pk %}" class="modal-search-form">
                 {% endif %}
-            {%else %}
-                <form id="clothing-search-form" method="get" action="{% url 'clothing_item_search' outfit.pk %}">
-            {% endif %}
-            
-                <label>カテゴリ</label>
-                <select name="category">
-                    <option value="">---</option>
-                    {% for category in categories %}
-                        <option value="{{ category.pk }}"{% if selected_category == category.pk|stringformat:"s" %}selected{% endif %}>
-                            {{ category.name }}
-                        </option> 
-                    {% endfor %}
-                </select>
+                
+                    <div class="modal-search-row">
+                        <label>カテゴリ：</label>
+                        <select name="category">
+                            <option value="">---</option>
+                            {% for category in categories %}
+                                <option value="{{ category.pk }}"{% if selected_category == category.pk|stringformat:"s" %}selected{% endif %}>
+                                    {{ category.name }}
+                                </option> 
+                            {% endfor %}
+                        </select>
+                    </div>
 
-                <label>カラー</label>
-                <select name="color">
-                    <option value="">---</option>
-                    {% for value, label in color_choices %}
-                        <option value="{{ value }}"{% if selected_color == value %}selected{% endif %}>
-                            {{ label }}
-                        </option>
-                    {% endfor %}
-                </select>
+                    <div class="modal-search-row">
+                        <label>カラー：</label>
+                        <select name="color">
+                            <option value="">---</option>
+                            {% for value, label in color_choices %}
+                                <option value="{{ value }}"{% if selected_color == value %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="search-button-area">
+                        <button type="submit" class="search-button">検索</button>
+                    </div>
+                </form>
+            </div>
+        
 
-                <button type="submit">検索</button>
-            </form>
+            <div id="search-result-grid" class="modal-result-grid">
+                {% include "cordinate/_clothing_item_search_results.html" %}
+            </div>
+
+            <div class="save-area">
+                <button type="button" id="confirm-clothing-selection" class="save-button">確定</button>
+            </div>
         </div>
-
-        <div id="search-result-grid">
-            {% include "cordinate/_clothing_item_search_results.html" %}
-        </div>
-
-        <button type="button" id="confirm-clothing-selection">確定</button>
     </div> 
 {% endif %}
 
