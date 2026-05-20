@@ -46,7 +46,7 @@
                     </div>
                 {% endfor %}
             {% else %}
-                {% for item in outfit.outfit_clothing_items.all %}
+                {% for image in outfit.outfit_images.all %}
                     <div class="selected-item-slot outfit-form-slot">
                         <div class="selected-item-preview outfit-form-preview">
                             <img src="{{ image.outfit_image.url }}" alt="コーデ画像">
@@ -76,7 +76,7 @@
             {% endif %}  
         </div>
 
-        <button type="button" id="add-item-slot" class="outfit-form-add-button">＋追加</button>
+        <button type="button" id="add-image-input" class="outfit-form-add-button">＋追加</button>
     {% endif %}
 
     <!--手持ちコーデ：-->
@@ -126,42 +126,44 @@
         <button type="button" id="add-item-slot" class="outfit-form-add-button">＋追加</button>
     {% endif %}
 
+    {% if outfit_type == 1 %}
+        <div class="outfit-form-url-area">
+            <p class="outfit-form-url-label">URL:</p>
+
+            <div class="outfit-form-url-content">
+                <div id="url-inputs" class="outfit-form-url-inputs">
+                    {% if is_create %}
+                        <div class="url-input-row">
+                            <input type="url" name="outfit_urls" placeholder="URLを入力" class="url-input">
+                        </div>
+                    {% else %}
+                        {% if outfit.outfit_urls.all %}
+                            {% for outfit_url in outfit.outfit_urls.all %}
+                                <div class="url-input-row">
+                                    <input type="url" name="outfit_urls" value="{{ outfit_url.url }}" placeholder="URLを入力" class="url-input">
+                                </div>
+                            {% endfor %}
+                        {% elif  outfit.external_url %}
+                            <div class="url-input-row">
+                                <input type="url" name="outfit_urls" value="{{ outfit.external_url }}" placeholder="URLを入力" class="url-input">
+                            </div>
+                        {% endif %}
+
+                        <div class="url-input-row">
+                            <input type="url" name="outfit_urls" placeholder="URLを入力" class="url-input">
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <button type="button" id="add-url-input" class="url-add-button">＋</button>
+            </div>
+        </div>
+    {% endif %}
+
     <div class="outfit-form-note">
         {{ form.note.label_tag }}
         {{ form.note }}
     </div>
-
-    {% if outfit_type == 1 %}
-        <div style="margin-top: 20px;">
-            <p>URLを追加</p>
-
-            <div id="url-inputs">
-                {% if is_create %}
-                    <div class="url-input-row" style="margin-bottom: 12px;">
-                        <input type="url" name="outfit_urls" placeholder="URLを入力">
-                    </div>
-                {% else %}
-                    {% if outfit.outfit_urls.all %}
-                        {% for outfit_url in outfit.outfit_urls.all %}
-                            <div class="url-input-row" style="margin-bottom: 12px;">
-                                <input type="url" name="outfit_urls" value="{{ outfit_url.url }}" placeholder="URLを入力">
-                            </div>
-                        {% endfor %}
-                    {% elif  outfit.external_url %}
-                        <div class="url-input-row" style="margin-bottom: 12px;">
-                            <input type="url" name="outfit_urls" value="{{ outfit.external_url }}" placeholder="URLを入力">
-                        </div>
-                    {% endif %}
-
-                    <div class="url-input-row" style="margin-bottom: 12px;">
-                        <input type="url" name="outfit_urls" placeholder="URLを入力">
-                    </div>
-                {% endif %}
-            </div>
-            
-            <button type="button" id="add-url-input">＋</button>
-        </div>
-    {% endif %}
 
     <div class="favorite-area">
         {{ form.is_favorite }}
@@ -232,12 +234,17 @@
     if (addImageButton && newImageInputs){
         addImageButton.addEventListener("click", function(){
             const newRow = document.createElement("div");
-            newRow.className = "new-image-row";
-            newRow.style.marginBottom = "12px";
+            newRow.className = "selected-item-slot outfit-form-slot";
 
             newRow.innerHTML = `
-                <div class="image-preview-box" style="width:120px; height:120px; border:1px solid #999; margin-bottom:8px;"></div>
-                <input type="file" name="outfit_images" class="outfit-image-input">
+                <div class="selected-item-preview  outfit-form-preview"></div>
+
+                <div class="selected-item-action">
+                    <label class="image-select-link">
+                        画像を選択
+                        <input type="file" name="outfit_images" class="outfit-image-input">
+                    </label>
+                </div>
             `;
             newImageInputs.appendChild(newRow);
         });
@@ -263,10 +270,9 @@
         addUrlButton.addEventListener("click", function () {
             const newRow = document.createElement("div");
             newRow.className = "url-input-row";
-            newRow.style.marginBottom = "12px";
 
             newRow.innerHTML = `
-                <input type="url" name="outfit_urls" placeholder="URLを入力">
+                <input type="url" name="outfit_urls" placeholder="URLを入力" class="url-input">
             `;
 
             urlInputs.appendChild(newRow);
@@ -430,8 +436,8 @@
         }
 
         const previewBox = fileInput
-            .closest(".new-image-row")
-            .querySelector(".image-preview-box");
+            .closest(".selected-item-slot")
+            .querySelector(".selected-item-preview");
         
         if (!previewBox) {
             return;
@@ -440,7 +446,7 @@
         const reader = new FileReader();
 
         reader.onload = function (event) {
-            previewBox.innerHTML = `<img src="${event.target.result}" width="120" height="120" style="object-fit: cover;" alt="プレビュー画像">`;   
+            previewBox.innerHTML = `<img src="${event.target.result}" alt="プレビュー画像">`;   
         };
 
         reader.readAsDataURL(file);

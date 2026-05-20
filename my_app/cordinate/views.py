@@ -264,6 +264,9 @@ def outfit_update(request, pk):
             if outfit.outfit_type == 1:
                 keep_image_ids = request.POST.getlist("keep_outfit_image_ids")
                 
+                #空枠があるとエラーになるので取り除く
+                keep_image_ids = [image_id for image_id in keep_image_ids if image_id]
+                
                 outfit.outfit_images.exclude(pk__in=keep_image_ids).delete()
                 
                 upload_images = request.FILES.getlist("outfit_images")
