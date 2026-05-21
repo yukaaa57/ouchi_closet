@@ -8,42 +8,49 @@
 
 {% block content %}
 
-<h3>保育園必需品</h3>
+<h3 class="nursery-title">保育園必需品</h3>
 
-<div style="margin-top: 20px;">
-    <h4>持ち物</h4>
+<div class="nursery-section">
+    <div class="nursery-section-header">
+        <div class="nursery-title-area">
+            <h4>持ち物</h4>
 
-    <form method="post" action="{% url 'nursery_item_reset' child.pk 0 %}">
-        {% csrf_token %}
-        <button type="submit">リセット</button>
-    </form>
+            <form method="post" action="{% url 'nursery_item_reset' child.pk 0 %}">
+                {% csrf_token %}
+                <button type="submit" class="reset-button">リセット</button>
+            </form>
+        </div>
 
-    {% if carry_items %}
-        {% for item in carry_items %}
-            <div style="margin-top: 10px;">
-                <form method="post" action="{% url 'nursery_item_check' item.pk %}">
-                    {% csrf_token %}
-                    <label>
-                        <input
-                            type="checkbox"
-                            {% if item.is_checked %}checked{% endif %}
-                            {% if item.is_checked %}disabled{% endif %}
-                            onchange="this.form.submit()"
-                        >
-                        {{ item.name }}
-                    </label>
-                </form>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>持ち物は登録されていません</p>
-    {% endif %}
+        <div class="nursery-action-icons">
+            <button type="button" id="open-carry-edit-modal" class="icon-button">✏️</button>
+            <button type="button" id="open-carry-delete-modal" class="icon-button">🗑</button>
+        </div>
+    </div>
 
-    <div style="margin-top: 20px;">
-        <button type="button" id="open-carry-edit-modal">✏️</button>
-        <button type="button" id="open-carry-delete-modal">🗑</button>
+    <div class="nursery-item-list">
+        {% if carry_items %}
+            {% for item in carry_items %}
+                <div class="nursery-item-row">
+                    <form method="post" action="{% url 'nursery_item_check' item.pk %}">
+                        {% csrf_token %}
+                        <label>
+                            <input
+                                type="checkbox"
+                                {% if item.is_checked %}checked{% endif %}
+                                {% if item.is_checked %}disabled{% endif %}
+                                onchange="this.form.submit()"
+                            >
+                            {{ item.name }}
+                        </label>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>持ち物は登録されていません</p>
+        {% endif %}
     </div>
 </div>
+
 
 <!--編集モーダル-->
 <div id="carry-edit-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; margin-top: 20px;">
@@ -65,7 +72,7 @@
             </div>
         {% endfor %}
 
-        <div style="margin-top: 20px;">
+        <div class="save-area">
             <button type="submit" class="save-button">変更</button>
         </div>
     </form>
@@ -91,44 +98,50 @@
             </div>
         {% endfor %}
 
-        <div style="margin-top: 20px;">
+        <div class="save-area">
             <button type="submit" class="logout-button">削除</button>
         </div>
     </form>
 </div>
 
-<div style="margin-top: 30px;">
-    <h4>必要な物</h4>
-    
-    <form method="post" action="{% url 'nursery_item_reset' child.pk 1 %}">
-        {% csrf_token %}
-        <button type="submit">リセット</button>
-    </form>
+<div class="nursery-section">
+    <div class="nursery-section-header">
+        <div class="nursery-title-area">
+            <h4>必要な物</h4>
+            
+            <form method="post" action="{% url 'nursery_item_reset' child.pk 1 %}">
+                {% csrf_token %}
+                <button type="submit" class="reset-button">リセット</button>
+            </form>
+        </div>
 
-    {% if stock_items %}
-        {% for item in stock_items %}
-            <div style="margin-top: 10px;">
-                <form method="post" action="{% url 'nursery_item_check' item.pk %}">
-                    {% csrf_token %}
-                    <label>
-                        <input
-                            type="checkbox"
-                            {% if item.is_checked %}checked{% endif %}
-                            {% if item.is_checked %}disabled{% endif %}
-                            onchange="this.form.submit()"
-                        >
-                        {{ item.name }}
-                    </label>
-                </form>
-            </div>      
-        {% endfor %}
-    {% else %}
-        <p>必要な物は登録されていません</p>
-    {% endif %}
+        <div class="nursery-action-icons">
+            <button type="button" id="open-stock-edit-modal" class="icon-button">✏️</button>
+            <button type="button" id="open-stock-delete-modal" class="icon-button">🗑</button>
+        </div>
+    </div>
 
-    <div style="margin-top: 20px;">
-        <button type="button" id="open-stock-edit-modal">✏️</button>
-        <button type="button" id="open-stock-delete-modal">🗑</button>
+    <div class="nursery-item-list">
+        {% if stock_items %}
+            {% for item in stock_items %}
+                <div class="nursery-item-row">
+                    <form method="post" action="{% url 'nursery_item_check' item.pk %}">
+                        {% csrf_token %}
+                        <label>
+                            <input
+                                type="checkbox"
+                                {% if item.is_checked %}checked{% endif %}
+                                {% if item.is_checked %}disabled{% endif %}
+                                onchange="this.form.submit()"
+                            >
+                            {{ item.name }}
+                        </label>
+                    </form>
+                </div>      
+            {% endfor %}
+        {% else %}
+            <p>必要な物は登録されていません</p>
+        {% endif %}
     </div>
 </div>
 
@@ -152,7 +165,7 @@
             </div>
         {% endfor %}
 
-        <div style="margin-top: 20px;">
+        <div class="save-area">
             <button type="submit" class="save-button">変更</button>
         </div>
     </form>
@@ -178,13 +191,13 @@
             </div>
         {% endfor %}
 
-        <div style="margin-top: 20px;">
+        <div class="save-area">
             <button type="submit" class="logout-button">削除</button>
         </div>
     </form>
 </div>
 
-<div style="margin-top: 30px;">
+<div class="save-link-wrapper">
     <a href="{% url 'nursery_item_create' child.pk %}" class="save-link">＋追加</a>
 </div>
 

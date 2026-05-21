@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<h3>保育園必需品登録</h3>
+<h3 class="nursery-title">保育園必需品登録</h3>
 
 <form method="post">
     {% csrf_token %}
@@ -22,7 +22,7 @@
         {{ form.name }}
     </div>
 
-    <div style="margin-top: 20px;">
+    <div class="save-area">
         <button type="submit" class="save-button">保存</button>
     </div>
 </form>

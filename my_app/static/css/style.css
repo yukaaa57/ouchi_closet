@@ -1724,3 +1724,81 @@ form select {
     object-fit: cover;
 }
 
+/* =====保育園必需品一覧画面===== */
+.nursery-title {
+    text-align: center;
+}
+
+/* 持ち物・必要な物のまとまり */
+.nursery-section {
+    margin-top: 40px;
+
+}
+
+/* 見出し・リセット・アイコンのまとまり */
+.nursery-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* 持ち物・リセットのまとまり */
+.nursery-title-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nursery-title-area h4 {
+    margin: 0;
+    color: #555;
+    font-size: 16px;
+}
+
+/* リセットボタン */
+.reset-button {
+    padding: 3px 14px;
+    background-color: #e6f7f7;
+    border: 1px solid #b7dede;
+    color: #5d7f7f;
+    font-size: 13px;
+    line-height: 1.2;
+    cursor: pointer;
+}
+
+/* 編集・削除アイコンのまとまり */
+.nursery-action-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: -4px;
+}
+
+.icon-button {
+    background-color: transparent;
+    border: none;
+}
+
+/* チェックリスト全体 */
+.nursery-item-list {
+    margin-top: 4px;
+}
+
+/* チェックリスト１行ぶん */
+.nursery-item-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    color: #555;
+} 
+
+.nursery-item-row form {
+    margin: 0;
+}
+
+.nursery-item-row label {
+    margin: 0;
+    font-size: 14px;
+}
