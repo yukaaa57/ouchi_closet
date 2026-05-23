@@ -13,11 +13,11 @@
 <form method="post">
     {% csrf_token %}
 
-    <div>
+    <div class="nursery-form-type">
         {{ form.item_type }}
     </div>
 
-    <div style="margin-top: 20px;">
+    <div class="nursery-form-name">
         {{ form.name.label_tag }}
         {{ form.name }}
     </div>

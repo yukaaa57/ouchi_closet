@@ -1801,6 +1801,7 @@ form select {
 .nursery-item-row label {
     margin: 0;
     font-size: 14px;
+    color: #555;
 }
 
 /* 編集・削除モーダル全体 */
@@ -1878,4 +1879,41 @@ form select {
 /* モーダル内のフォーム */
 .modal-form {
     margin: 0;
+}
+
+/* =====保育園必需品登録画面===== */
+/* 持ち物・必要な物選択欄 */
+.nursery-form-type {
+    margin: 34px 0;
+    text-align: center;
+}
+
+.nursery-form-type label {
+    display: block;
+    margin-bottom: 14px;
+    color: #555;
+    font-size: 18px;
+}
+
+/* 入力欄 */
+.nursery-form-name {
+    width: fit-content;
+    margin: 28px auto 0;
+}
+
+.nursery-form-name label {
+    display: block;
+    margin-right: 8px;
+    color: #555;
+    font-size: 16px;
+    text-align: left;
+}
+
+.nursery-form-name input {
+    width: 190px;
+    height: 28px;
+    padding: 4px 8px;
+    box-sizing: content-box;
+    margin-top: 8px;
+    margin-left: 20px;
 }
