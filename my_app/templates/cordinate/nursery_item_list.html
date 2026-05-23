@@ -53,24 +53,26 @@
 
 
 <!--編集モーダル-->
-<div id="carry-edit-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; margin-top: 20px;">
-    <button type="button" id="close-carry-edit-modal">×</button>
+<div id="carry-edit-modal" class="nursery-modal">
+    <button type="button" id="close-carry-edit-modal" class="modal-close-button">×</button>
 
-    <h3>編集✏️</h3>
-    <p>変更内容を入力し変更ボタンを押下してください。</p>
+    <h3 class="modal-title">編集✏️</h3>
+    <p class="modal-description">変更内容を入力し変更ボタンを押下してください。</p>
 
-    <form method="post" action="{% url 'nursery_item_update' child.pk %}">
+    <form method="post" action="{% url 'nursery_item_update' child.pk %}" class="modal-form">
         {% csrf_token %}
 
         <input type="hidden" name="item_type" value="0">
 
-        <h4>持ち物</h4>
-        {% for item in carry_items %}
-            <div style="margin-bottom: 10px;">
-                <input type="hidden" name="item_ids" value="{{ item.pk }}">
-                <input type="text" name="item_names" value="{{ item.name }}">
-            </div>
-        {% endfor %}
+        <div class="modal-item-section">
+            <h4>持ち物</h4>
+            {% for item in carry_items %}
+                <div class="modal-item-row">
+                    <input type="hidden" name="item_ids" value="{{ item.pk }}">
+                    <input type="text" name="item_names" value="{{ item.name }}" class="modal-input">
+                </div>
+            {% endfor %}
+        </div>
 
         <div class="save-area">
             <button type="submit" class="save-button">変更</button>
@@ -79,24 +81,26 @@
 </div>
 
 <!--削除モーダル-->
-<div id="carry-delete-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; margin-top: 20px;">
-    <button type="button" id="close-carry-delete-modal">×</button>
+<div id="carry-delete-modal" class="nursery-modal">
+    <button type="button" id="close-carry-delete-modal" class="modal-close-button">×</button>
 
-    <h3>削除🗑</h3>
-    <p>削除したい物にチェックを入れて削除ボタンを押下してください</p>
+    <h3 class="modal-title">削除🗑</h3>
+    <p class="modal-description">削除したい物にチェックを入れて削除ボタンを押下してください</p>
 
-    <form method="post" action="{% url 'nursery_item_delete' child.pk %}">
+    <form method="post" action="{% url 'nursery_item_delete' child.pk %}" class="modal-form">
         {% csrf_token %}
 
-        <h4>持ち物</h4>
-        {% for item in carry_items %}
-            <div style="margin-bottom: 10px;">
-                <label>
-                    <input type="checkbox" name="delete_items" value="{{ item.pk }}">
-                    {{ item.name }}
-                </label>
-            </div>
-        {% endfor %}
+        <div class="modal-item-section">
+            <h4>持ち物</h4>
+            {% for item in carry_items %}
+                <div class="modal-item-row">
+                    <label class="modal-check-label">
+                        <input type="checkbox" name="delete_items" value="{{ item.pk }}" class="modal-check">
+                        {{ item.name }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
 
         <div class="save-area">
             <button type="submit" class="logout-button">削除</button>
@@ -146,24 +150,26 @@
 </div>
 
 <!--編集モーダル-->
-<div id="stock-edit-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; margin-top: 20px;">
-    <button type="button" id="close-stock-edit-modal">×</button>
+<div id="stock-edit-modal" class="nursery-modal">
+    <button type="button" id="close-stock-edit-modal" class="modal-close-button">×</button>
 
-    <h3>編集✏️</h3>
-    <p>変更内容を入力し変更ボタンを押下してください。</p>
+    <h3 class="modal-title">編集✏️</h3>
+    <p class="modal-description">変更内容を入力し変更ボタンを押下してください。</p>
 
-    <form method="post" action="{% url 'nursery_item_update' child.pk %}">
+    <form method="post" action="{% url 'nursery_item_update' child.pk %}" class="modal-form">
         {% csrf_token %}
 
         <input type="hidden" name="item_type" value="1">
 
-        <h4>必要な物</h4>
-        {% for item in stock_items %}
-            <div style="margin-top: 10px;">
-                <input type="hidden" name="item_ids" value="{{ item.pk }}">
-                <input type="text" name="item_names" value="{{ item.name }}">
-            </div>
-        {% endfor %}
+        <div class="modal-item-section">
+            <h4>必要な物</h4>
+            {% for item in stock_items %}
+                <div class="modal-item-row">
+                    <input type="hidden" name="item_ids" value="{{ item.pk }}">
+                    <input type="text" name="item_names" value="{{ item.name }}" class="modal-input">
+                </div>
+            {% endfor %}
+        </div>
 
         <div class="save-area">
             <button type="submit" class="save-button">変更</button>
@@ -172,24 +178,26 @@
 </div>
 
 <!--削除モーダル-->
-<div id="stock-delete-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; margin-top: 20px;">
-    <button type="button" id="close-stock-delete-modal">×</button>
+<div id="stock-delete-modal" class="nursery-modal">
+    <button type="button" id="close-stock-delete-modal" class="modal-close-button">×</button>
     
-    <h3>削除🗑</h3>
-    <p>削除したい物にチェックを入れて削除ボタンを押下してください</p>
+    <h3 class="modal-title">削除🗑</h3>
+    <p class="modal-description">削除したい物にチェックを入れて削除ボタンを押下してください</p>
 
-    <form method="post" action="{% url 'nursery_item_delete' child.pk %}">
+    <form method="post" action="{% url 'nursery_item_delete' child.pk %}" class="modal-form">
         {% csrf_token %}
 
-        <h4>必要な物</h4>
-        {% for item in stock_items %}
-            <div style="margin-bottom: 10px;">
-                <label>
-                    <input type="checkbox" name="delete_items" value="{{ item.pk }}">
-                    {{ item.name }}
-                </label>
-            </div>
-        {% endfor %}
+        <div class="modal-item-section">
+            <h4>必要な物</h4>
+            {% for item in stock_items %}
+                <div class="modal-item-row">
+                    <label class="modal-check-label">
+                        <input type="checkbox" name="delete_items" value="{{ item.pk }}" class="modal-check">
+                        {{ item.name }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
 
         <div class="save-area">
             <button type="submit" class="logout-button">削除</button>
