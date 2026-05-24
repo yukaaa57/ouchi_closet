@@ -6,15 +6,17 @@
     <title>Invitation</title>
 </head>
 <body>
-    <h2>家族招待</h2>
+    <div class="account-container">
+        <h2 class="account-title">家族招待</h2>
 
-    {% if error %}
-      <p>{{ error }}</p>
-    {% else %}
-      <p>招待したい家族にURLを共有し、リンク先からアカウント登録をして下さい。</p>
-      <input type="text" value="{{ invite_url}}" readonly style="width: 100%;">
-    {% endif %}
+        {% if error %}
+          <p>{{ error }}</p>
+        {% else %}
+          <p class="account-text">招待したい家族にURLを共有し、リンク先からアカウント登録をして下さい。</p>
+          <input type="text" value="{{ invite_url}}" readonly style="width: 100%;">
+        {% endif %}
 
-    <a href="/" class="login-link">ホーム画面へ戻る</a>
+        <a href="/" class="login-link">ホーム画面へ戻る</a>
+    </div>
 </body>
 </html>
