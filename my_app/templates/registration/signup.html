@@ -1,25 +1,23 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup</title>
-</head>
-<body>
-    <h2>新規アカウント登録</h2> 
+{% extends "registration/account_base.html" %}
 
-    <p>※全項目入力必須</p>
+{% block content %}
+<h2>新規アカウント登録</h2> 
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="invite" value="{{ invite|default:'' }}">
+<p>※全項目入力必須</p>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="invite" value="{{ invite|default:'' }}">
+
+    <div class="save-area">
         <button type="submit" class="save-button">登録</button>
-    </form>
+    </div>
+    
+</form>
 
-    <p>
-        既にアカウントをお持ちの方
-        <a href="{% url 'login' %}">ログイン</a>
-    </p>
-</body>
-</html>
+<p>
+    既にアカウントをお持ちの方
+    <a href="{% url 'login' %}">ログイン</a>
+</p>
+{% endblock %}

@@ -1921,8 +1921,14 @@ form select {
 /* =====アカウント関連===== */
 /* アカウント系画面の全体 */
 .account-container {
-    width: 360px;
-    margin: 80px auto 0;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background-color: #fffaf7;
+    padding: 16px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
     text-align: center;
 }
 

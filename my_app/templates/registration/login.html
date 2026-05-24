@@ -1,26 +1,20 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
-</head>
-<body>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="login-button">ログイン</button>
-    </form>
+{% extends "registration/account_base.html" %}
 
-    <hr>
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="login-button">ログイン</button>
+</form>
 
-    <p>
-        <a href="{% url 'signup' %}">新規登録</a>
-    </p>
+<hr>
 
-    <p>
-        パスワードを忘れた方は
-        <a href="{% url 'password_reset' %}">こちら</a>
-    </p>
-</body>
-</html>
+<p>
+    <a href="{% url 'signup' %}">新規登録</a>
+</p>
+
+<p>
+    パスワードを忘れた方は
+    <a href="{% url 'password_reset' %}">こちら</a>
+</p>
+{% endblock %}
