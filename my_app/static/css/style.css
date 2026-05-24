@@ -362,28 +362,37 @@ button {
 .logout-modal-actions {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 18px;
 }
 
 /* はい、いいえ共通 */
 .logout-modal-actions button {
-    min-width: 76px;
-    padding: 9px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: normal;
+    width: 76px;
+    height: 42px;
+    padding: 0;
     border-radius: 10px;
     font-size: 15px;
     cursor: pointer;
+    box-sizing: border-box;
+
 }
 
 /* はい */
 .logout-yes-button {
-    border: none;
+    border: 1px solid #e5bcbc;
     background-color: #f6d6d6;
     color: #b35b5b;
+    transform: translateY(1px);
 }
 
 /* いいえ */
 .logout-no-button {
-    border: 1px solid #8fa89b;
+    border: 1px solid #cfe2de;
     background-color: #e3efe8;
     color: #4f6b5e;
 }
@@ -1955,8 +1964,31 @@ form select {
 
 /* 入力欄まわり */
 .account-form p {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: left;
+}
+
+/* パス変更画面の条件リスト部分 */
+.account-form ul {
+    width: 300px;
+    margin: -18px auto 8px;
+    padding-left: 24px;
+    text-align: left;
+    color: #555;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.account-form li {
+    text-align: left;
+}
+
+/* パス変更画面の新しいパス入力（確認用）の補足文 */
+.account-form .helptext {
+    color: #888;
+    font-size: 13px;
+    opacity: 0.8;
+    margin-left: 20px;
 }
 
 /* ラベル */
@@ -1969,7 +2001,10 @@ form select {
 
 /* 入力欄 */
 .account-form input {
+    display: block;
+    margin-left: 20px;
     width: 100%;
+    max-width: 320px;
     height: 36px;
     box-sizing: border-box;
     border: 1px solid #aaa;
