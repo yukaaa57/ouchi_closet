@@ -7,13 +7,50 @@
 {% endblock %}
 
 {% block  content%}
-    
-    <h2>子ども追加</h2>
+<div class="signup-container">  
+    <h2 class="account-title">子ども追加</h2>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" class="account-form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save-button">登録</button>
-    </form>
+        
+        <div class="image-area">
 
+            <div class="profile-preview">
+                <img id="preview-image">
+            </div>
+            {{ form.profile_image }}
+
+            <label for="id_profile_image" class="image-select-button">画像を選択</label>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.nickname.id_for_label }}">名前/ニックネーム：</label>
+            {{ form.nickname }}
+            {{ form.nickname.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.size.id_for_label }}">サイズ：</label>
+            {{ form.size }}
+            {{ form.size.errors }}
+        </div>
+
+        <div class="save-area">
+            <button type="submit" class="save-button">登録</button>
+        </div>
+    </form>
+</div>
+
+<script>
+const imageInput = document.getElementById("id_profile_image");
+const previewImage = document.getElementById("preview-image");
+
+imageInput.addEventListener("change", function(event) {
+    const file = event.target.files[0];
+     if (file) {
+        previewImage.src = URL.createObjectURL(file);
+        previewImage.style.display = "block";
+     }
+});
+</script>
 {% endblock %}
