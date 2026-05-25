@@ -1,20 +1,28 @@
 {% extends "registration/account_base.html" %}
 
 {% block content %}
-<form method="post">
+<div class="home-logo">
+    <div class="logo-roof"></div>
+    <h1>ouchi<br>closet</h1>
+</div>
+
+<form method="post" class="account-form">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="login-button">ログイン</button>
+
+    <div class="save-area">
+        <button type="submit" class="login-button">ログイン</button>
+    </div>
 </form>
 
 <hr>
 
 <p>
-    <a href="{% url 'signup' %}">新規登録</a>
+    <a href="{% url 'signup' %}" class="account-link">新規登録</a>
 </p>
 
 <p>
     パスワードを忘れた方は
-    <a href="{% url 'password_reset' %}">こちら</a>
+    <a href="{% url 'password_reset' %}" class="text-link">こちら</a>
 </p>
 {% endblock %}

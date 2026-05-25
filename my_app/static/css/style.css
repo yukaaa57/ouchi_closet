@@ -387,7 +387,7 @@ button {
     border: 1px solid #e5bcbc;
     background-color: #f6d6d6;
     color: #b35b5b;
-    transform: translateY(1px);
+    transform: translateY(1px); /* はいボタン少し下げる */
 }
 
 /* いいえ */
@@ -2010,6 +2010,7 @@ form select {
     border: 1px solid #aaa;
     padding: 0 10px;
     font-size: 15px;
+    background-color: white;
 }
 
 /* 下のリンク */
@@ -2018,4 +2019,29 @@ form select {
     margin-top: 36px;
     color: #8aa6aa;
     font-size: 14px;
+}
+
+/* ログイン画面・ログインボタン */
+.login-button {
+    background-color: #eef7f7;
+    color: #6f7f7f;
+    border: 1px solid #b8caca;
+    border-radius: 6px;
+    padding: 10px 34px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* 新規登録リンク */
+.account-link {
+    color: #8b5b73;
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+/* パス忘れリンク */
+.text-link {
+    color: #8fbfa8;
+    font-weight: bold;
+    
 }
