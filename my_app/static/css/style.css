@@ -1200,6 +1200,7 @@ form select {
     font-size: 12px;
     color: #d89a9a;
     font-weight: 600;
+    text-align: left;
 }
 
 /* =====アイテム検索画面===== */
@@ -2043,5 +2044,99 @@ form select {
 .text-link {
     color: #8fbfa8;
     font-weight: bold;
-    
 }
+
+/* =====新規登録画面===== */
+/* 新規登録画面全体 */
+.signup-container {
+    width: 330px;
+    margin: 0 auto;
+    padding-top: 32px;
+}
+
+/* タイトル */
+.signup-container .account-title {
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+
+/* 注意書き */
+.account-section-title p {
+    color: #d89a9a;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 0 4px;
+    text-align: left;
+}
+
+/* 入力フォーム１項目ごとのまとまり */
+.signup-container .form-group {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* 入力フォームラベル */
+.signup-container .form-group label {
+    display: block;
+    margin-bottom: 4px;
+    color: #555;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* 入力フォーム入力欄 */
+.signup-container .form-group input,
+.signup-container .form-group select {
+    width: 280px;
+    height: 30px;
+    margin-left: 32px;
+    box-sizing: border-box;
+}
+
+/* パスワード説明文*/
+.helptext {
+    margin-top: 24px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.helptext2 {
+    margin-top: 4px;
+    font-size: 13px;
+    color: #666;
+    margin-left: 32px;
+}
+
+.signup-container .save-area {
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.signup-container .login-link {
+    margin-top: 12px;
+}
+
+/* プロフィール画像 */
+#id_profile_image {
+    display: none;
+}
+
+.image-area {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.profile-preview {
+    width: 72px;
+    height: 72px;
+    border: 2px solid #999;
+    border-radius: 50%;
+    margin: 8px auto;
+}
+
+.image-select-button {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
