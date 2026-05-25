@@ -2128,11 +2128,19 @@ form select {
 }
 
 .profile-preview {
-    width: 72px;
-    height: 72px;
+    width: 140px;
+    height: 140px;
     border: 2px solid #999;
     border-radius: 50%;
-    margin: 8px auto;
+    overflow: hidden;
+    margin: 0 auto 12px;
+}
+
+#preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
 }
 
 .image-select-button {

@@ -9,7 +9,9 @@
         
         <div class="image-area">
 
-            <div class="profile-preview"></div>
+            <div class="profile-preview">
+                <img id="preview-image">
+            </div>
             {{ form.profile_image }}
 
             <label for="id_profile_image" class="image-select-button">画像を選択</label>
@@ -74,4 +76,17 @@
         <a href="{% url 'login' %}" class="login-link">ログイン</a>
     </p>
 </div>
+
+<script>
+const imageInput = document.getElementById("id_profile_image");
+const previewImage = document.getElementById("preview-image");
+
+imageInput.addEventListener("change", function(event) {
+    const file = event.target.files[0];
+     if (file) {
+        previewImage.src = URL.createObjectURL(file);
+        previewImage.style.display = "block";
+     }
+});
+</script>
 {% endblock %}
