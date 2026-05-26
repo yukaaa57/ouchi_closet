@@ -2150,3 +2150,34 @@ form select {
     cursor: pointer;
 }
 
+/* =====アカウント管理画面===== */
+/* 表示用入力欄 */
+.account-display {
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    font-size: 16px;
+}
+
+/* 変更ボタン */
+.change-button {
+    display: inline-block;
+    padding: 11px 34px;
+    border-radius: 12px;
+    background-color: #dce8d5;
+    text-decoration: none;
+    color: #4f6b4f;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* ログアウトリンク */
+.logout-link {
+    color: #c97b7b;
+    font-weight: bold;
+}
+
