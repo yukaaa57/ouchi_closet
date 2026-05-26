@@ -10,13 +10,56 @@
 <div class="signup-container">
     <h2 class="account-title">子どもアカウント変更</h2>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" class="account-form">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="image-area">
+
+            <div class="profile-preview">
+                {% if object.profile_image %}
+                    <img id="preview-image" src="{{ object.profile_image.url }}">
+                {% else %}
+                    <img id="preview-image" style="display: none;">
+                {% endif %}
+            </div>
+            <input type="file" name="{{ form.profile_image.name }}" id="{{ form.profile_image.id_for_label }}" accept="image/*" hidden>
+
+            <label for="{{ form.profile_image.id_for_label }}" class="image-select-button">画像を選択</label>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.nickname.id_for_label }}">名前/ニックネーム：</label>
+            {{ form.nickname }}
+            {{ form.nickname.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.size.id_for_label }}">サイズ：</label>
+            {{ form.size }}
+            {{ form.size.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.birthday.id_for_label }}">生年月日：</label>
+            {{ form.birthday }}
+            {{ form.birthday.errors }}
+        </div>
 
         <div class="save-area">
             <button type="submit" class="save-button">保存</button>
         </div>
     </form>
-</div>    
+</div> 
+
+<script>
+const imageInput = document.getElementById("id_profile_image");
+const previewImage = document.getElementById("preview-image");
+
+imageInput.addEventListener("change", function(event) {
+    const file = event.target.files[0];
+     if (file) {
+        previewImage.src = URL.createObjectURL(file);
+        previewImage.style.display = "block";
+     }
+});
+</script>
 {% endblock %}

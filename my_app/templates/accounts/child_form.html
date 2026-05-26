@@ -35,6 +35,12 @@
             {{ form.size.errors }}
         </div>
 
+        <div class="form-group">
+            <label for="{{ form.birthday.id_for_label }}">生年月日：</label>
+            {{ form.birthday }}
+            {{ form.birthday.errors }}
+        </div>
+
         <div class="save-area">
             <button type="submit" class="save-button">登録</button>
         </div>

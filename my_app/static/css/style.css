@@ -2058,6 +2058,7 @@ form select {
 .signup-container .account-title {
     font-size: 24px;
     margin-bottom: 24px;
+    text-align: center;
 }
 
 /* 注意書き */
@@ -2128,8 +2129,8 @@ form select {
 }
 
 .profile-preview {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     border: 2px solid #999;
     border-radius: 50%;
     overflow: hidden;
@@ -2140,7 +2141,8 @@ form select {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: none;
+    border-radius: 50%;
+    display: block;
 }
 
 .image-select-button {
