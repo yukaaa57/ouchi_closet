@@ -7,50 +7,57 @@
 
 {% block content %}
 
-<h2>カテゴリ設定</h2>
+<h2 class="page-title">カテゴリ設定</h2>
 
-<ul>
+<ul class="category-list">
     {% for category in categories %}
-        <li>
-            {{ category.name }}
-            <button type="button" class="open-edit-modal" data-category-id="{{ category.pk }}" data-category-name="{{ category.name }}">編集</button>
-            <button type="button" class="open-delete-modal" data-category-id="{{ category.pk }}" data-category-name="{{ category.name}}">削除</button>
+        <li class="category-item">
+            <span class="category-name">
+                {{ category.name }}
+            </span>
+
+            <button type="button" class="edit-link open-edit-modal" data-category-id="{{ category.pk }}" data-category-name="{{ category.name }}">編集</button>
+            <button type="button" class="delete-link open-delete-modal" data-category-id="{{ category.pk }}" data-category-name="{{ category.name}}">削除</button>
         </li>
     {% endfor %}
 </ul>
 
-<div id="edit-modal" style="display: none; border: 1px solid #999; padding: 20px; width: 260px; margin-top: 20px;"> 
-    <button type="button" id="close-edit-modal">×</button>
+<div id="edit-modal" class="modal">
+    <div class="modal-content"> 
+        <button type="button" id="close-edit-modal" class="modal-close-button">×</button>
 
-    <h3>カテゴリ編集</h3>
+        <h3 class="modal-title">カテゴリ編集</h3>
 
-    <form method="post" id="edit-form">
-        {% csrf_token %}
+        <form method="post" id="edit-form">
+            {% csrf_token %}
 
-        <div style="margin-top: 20px;">
-            <label for="edit-category-name">カテゴリ：</label>
-            <input type="text" id="edit-category-name" name="name">
-        </div>
+            <div class="form-group">
+                <label for="edit-category-name" class="form-label">カテゴリ：</label>
+                <input type="text" id="edit-category-name" name="name" class="category-form-input">
+            </div>
 
-        <div style="margin-top: 20px;">
-            <button type="submit" class="save-button">保存</button>
-        </div>
-    </form>
+            <div class="modal-button-area">
+                <button type="submit" class="save-button">保存</button>
+            </div>
+        </form>
+    </div>
 </div>
 
-<div id="delete-modal" style="display: none; border: 1px solid #999; padding: 20px; background: #fff; margin-top: 20px;">
-    <button type="button" id="close-delete-modal">×</button>
+<div id="delete-modal" class="modal">
+    <div class="modal-content">
+        <button type="button" id="close-delete-modal" class="modal-close-button">×</button>
 
-    <h3>カテゴリ削除</h3>
-    <p>「<span id="delete-category-name"></span>」を削除しますか？</p>
+        <h3 class="modal-title">カテゴリ削除</h3>
+        <p class="delete-category-name">「<span id="delete-category-name"></span>」を削除しますか？</p>
 
-    <form method="post" id="delete-form">
-        {% csrf_token %}
+        <form method="post" id="delete-form">
+            {% csrf_token %}
 
-        <div style="margin-top: 20px;">
-            <button type="submit">削除</button>
-        </div>
-    </form>
+            <div class="modal-button-area">
+                <button type="submit" class="logout-button">削除</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
@@ -68,7 +75,7 @@ openEditButtons.forEach(function(button) {
 
         editCategoryNameInput.value = categoryName;
         editForm.action = `/closet/category/${categoryId}/update/`;
-        editModal.style.display = "block";
+        editModal.style.display = "flex";
     });
 });
 
@@ -90,7 +97,7 @@ openDeleteButtons.forEach(function(button) {
 
         deleteCategoryName.textContent = categoryName;
         deleteForm.action = `/closet/category/${categoryId}/delete/`;
-        deleteModal.style.display = "block";
+        deleteModal.style.display = "flex";
     });
 });
 
