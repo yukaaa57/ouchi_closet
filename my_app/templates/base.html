@@ -16,7 +16,13 @@
             <!-- アカウントアイコン（後で画像ボタンに） -->
             {% block account_icon %}
             <div id="account-icon" class="account-area">
-                <button type="button" id="open-account-sidebar" class="icon-button">画像</button>
+                <button type="button" id="open-account-sidebar" class="icon-button">
+                    {% if request.user.profile_image %}
+                        <img src="{{ request.user.profile_image.url }}" alt="プロフィール画像" class="account-icon-image">
+                    {% else %}
+                        画像
+                    {% endif %}
+                </button>
             </div>
             {% endblock %}
 

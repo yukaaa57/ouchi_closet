@@ -2125,6 +2125,17 @@ form select {
     transform: translateX(0);
 }
 
+/* アカウントアイコン専用 */
+.account-icon-image {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
 /* 中のメニュー全体 */
 .side-menu {
     display: flex;
