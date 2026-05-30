@@ -4,6 +4,7 @@ from accounts.models import User, Child
 from closet.models import ClothingItem, Category
 from .models import Outfit, OutfitImage, OutfitClothingItem, OutfitUrl, NurseryItem
 from .forms import OutfitForm, OutfitImageForm, NurseryItemForm
+from django.db.models import Q
 
 @login_required
 def outfit_list(request, owner_type, owner_id):
@@ -13,14 +14,20 @@ def outfit_list(request, owner_type, owner_id):
             pk=owner_id,
             family=request.user.family
         )
-        outfits = Outfit.objects.filter(user=owner)
+        outfits = Outfit.objects.filter(user=owner).filter(
+            Q(outfit_clothing_items__isnull=False) |
+            Q(outfit_images__isnull=False)
+        ).distinct()
     else:
         owner = get_object_or_404(
             Child,
             pk=owner_id,
             family=request.user.family
         )
-        outfits = Outfit.objects.filter(child=owner)
+        outfits = Outfit.objects.filter(child=owner).filter(
+            Q(outfit_clothing_items__isnull=False) |
+            Q(outfit_images__isnull=False)
+        ).distinct()
         
     order = request.GET.get("order", "new")
     
@@ -438,14 +445,20 @@ def favorite_outfit_list(request, owner_type, owner_id):
             pk=owner_id,
             family=request.user.family
         )
-        outfits = Outfit.objects.filter(user=owner, is_favorite=True)
+        outfits = Outfit.objects.filter(user=owner, is_favorite=True).filter(
+            Q(outfit_clothing_items__isnull=False) |
+            Q(outfit_images__isnull=False)
+        ).distinct()
     else:
         owner = get_object_or_404(
             Child,
             pk=owner_id,
             family=request.user.family
         )
-        outfits = Outfit.objects.filter(child=owner, is_favorite=True)
+        outfits = Outfit.objects.filter(child=owner, is_favorite=True).filter(
+            Q(outfit_clothing_items__isnull=False) |
+            Q(outfit_images__isnull=False)
+        ).distinct()
         
     order = request.GET.get("order", "new")
     

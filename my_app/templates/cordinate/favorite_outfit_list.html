@@ -16,9 +16,9 @@
 
 <div class="outfit-list-menu">
   {% if owner_type == "user" %}
-    <a href="{% url 'user_outfit_list' owner.pk %}">←登録コーデへ</a>
+    <a href="{% url 'user_outfit_list' owner.pk %}" class="outfit-list-change">←登録コーデへ</a>
   {% else %}
-    <a href="{% url 'child_outfit_list' owner.pk %}">←登録コーデへ</a>
+    <a href="{% url 'child_outfit_list' owner.pk %}" class="outfit-list-change">←登録コーデへ</a>
   {% endif %}
 
   <form  method="get" class="sort-form">
@@ -62,8 +62,6 @@
             {% else %}
               <span class="heart-inactive">♡</span>
             {% endif %}
-          
-          
           </button>
         </form>
       </div>

@@ -1079,6 +1079,12 @@ form select {
     margin: 4px 0;
 }
 
+.outfit-list-change {
+    font-size: 15px;
+    text-decoration: none;
+    color: #666;
+}
+
 .sort-form {
     display: flex;
     align-items: center;

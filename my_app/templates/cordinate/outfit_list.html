@@ -16,9 +16,9 @@
 
 <div class="outfit-list-menu">
   {% if owner_type == "user" %}
-    <a href="{% url 'user_favorite_outfit_list' owner.pk %}">←お気に入りコーデへ</a>
+    <a href="{% url 'user_favorite_outfit_list' owner.pk %}" class="outfit-list-change">←お気に入りコーデへ</a>
   {% else %}
-    <a href="{% url 'child_favorite_outfit_list' owner.pk %}">←お気に入りコーデへ</a>
+    <a href="{% url 'child_favorite_outfit_list' owner.pk %}" class="outfit-list-change">←お気に入りコーデへ</a>
   {% endif %}
 
   <form  method="get" class="sort-form">
