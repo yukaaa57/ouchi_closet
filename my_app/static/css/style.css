@@ -459,7 +459,7 @@ form select {
 } */
 
 .back-link-wrap {
-    text-align: center;
+    text-align: left;
     margin-top: 20px;
 }
 
@@ -993,8 +993,8 @@ form select {
 
 /* プレビューボックス */
 .image-preview-box {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     margin: 0 auto 8px;
     border: 1px solid #ddd4cf;
     background-color: #fffdfb;
@@ -1010,14 +1010,16 @@ form select {
 }
 
 /* 画像選択リンク */
-.image-select-link {
-    font-size: 13px;
-    color: #7da4c7;
+.item-image-select-link {
+    display: block;
+    margin-top: 4px;
+    font-size: 15px;
+    color: #666;
     text-decoration: underline;
     cursor: pointer;
 }
 
-.image-select-link input[type="file"] {
+.item-image-select-link input[type="file"] {
     display: none;
 }
 
