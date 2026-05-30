@@ -2020,7 +2020,7 @@ form select {
 }
 
 /* カテゴリ一覧全体 */
-.category-list {
+.category-edit-list {
     list-style: none;
     padding: 0;
     margin: 30px auto o;
