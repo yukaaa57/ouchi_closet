@@ -518,6 +518,11 @@ def outfit_select(request, owner_type, owner_id):
         "owner": owner,
         "owner_type": owner_type,
     }
+    
+    if owner_type == "child":
+        context["current_child"] = owner
+    else:
+        context["current_user_owner"] = owner
             
     return render(request, "cordinate/outfit_select.html", context)
 
