@@ -9,6 +9,14 @@
 
 <h2 class="page-title">カテゴリ設定</h2>
 
+{% if messages %}
+    <div class="message-area">
+        {% for message in messages %}
+            <p class="error-message">{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
 <ul class="category-edit-list">
     {% for category in categories %}
         <li class="category-item">

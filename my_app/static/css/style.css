@@ -2077,6 +2077,17 @@ form select {
     font-size: 24px;
 }
 
+.message-area {
+    margin: 16px 0 24px;
+    text-align: center;
+}
+
+.error-message {
+    color: #c85c5c;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 /* カテゴリ一覧全体 */
 .category-edit-list {
     list-style: none;

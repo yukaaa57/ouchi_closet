@@ -4,6 +4,8 @@ from accounts.models import User, Child
 from .models import ClothingItem, Category
 from django.contrib.auth import get_user_model
 from .forms import ClothingItemForm, CategoryForm, ClothingSearchForm
+from django.db.models.deletion import ProtectedError
+from django.contrib import messages
 
 User = get_user_model()
 
@@ -417,7 +419,13 @@ def category_delete(request, pk):
     )
     
     if request.method == "POST":
-        category.delete()
+        try:
+            category.delete()
+        except ProtectedError:
+            messages.error(
+                request,
+                f"「{category.name}」はアイテムに使用されているため削除できません"
+            )
         
     return redirect("category_setting")
 
