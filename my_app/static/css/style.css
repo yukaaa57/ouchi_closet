@@ -301,7 +301,7 @@ button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 120px;
+    width: 100px;
     height: 44px;
     border: 1px solid #b7c9ae;
     border-radius: 12px;
@@ -1558,6 +1558,28 @@ form select {
 .modal-search-row select {
     width: 150px;
     height: 30px;
+}
+
+/* モーダル内検索ボタン */
+.modal-search-button-area {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.modal-search-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 34px;
+    border: 1px solid #b7c9ae;
+    border-radius: 12px;
+    background-color: #e7f0e3;
+    color: #6f8a73;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /* 検索結果画像表示欄 */

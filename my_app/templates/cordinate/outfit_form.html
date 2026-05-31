@@ -185,7 +185,9 @@
 
         <div class="modal-inner">
 
-            <p class="modal-breadcrumb">#</p>
+            <p class="modal-breadcrumb">
+               {{ owner.nickname }}のクローゼット > 服を選択
+            </p>
 
             <div id="modal-search-area">
                 {% if is_create %}
@@ -222,8 +224,8 @@
                         </select>
                     </div>
                     
-                    <div class="search-button-area">
-                        <button type="submit" class="search-button">検索</button>
+                    <div class="modal-search-button-area">
+                        <button type="submit" class="modal-search-button">検索</button>
                     </div>
                 </form>
             </div>
