@@ -7,6 +7,7 @@
     {% else %}
       <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
     {% endif %}
+    ><a href="{{ next_url }}">{{ list_name }}</a>
     >コーデ詳細
 {% endblock %} 
 

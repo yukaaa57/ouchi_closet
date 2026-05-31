@@ -232,11 +232,17 @@ def outfit_detail(request, pk):
         
     next_url =request.GET.get("next", "")
     
+    if "favorite" in next_url:
+        list_name = "お気に入りコーデ一覧"
+    else:
+        list_name = "登録コーデ一覧"
+    
     context = {
         "outfit": outfit,
         "owner": owner,
         "owner_type": owner_type,
         "next_url": next_url,
+        "list_name": list_name
     }
     
     if owner_type == "child":
