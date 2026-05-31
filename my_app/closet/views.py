@@ -304,11 +304,14 @@ def clothing_search_results(request, owner_type, owner_id):
     form = ClothingSearchForm(request.GET or None)
     search_conditions = []
     
+    color_dict = dict(ClothingItem.COLOR_CHOICES)
+    wear_status_dict = dict(ClothingItem.WEAR_STATUS_CHOICES)
+    
     if form.is_valid():
         category = form.cleaned_data.get("category")
         size = form.cleaned_data.get("size")
         color = form.cleaned_data.get("color")
-        seasons = form.cleaned_data.get("season")
+        seasons = form.cleaned_data.get("seasons")
         wear_status = form.cleaned_data.get("wear_status")
         
         if category:
@@ -319,7 +322,7 @@ def clothing_search_results(request, owner_type, owner_id):
             search_conditions.append(f"{size}")
         if color:
             clothes = clothes.filter(color=color)
-            search_conditions.append(f"{color}")
+            search_conditions.append(color_dict.get(color, color))
         if seasons:
             clothes = clothes.filter(seasons__in=seasons).distinct()
             season_names= []
@@ -328,7 +331,7 @@ def clothing_search_results(request, owner_type, owner_id):
             search_conditions.append(f"・".join(season_names))
         if wear_status:
             clothes = clothes.filter(wear_status=wear_status)
-            search_conditions.append(f"{wear_status}")
+            search_conditions.append(wear_status_dict.get(wear_status, wear_status))
     
     order = request.GET.get("order", "new")
     
@@ -344,7 +347,7 @@ def clothing_search_results(request, owner_type, owner_id):
         "search_conditions": search_conditions,
         "order": order,
         "is_search_result": True,
-        "selected_season_ids": request.GET.getlist("season"),
+        "selected_season_ids": request.GET.getlist("seasons"),
     }
     
     if owner_type == "child":
