@@ -7,54 +7,58 @@
 
 {% block content %}
 
-  <div>
-    <ul class="category-all">
+<h2 class="closet-title">
+  {{ owner.nickname }}のクローゼット
+</h2>
+
+<div>
+  <ul class="category-all">
+    <li>
+      <a href="{% url 'clothing_list' owner_type owner.pk 'all' %}">すべて</a>
+    </li>
+  </ul>
+
+  <ul class="category-list">
+    <li>
+      <a href="{% url 'clothing_list' owner_type owner.pk tops_category.id %}">トップス</a>
+    </li>
+
       <li>
-        <a href="{% url 'clothing_list' owner_type owner.pk 'all' %}">すべて</a>
-      </li>
-    </ul>
+      <a href="{% url 'clothing_list' owner_type owner.pk bottoms_category.id %}">ボトムス</a>
+    </li>
 
-    <ul class="category-list">
       <li>
-        <a href="{% url 'clothing_list' owner_type owner.pk tops_category.id %}">トップス</a>
-      </li>
+      <a href="{% url 'clothing_list' owner_type owner.pk onepiece_category.id %}">ワンピース</a>
+    </li>
 
-       <li>
-        <a href="{% url 'clothing_list' owner_type owner.pk bottoms_category.id %}">ボトムス</a>
-      </li>
+      <li>
+      <a href="{% url 'clothing_list' owner_type owner.pk outer_category.id %}">アウター</a>
+    </li>
 
-       <li>
-        <a href="{% url 'clothing_list' owner_type owner.pk onepiece_category.id %}">ワンピース</a>
-      </li>
+      <li>
+      <a href="{% url 'clothing_list' owner_type owner.pk setup_category.id %}">セットアップ</a>
+    </li>
 
-       <li>
-        <a href="{% url 'clothing_list' owner_type owner.pk outer_category.id %}">アウター</a>
-      </li>
+      <li>
+      <a href="{% url 'clothing_list' owner_type owner.pk shoes_category.id %}">シューズ</a>
+    </li>
 
-       <li>
-        <a href="{% url 'clothing_list' owner_type owner.pk setup_category.id %}">セットアップ</a>
-      </li>
+      <li>
+      <a href="{% url 'clothing_list' owner_type owner.pk accessory_category.id %}">小物</a>
+    </li>
 
-       <li>
-        <a href="{% url 'clothing_list' owner_type owner.pk shoes_category.id %}">シューズ</a>
-      </li>
+      <li>
+      <a href="{% url 'clothing_list' owner_type owner.pk bag_category.id %}">バッグ</a>
+    </li>
 
-       <li>
-        <a href="{% url 'clothing_list' owner_type owner.pk accessory_category.id %}">小物</a>
-      </li>
+  </ul>
+</div>
 
-       <li>
-        <a href="{% url 'clothing_list' owner_type owner.pk bag_category.id %}">バッグ</a>
-      </li>
+<div class="search-button-wrap">
+  <a href="{% url 'clothing_search' owner_type owner.pk %}" class="search-button">🔍検索</a>
+</div>
 
-    </ul>
-  </div>
-
-  <div class="search-button-wrap">
-    <a href="{% url 'clothing_search' owner_type owner.pk %}" class="search-button">🔍検索</a>
-  </div>
-
-  <div class="save-link-wrapper">
-    <a href="{% url 'clothing_create' owner_type owner.pk %}" class="save-link">＋アイテムを登録</a>
-  </div>
+<div class="save-link-wrapper">
+  <a href="{% url 'clothing_create' owner_type owner.pk %}" class="save-link">＋アイテムを登録</a>
+</div>
 {% endblock content %}

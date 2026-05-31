@@ -226,6 +226,15 @@ button {
     font-size: 18px;
 }
 
+/* 個人クローゼットタイトル */
+.closet-title {
+    margin-top: 14px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    color: #6d5c53;
+}
 
 /* カテゴリ全体 */
 .category-list {
@@ -249,7 +258,7 @@ button {
     display: block;
     text-align: center;
     padding: 14px 0;
-    border: 1px solid #e5ddd8;
+    border: 1px solid #e8e2db;
     border-radius: 14px;
     text-decoration: none;
     color: #5a4a45;
@@ -284,23 +293,24 @@ button {
 /* 検索ボタン全体 */
 .search-button-wrap {
     text-align: center;
-    margin: 28px 0 16px;
+    margin: 28px 16px;
 }
 
 /* ボタン */
 .search-button {
-    display: inline-block;
-    width: auto;
-    padding: 6px 20px;
-
-    border: 1px solid #c8e6cf;
-    border-radius: 10px;
-
-    background-color: #edf7f0;
-    color: #5c7a65;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 44px;
+    border: 1px solid #b7c9ae;
+    border-radius: 12px;
+    background-color: #e7f0e3;
+    color: #6f8a73;
+    font-size: 15px;
+    font-weight: 600;
     text-decoration: none;
-    font-size: 14px;
-    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 /* 押した時 */
@@ -1889,7 +1899,7 @@ form select {
 .signup-container {
     width: 330px;
     margin: 0 auto;
-    padding-top: 32px;
+    padding-top: 0;
 }
 
 /* タイトル */
