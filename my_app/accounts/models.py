@@ -72,8 +72,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name="サイズ",
         max_length=10,
         choices=SIZE_CHOICES,
-        blank=True,
-        default="",
     )
     email = models.EmailField(
         verbose_name='Eメールアドレス',
