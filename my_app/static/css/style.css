@@ -587,6 +587,24 @@ form select {
     padding-top: 2px;
 }
 
+/* 季節エラー表示 */
+.season-error-row {
+    margin-top: -30px;
+    margin-bottom: -10px;
+}
+
+.form-error {
+    color: #d96b6b;
+    font-size: 13px;
+    min-height: 18px;
+}
+
+.form-error ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 /*
 .season-row .form-input {
     width: auto;

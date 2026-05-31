@@ -13,7 +13,7 @@
 
 {% block content %}
 
-<form method="post" enctype="multipart/form-data" class="clothing-form">
+<form method="post" enctype="multipart/form-data" class="clothing-form" novalidate>
     {% csrf_token %}
 
     <div class="image-upload-area">
@@ -43,6 +43,18 @@
         </div>
     </div>
 
+    <div class="form-row season-error-row">
+        <label class="form-label"></label>
+
+        <div class="form-input">
+            <div class="form-error">
+                {% if form.category.errors %}
+                    {{ form.category.errors }}
+                {% endif %}
+            </div> 
+        </div>    
+    </div>
+
     <div class="category-add-link-area">
         <button type="button" class="add-category-link" onclick="document.getElementById('category-modal').style.display='flex'">＋カテゴリを追加</button>
     </div>
@@ -57,6 +69,18 @@
         </div>
     </div>
 
+    <div class="form-row season-error-row">
+        <label class="form-label"></label>
+
+        <div class="form-input">
+            <div class="form-error">
+                {% if form.size.errors %}
+                    {{ form.size.errors }}
+                {% endif %}
+            </div> 
+        </div>    
+    </div>
+
     <div class="form-row">
         <label class="form-label">
             {{ form.color.label_tag }}
@@ -67,14 +91,38 @@
         </div>
     </div>
 
+    <div class="form-row season-error-row">
+        <label class="form-label"></label>
+
+        <div class="form-input">
+            <div class="form-error">
+                {% if form.color.errors %}
+                    {{ form.color.errors }}
+                {% endif %}
+            </div> 
+        </div>    
+    </div>
+
     <div class="form-row season-row">
         <label class="form-label">
             {{ form.seasons.label_tag }}
         </label>
 
-        <div>
+        <div class="form-input">
             {{ form.seasons }}
         </div>
+    </div>
+
+    <div class="form-row season-error-row">
+        <label class="form-label"></label>
+
+        <div class="form-input">
+            <div class="form-error">
+                {% if form.seasons.errors %}
+                    {{ form.seasons.errors }}
+                {% endif %}
+            </div> 
+        </div>    
     </div>
 
     <div class="section-title">
