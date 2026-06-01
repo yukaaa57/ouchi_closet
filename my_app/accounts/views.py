@@ -11,6 +11,7 @@ from .models import User, Family, Invitation, Child
 from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from closet.utils import create_default_categories
 
 User = get_user_model()
 
@@ -47,6 +48,7 @@ class SignUpView(CreateView):
             
         else:
             family = Family.objects.create()
+            create_default_categories(family)
             user.family = family
         user.save()
         

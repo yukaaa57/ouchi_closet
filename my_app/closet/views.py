@@ -401,12 +401,23 @@ def category_update(request, pk):
         family=request.user.family
     )
     
+    if category.is_default:
+        messages.error(
+            request,
+            "デフォルトカテゴリは編集できません"
+        )
+        return redirect("category_setting")
+    
     if request.method == "POST":
         new_name = request.POST.get("name")
         
         if new_name and new_name.strip():
             category.name = new_name.strip()
             category.save()
+            messages.success(
+                request,
+                "カテゴリ名を変更しました。"
+            )
         
         return redirect("category_setting")
     
@@ -419,6 +430,14 @@ def category_delete(request, pk):
     )
     
     if request.method == "POST":
+        
+        if category.is_default:
+            messages.error(
+                request,
+                "デフォルトカテゴリは削除できません"
+            )
+            return redirect("category_setting")
+        
         try:
             category.delete()
         except ProtectedError:
