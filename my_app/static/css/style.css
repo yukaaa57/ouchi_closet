@@ -1215,6 +1215,26 @@ form select {
     margin-top: 24px;
 }
 
+/* ページネーション */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.pagination a {
+    color: #6f8f68;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.pagination span {
+    color: #7a5c4a;
+    font-size: 14px;
+}
+
 /* =====コーデ詳細画面===== */
 
 /* 詳細画面全体 */

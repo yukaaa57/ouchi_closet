@@ -5,6 +5,7 @@ from closet.models import ClothingItem, Category
 from .models import Outfit, OutfitImage, OutfitClothingItem, OutfitUrl, NurseryItem
 from .forms import OutfitForm, OutfitImageForm, NurseryItemForm
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 @login_required
 def outfit_list(request, owner_type, owner_id):
@@ -35,12 +36,17 @@ def outfit_list(request, owner_type, owner_id):
         outfits = outfits.order_by("created_at")
     else:
         outfits = outfits.order_by("-created_at")
+        
+    paginator = Paginator(outfits, 4)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     
     context = {
         "owner": owner,
         "owner_type": owner_type,
         "outfits": outfits,
         "order": order,
+        "page_obj": page_obj,
     }
     
     if owner_type == "child":

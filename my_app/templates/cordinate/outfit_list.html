@@ -31,7 +31,7 @@
 </div>
 
 <div class="outfit-list">
-    {% for outfit in outfits %}
+    {% for outfit in page_obj %}
       
       <div class="outfit-card">
         <a href="{% url 'outfit_detail' outfit.pk %}?next={{ request.get_full_path|urlencode }}">
@@ -68,6 +68,20 @@
     {% empty%}
       <p>登録されているコーデはありません</p>
     {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+    {% endif %}
+
+    <span>
+        {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+    {% endif %}
 </div>
 
 <div class="add-outfit-wrapper">
