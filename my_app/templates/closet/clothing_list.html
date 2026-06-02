@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'home' %}">ホーム</a>
+    <a href="{% url 'home' %}">ホーム</a> >
     {% if owner_type == "user" %}
       <a href="{% url 'user_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
     {% else %}
@@ -54,7 +54,7 @@
 
 <div class="clothing-list">
 
-    {% for clothing in clothes %}
+    {% for clothing in page_obj %}
         <div class="clothing-item">
             <a href="{% url 'clothing_detail' clothing.pk %}?next={{ request.get_full_path|urlencode }}">
                 <img src="{{ clothing.clothing_image.url }}">
@@ -63,6 +63,20 @@
     {% empty %}
         <p>アイテムがまだありません</p>
     {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?{{ query_string }}&page={{ page_obj.previous_page_number }}">前へ</a>
+    {% endif %}
+
+    <span>
+        {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?{{ query_string }}&page={{ page_obj.next_page_number }}">次へ</a>
+    {% endif %}
 </div>
   
 {% endblock %}

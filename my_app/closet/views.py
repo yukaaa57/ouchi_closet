@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from .forms import ClothingItemForm, CategoryForm, ClothingSearchForm
 from django.db.models.deletion import ProtectedError
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 User = get_user_model()
 
@@ -89,6 +90,16 @@ def clothing_list(request, owner_type, owner_id, category):
     else:
         clothes = clothes.order_by("-created_at")
         
+    paginator = Paginator(clothes, 9)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    
+    query_params = request.GET.copy()
+    if "page" in query_params:
+        query_params.pop("page")
+        
+    query_string = query_params.urlencode()
+        
     context = {
         "owner": owner,
         "owner_type": owner_type,
@@ -96,6 +107,8 @@ def clothing_list(request, owner_type, owner_id, category):
         "category_label": category_label,
         "order": order,
         "is_search_result": False,
+        "page_obj": page_obj,
+        "query-string": query_string,
     }
     
     if owner_type == "child":
@@ -341,6 +354,16 @@ def clothing_search_results(request, owner_type, owner_id):
         clothes = clothes.order_by("created_at")
     else:
         clothes = clothes.order_by("-created_at")
+        
+    paginator = Paginator(clothes, 9)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    
+    query_params = request.GET.copy()
+    if "page" in query_params:
+        query_params.pop("page")
+        
+    query_string = query_params.urlencode()
     
     context = {
         "owner": owner,
@@ -350,6 +373,8 @@ def clothing_search_results(request, owner_type, owner_id):
         "order": order,
         "is_search_result": True,
         "selected_season_ids": request.GET.getlist("seasons"),
+        "page_obj": page_obj,
+        "query-string": query_string,
     }
     
     if owner_type == "child":
