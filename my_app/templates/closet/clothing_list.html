@@ -67,15 +67,19 @@
 
 <div class="pagination">
     {% if page_obj.has_previous %}
-        <a href="?{{ query_string }}&page={{ page_obj.previous_page_number }}">前へ</a>
+        <a href="?{{ query_string }}&page={{ page_obj.previous_page_number }}">←前へ</a>
+    {% else %}
+        <span class="pagination-disabled">←前へ</span>
     {% endif %}
 
-    <span>
+    <span class="pagination-current">
         {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
     </span>
 
     {% if page_obj.has_next %}
-        <a href="?{{ query_string }}&page={{ page_obj.next_page_number }}">次へ</a>
+        <a href="?{{ query_string }}&page={{ page_obj.next_page_number }}">次へ→</a>
+    {% else %}
+        <span class="pagination-disabled">次へ→</span>
     {% endif %}
 </div>
   

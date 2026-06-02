@@ -1220,19 +1220,29 @@ form select {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 16px;
+    gap: 24px;
     margin: 24px 0;
 }
 
 .pagination a {
-    color: #6f8f68;
-    text-decoration: none;
-    font-weight: 600;
+    color: #6f5b4b;
+    text-decoration: underline;
+    font-weight: 700;
 }
 
 .pagination span {
     color: #7a5c4a;
     font-size: 14px;
+}
+
+.pagination-disabled {
+    color: #d8d8d8;
+    font-weight: 500;
+}
+
+.pagination-current {
+    color: #6f5b4b;
+    font-weight: 600;
 }
 
 /* =====コーデ詳細画面===== */
