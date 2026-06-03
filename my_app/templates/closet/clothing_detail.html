@@ -23,13 +23,13 @@
   <div class="detail-info">
       <p><span>カテゴリ：</span>{{ clothing.category.name }}</p>
       <p><span>サイズ：</span>{{ clothing.size }}</p>
-      <p><span>カラー：</span>{{ clothing.color }}</p>
+      <p><span>カラー：</span>{{ clothing.get_color_display }}</p>
       <p><span>季節：</span>
         {% for season in clothing.seasons.all %}
           {{ season.name }}
         {% endfor %}
       </p>
-      <p><span>着用状況：</span>{{ clothing.wear_status }}</p>
+      <p><span>着用状況：</span>{{ clothing.get_wear_status_display }}</p>
       <p><span>メモ：</span>{{ clothing.note }}</p>
   </div>
 
