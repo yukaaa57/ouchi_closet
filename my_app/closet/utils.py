@@ -17,7 +17,6 @@ def create_default_categories(family):
             family=family,
             name=name,
             defaults={
-                "sort_order": index,
                 "is_default": True,
             }
         )
