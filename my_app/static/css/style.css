@@ -1536,7 +1536,7 @@ form select {
 
 /* 入力欄全体 */
 .outfit-form-url-inputs {
-    width: 260px;
+    width: calc(100% -52px);
 }
 
 /* 入力欄１つずつ */
