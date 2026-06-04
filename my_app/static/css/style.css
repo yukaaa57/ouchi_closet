@@ -537,14 +537,14 @@ form select {
 }
 
 .delete-yes-button {
-    border: none;
+    border: 1px solid #e5bcbc;
     background-color: #f6d6d6;
-    color: #a85a5a;
+    color: #b35b5b;
 }
 
 .delete-no-button {
-    border: 1px solid #8fa89b;
-    background-color: #d7e8df;
+    border: 1px solid #cfe2de;
+    background-color: #e3efe8;
     color: #4f6b5e;
 }
 
