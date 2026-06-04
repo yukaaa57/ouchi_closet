@@ -2398,5 +2398,20 @@ form select {
     color: #4f6b5e;
 }
 
+.signup-container .errorlist {
+    display: block !important;
+    position: static !important;
+    margin: 8px 0 0 0 !important;
+    padding-left: 20px !important;
+    color: #c85c5c !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    clear: both !important;
+}
 
+.signup-container .errorlist li {
+    display: list-item !important;
+    position: static !important;
+    margin: 0 !important;
+}
 
