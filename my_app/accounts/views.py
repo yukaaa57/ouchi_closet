@@ -12,6 +12,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from closet.utils import create_default_categories
+from django.db import transaction
 
 User = get_user_model()
 
@@ -31,29 +32,31 @@ class SignUpView(CreateView):
        
         invite_token = (self.request.POST.get("invite") or "").strip()
         invitation = None
-        user = form.save(commit=False)
-        if invite_token:
-            try:
-                invitation = Invitation.objects.get(token=invite_token)
-                
-                if not invitation.is_valid():
-                    form.add_error(None, "招待リンクが無効または期限切れです")
+        
+        with transaction.atomic():
+            user = form.save(commit=False)
+            if invite_token:
+                try:
+                    invitation = Invitation.objects.get(token=invite_token)
+                    
+                    if not invitation.is_valid():
+                        form.add_error(None, "招待リンクが無効または期限切れです")
+                        return self.form_invalid(form)
+                    
+                    user.family = invitation.family
+                    
+                except Invitation.DoesNotExist:
+                    form.add_error(None, "無効な招待リンクです")
                     return self.form_invalid(form)
                 
-                user.family = invitation.family
-                
-            except Invitation.DoesNotExist:
-                form.add_error(None, "無効な招待リンクです")
-                return self.form_invalid(form)
+            else:
+                family = Family.objects.create()
+                create_default_categories(family)
+                user.family = family
+            user.save()
             
-        else:
-            family = Family.objects.create()
-            create_default_categories(family)
-            user.family = family
-        user.save()
-        
-        if invitation is not None:
-            invitation.mark_used()
+            if invitation is not None:
+                invitation.mark_used()
         
         return redirect(self.success_url)
         
