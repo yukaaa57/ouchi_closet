@@ -546,6 +546,7 @@ form select {
     border: 1px solid #cfe2de;
     background-color: #e3efe8;
     color: #4f6b5e;
+    background: red !important;
 }
 
 /* =====アイテム登録・編集画面===== */
