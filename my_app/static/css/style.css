@@ -537,16 +537,19 @@ form select {
 }
 
 .delete-yes-button {
+    appearance: none;
+    -webkit-appearance: none;
     border: 1px solid #e5bcbc;
     background-color: #f6d6d6;
     color: #b35b5b;
 }
 
 .delete-no-button {
+    appearance: none;
+    -webkit-appearance: none;
     border: 1px solid #cfe2de;
     background-color: #e3efe8;
     color: #4f6b5e;
-    background: red !important;
 }
 
 /* =====アイテム登録・編集画面===== */
