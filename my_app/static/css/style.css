@@ -1975,7 +1975,6 @@ form select {
     width: 330px;
     margin: 0 auto;
     padding-top: 0;
-    background-color: red !important;
 }
 
 /* タイトル */
@@ -2411,5 +2410,9 @@ form select {
 
 .signup-container .errorlist li {
     margin-top: 4px !important;
+}
+
+.body {
+    background-color: red !important;
 }
 
