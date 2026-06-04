@@ -2017,6 +2017,20 @@ form select {
     box-sizing: border-box;
 }
 
+.form-group .errorlist {
+    margin: 6px 0 0 18px;
+    padding: 0;
+    color: #c85c5c;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.6;
+    position: static;
+}
+
+.form-group .errorlist li {
+    margin-top: 4px;
+}
+
 /* パスワード説明文*/
 .helptext {
     margin-top: 24px;
