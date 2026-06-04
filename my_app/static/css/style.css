@@ -1530,13 +1530,13 @@ form select {
 .outfit-form-url-content {
     display: flex;
     align-items: flex-end;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 12px;
 }
 
 /* 入力欄全体 */
 .outfit-form-url-inputs {
-    width: calc(100% -52px);
+    width: calc(100% -40px);
 }
 
 /* 入力欄１つずつ */
