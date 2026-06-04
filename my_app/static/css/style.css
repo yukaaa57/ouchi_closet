@@ -2402,16 +2402,13 @@ form select {
     display: block !important;
     position: static !important;
     margin: 8px 0 0 0 !important;
-    padding-left: 20px !important;
+    padding: 0 !important;
     color: #c85c5c !important;
     font-size: 14px !important;
     line-height: 1.6 !important;
-    clear: both !important;
 }
 
 .signup-container .errorlist li {
-    display: list-item !important;
-    position: static !important;
-    margin: 0 !important;
+    margin-top: 4px !important;
 }
 
