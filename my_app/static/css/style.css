@@ -2017,7 +2017,7 @@ form select {
     box-sizing: border-box;
 }
 
-.form-group .errorlist {
+.signup-container .form-group .errorlist {
     margin: 6px 0 0 18px;
     padding: 0;
     color: #c85c5c;
@@ -2027,7 +2027,7 @@ form select {
     position: static;
 }
 
-.form-group .errorlist li {
+.signup-container .form-group .errorlist li {
     margin-top: 4px;
 }
 
