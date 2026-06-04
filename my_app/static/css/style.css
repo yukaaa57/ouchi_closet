@@ -1536,7 +1536,7 @@ form select {
 
 /* 入力欄全体 */
 .outfit-form-url-inputs {
-    width: 320px;
+    width: 280px;
 }
 
 /* 入力欄１つずつ */
@@ -1555,6 +1555,7 @@ form select {
 .url-add-button {
     width: 28px;
     height: 28px;
+    flex-shrink: 0;
     border-radius: 50%;
     border: 1px solid #aaa;
     background-color: transparent;
