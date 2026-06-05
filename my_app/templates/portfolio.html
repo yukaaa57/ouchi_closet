@@ -4,35 +4,45 @@
 {% block content %}
 <div class="portfolio-page">
 
-    <header class="portfolio-header">
-        <h1 class="portfolio-title">Portfolio</h1>
-    </header>
+    <h1 class="portfolio-title">作品No.１　Ouchi Closet</h1>
+    
+    <div class="portfolio-image-area">
+        <img src="{% static "images/ouchi_closet_home.png" %}"
+            alt="Ouchi Closetのホーム画像"
+            class="portfolio-image"
+        >
 
-    <main class="portfolio-card">
+        <img src="{% static "images/ouchi_closet_closet.png" %}"
+            alt="Ouchi Closetのクローゼット画像"
+            class="portfolio-image"
+        >
 
-            <div class="portfolio-image-area">
-                <img src="{% static "images/ouchi_closet_top.png" %}"
-                    alt="Ouchi Closetの画像"
-                    class="portfolio-image"
-                >
-            </div>
+        <img src="{% static "images/ouchi_closet_nursery.png" %}"
+            alt="Ouchi Closetの保育園必需品画像"
+            class="portfolio-image"
+        >
+    </div>
 
-            <div class="portfolio-info">
-                <p>
-                    #
-                </p>
-            </div>
-        </section>
+    <div class="portfolio-info">
+        <p>
+            ouchi closet は、育児と仕事に忙しい家庭に向けて、家族全員の洋服アイテムを一元管理できるクローゼット管理アプリです
+        </p>
 
-        <section class="portfolio-documents">
-            <a href="#" target="_blank">企画書</a>
-            <a href="#" target="_blank">画面遷移図</a>
-            <a href="#" target="_blank">ER図</a>
-        </section>
-    </main>
+        <p>
+            手持ちアイテムの可視化や重複購入の防止、子ども服のサイズ管理を支援するとともに、
+            お気に入りコーディネート登録や保育園必需品管理機能を通じて、育児家庭の日常的な負担軽減を実現します。
+        </p>
+    </div>
+
+    <div class="portfolio-documents">
+        <a href="https://docs.google.com/document/d/1cMsT_ViK_DESjTMbqZP3GlPvyixWbWGTYnJTq-Y6PPo/edit?usp=sharing">企画書</a>
+        <a href="https://docs.google.com/presentation/d/1fqsrsBAOxbKnZQXXxP4IBJW7X6aYJZRUf9x85HGGrAA/edit?usp=sharing">画面設計図</a>
+        <a href="https://drive.google.com/file/d/1FrxduCeo8_9U-t6eILGKS1-znHAd7vxE/view?usp=sharing">画面遷移図</a>
+        <a href="https://drive.google.com/file/d/1zDqi8DTizJQg3lur92TrpPeBJi5CXCjl/view?usp=drive_link">ER図</a>
+    </div>
 
     <div class="portfolio-buttons">
-        <a href="#" class="portfolio-button app-button">アプリを見る</a>
+        <a href="{% url 'home' %}" class="portfolio-button">アプリを見る</a>
     </div>
 </div>
   

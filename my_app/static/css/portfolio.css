@@ -12,11 +12,15 @@
 
 
 .portfolio-image-area {
-    flex: 1.2;
+    display: flex;
+    justify-content: center
+    gap 24px;
+    margin-bottom: 30px;
 }
 
 .portfolio-image {
-    width: 700px;
+    width: 30%;
+    max-width: 280px;
     border: 1px solid #ddd;
 }
 
