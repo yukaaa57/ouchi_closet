@@ -24,7 +24,8 @@ from accounts import views as accounts_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", accounts_views.home, name="home"),
+    path("", accounts_views.portfolio, name="portfolio"),
+    path("ouchi_closet/", accounts_views.home, name="home"),
     path("accounts/password_reset/",
          auth_views.PasswordResetView.as_view(
              template_name="registration/password_reset_form.html"
