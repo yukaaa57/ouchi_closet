@@ -152,7 +152,7 @@ def clothing_create(request, owner_type, owner_id):
             else:
                 return redirect("child_closet", pk=owner_id)    
     else:
-        form = ClothingItemForm()
+        form = ClothingItemForm(family=request.user.family)
     
     context = {
         "form": form,
@@ -184,7 +184,7 @@ def clothing_update(request, pk):
         owner_type = "child"
     
     if request.method == "POST":
-        form = ClothingItemForm(request.POST, request.FILES, instance=clothing)
+        form = ClothingItemForm(request.POST, request.FILES, instance=clothing, family=request.user.family)
         
         if form.is_valid():
             form.save()
@@ -194,7 +194,7 @@ def clothing_update(request, pk):
             else:
                 return redirect("child_closet", pk=clothing.child.pk)
     else:
-        form = ClothingItemForm(instance=clothing)
+        form = ClothingItemForm(instance=clothing, family=request.user.family)
         
     context = {
         "form": form,
@@ -284,7 +284,7 @@ def clothing_search(request, owner_type, owner_id):
             family=request.user.family
         )
         
-    form = ClothingSearchForm()
+    form = ClothingSearchForm(family=request.user.family)
     
     context = {
         "form": form,
