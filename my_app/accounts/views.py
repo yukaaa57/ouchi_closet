@@ -158,6 +158,8 @@ def child_closet(request, pk):
     child = get_object_or_404(Child, pk=pk, family=request.user.family)
     return HttpResponse(f"{child.nickname}のクローゼット")
     
+def portfolio(request):
+    return render(request, "portfolio.html")
     
     
     
