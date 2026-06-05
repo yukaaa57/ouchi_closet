@@ -1,0 +1,39 @@
+{% extends "portfolio_base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="portfolio-page">
+
+    <header class="portfolio-header">
+        <h1 class="portfolio-title">Portfolio</h1>
+    </header>
+
+    <main class="portfolio-card">
+
+            <div class="portfolio-image-area">
+                <img src="{% static "images/ouchi_closet_top.png" %}"
+                    alt="Ouchi Closetの画像"
+                    class="portfolio-image"
+                >
+            </div>
+
+            <div class="portfolio-info">
+                <p>
+                    #
+                </p>
+            </div>
+        </section>
+
+        <section class="portfolio-documents">
+            <a href="#" target="_blank">企画書</a>
+            <a href="#" target="_blank">画面遷移図</a>
+            <a href="#" target="_blank">ER図</a>
+        </section>
+    </main>
+
+    <div class="portfolio-buttons">
+        <a href="#" class="portfolio-button app-button">アプリを見る</a>
+    </div>
+</div>
+  
+{% endblock %}
