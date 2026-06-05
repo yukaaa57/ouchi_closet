@@ -162,7 +162,7 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
     if int(outfit_type) == 0:
         initial_slot_count = 3
         clothing_items = ClothingItem.objects.filter(user=owner) if owner_type == "user" else ClothingItem.objects.filter(child=owner)
-        categories = Category.objects.all()
+        categories = Category.objects.filter(family=request.user.family)
         color_choices = ClothingItem.COLOR_CHOICES
     else:
         initial_slot_count = 2
