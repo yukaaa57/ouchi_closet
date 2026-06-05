@@ -13,8 +13,8 @@
 
 .portfolio-image-area {
     display: flex;
-    justify-content: center
-    gap 24px;
+    justify-content: center;
+    gap: 24px;
     margin-bottom: 30px;
 }
 
@@ -51,9 +51,10 @@
 
 .portfolio-button {
     display: inline-block;
-    padding: 14px 28px;
+    padding: 14px 32px;
     border-radius: 6px;
     text-decoration: none;
-    background: #4aa3ff;
+    background-color: #d9a7a0;
     color: white;
+    font-weight: 600;
 }
