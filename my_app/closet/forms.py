@@ -36,6 +36,12 @@ class ClothingItemForm(forms.ModelForm):
             "note": forms.Textarea(attrs={"rows": 4}),
         }
         
+    def __init__(self, *args, family=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        if family:
+            self.fields["category"].queryset = Category.objects.filter(family=family)
+        
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
@@ -47,11 +53,17 @@ class CategoryForm(forms.ModelForm):
 
 class ClothingSearchForm(forms.Form):
     category = forms.ModelChoiceField(
-        queryset=Category.objects.all(),
+        queryset=Category.objects.none(),
         required=False,
         label="カテゴリ",
         empty_label="選択して下さい",
     )
+    
+    def __init__(self, *args, family=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        if family:
+            self.fields["category"].queryset = Category.objects.filter(family=family)
     
     size = forms.ChoiceField(
         choices=[("", "選択して下さい")]+ list(SIZE_CHOICES),

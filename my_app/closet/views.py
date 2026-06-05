@@ -134,7 +134,7 @@ def clothing_create(request, owner_type, owner_id):
         )
     
     if request.method == "POST":
-        form = ClothingItemForm(request.POST, request.FILES)
+        form = ClothingItemForm(request.POST or None, request.FILES or None, family=request.user.family)
         
         if form.is_valid():
             clothing = form.save(commit=False)
@@ -316,7 +316,7 @@ def clothing_search_results(request, owner_type, owner_id):
         )
         clothes = ClothingItem.objects.filter(child=owner)
         
-    form = ClothingSearchForm(request.GET or None)
+    form = ClothingSearchForm(request.GET or None, family=request.user.family)
     search_conditions = []
     
     color_dict = dict(ClothingItem.COLOR_CHOICES)
