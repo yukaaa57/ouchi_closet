@@ -38,7 +38,7 @@
 
         <h3 class="modal-title">カテゴリ編集</h3>
 
-        <form method="post" id="edit-form">
+        <form method="post" id="edit-form" class="prevent-double-submit">
             {% csrf_token %}
 
             <div class="form-group">

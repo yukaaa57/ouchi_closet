@@ -59,7 +59,7 @@
     <h3 class="modal-title">編集✏️</h3>
     <p class="modal-description">変更内容を入力し変更ボタンを押下してください。</p>
 
-    <form method="post" action="{% url 'nursery_item_update' child.pk %}" class="modal-form">
+    <form method="post" action="{% url 'nursery_item_update' child.pk %}" class="modal-form prevent-double-submit">
         {% csrf_token %}
 
         <input type="hidden" name="item_type" value="0">
@@ -156,7 +156,7 @@
     <h3 class="modal-title">編集✏️</h3>
     <p class="modal-description">変更内容を入力し変更ボタンを押下してください。</p>
 
-    <form method="post" action="{% url 'nursery_item_update' child.pk %}" class="modal-form">
+    <form method="post" action="{% url 'nursery_item_update' child.pk %}" class="modal-form prevent-double-submit">
         {% csrf_token %}
 
         <input type="hidden" name="item_type" value="1">

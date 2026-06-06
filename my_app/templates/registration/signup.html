@@ -4,7 +4,7 @@
 <div class="signup-container">
     <h2 class="account-title">新規アカウント登録</h2> 
 
-    <form method="post" enctype="multipart/form-data" class="account-form">
+    <form method="post" enctype="multipart/form-data" class="account-form prevent-double-submit">
         {% csrf_token %}
         
         <div class="image-area">

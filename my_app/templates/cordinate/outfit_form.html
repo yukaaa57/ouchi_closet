@@ -25,7 +25,7 @@
     </div>
 {% endif %}
 
-<form method="post" enctype="multipart/form-data" class="outfit-form">
+<form method="post" enctype="multipart/form-data" class="outfit-form prevent-double-submit">
     {% csrf_token %}
 
     <!--外部サイトコーデ-->

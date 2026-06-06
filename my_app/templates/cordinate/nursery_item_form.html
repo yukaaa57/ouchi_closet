@@ -10,7 +10,7 @@
 
 <h3 class="nursery-title">保育園必需品登録</h3>
 
-<form method="post">
+<form method="post" class="prevent-double-submit">
     {% csrf_token %}
 
     <div class="nursery-form-type">
