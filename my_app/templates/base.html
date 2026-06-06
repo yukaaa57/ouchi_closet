@@ -246,6 +246,20 @@ if (closeLogoutModalButton && logoutModal) {
         logoutModal.classList.remove("active");
     });
 }
+
+//２重送信防止
+const doubleSubmitForms = document.querySelectorAll(".prevent-double-submit");
+
+doubleSubmitForms.forEach(function (form) {
+    form.addEventListener("submit", function() {
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = "保存中...";
+        }
+    });
+});
 </script>
 
 </body>
