@@ -43,11 +43,11 @@
     </div>
     
     <div class="save-area">
-        <a href="#" id="open-logout-modal" class="logout-link">ログアウト</a>
+        <a href="#" id="open-me-logout-modal" class="logout-link">ログアウト</a>
     </div>
 
     <!-- ログアウト確認モーダル -->
-        <div id="logout-modal" class="logout-modal">
+        <div id="me-logout-modal" class="logout-modal">
             <div class="logout-modal-box">
                 <p class="logout-modal-text">ログアウトしますか？</p>
 
@@ -57,7 +57,7 @@
                         <button type="submit" class="logout-yes-button">はい</button>
                     </form>
 
-                    <button type="button" id="close-logout-modal" class="logout-no-button">いいえ</button>
+                    <button type="button" id="close-me-logout-modal" class="logout-no-button">いいえ</button>
                 </div>
             </div>
         </div>
@@ -65,20 +65,20 @@
 
 <script>
 //ログアウトモーダル
-const openLogoutModalButton = document.getElementById("open-logout-modal");
-const logoutModal = document.getElementById("logout-modal");
-const closeLogoutModalButton = document.getElementById("close-logout-modal");
+const openMeLogoutModalButton = document.getElementById("open-me-logout-modal");
+const meLogoutModal = document.getElementById("me-logout-modal");
+const closeMeLogoutModalButton = document.getElementById("close-me-logout-modal");
 
-if (openLogoutModalButton && logoutModal) {
-    openLogoutModalButton.addEventListener("click", function (event) {
+if (openMeLogoutModalButton && meLogoutModal) {
+    openMeLogoutModalButton.addEventListener("click", function (event) {
         event.preventDefault();
-        logoutModal.classList.add("active");
+        meLogoutModal.classList.add("active");
     });
 }
 
-if (closeLogoutModalButton && logoutModal) {
-    closeLogoutModalButton.addEventListener("click", function () {
-        logoutModal.classList.remove("active");
+if (closeMeLogoutModalButton && meLogoutModal) {
+    closeMeLogoutModalButton.addEventListener("click", function () {
+        meLogoutModal.classList.remove("active");
     });
 }
 </script>
