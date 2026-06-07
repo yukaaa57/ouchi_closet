@@ -1964,8 +1964,9 @@ form select {
     margin-bottom: 20px;
 }
 
+.errorlist.nonfield,
 .errorlist.nonfield li {
-    color: #d9534f;
+    color: #d9534f !important;
 }
 
 /* 新規登録リンク */
