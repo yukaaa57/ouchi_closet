@@ -43,7 +43,7 @@
     </div>
     
     <div class="save-area">
-        <a href="{% url 'login' %}" id="open-logout-modal" class="logout-link">ログアウト</a>
+        <a href="#" id="open-logout-modal" class="logout-link">ログアウト</a>
     </div>
 
     <!-- ログアウト確認モーダル -->
@@ -70,7 +70,8 @@ const logoutModal = document.getElementById("logout-modal");
 const closeLogoutModalButton = document.getElementById("close-logout-modal");
 
 if (openLogoutModalButton && logoutModal) {
-    openLogoutModalButton.addEventListener("click", function () {
+    openLogoutModalButton.addEventListener("click", function (event) {
+        event.preventDefault();
         logoutModal.classList.add("active");
     });
 }
