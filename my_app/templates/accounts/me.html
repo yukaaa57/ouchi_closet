@@ -43,8 +43,42 @@
     </div>
     
     <div class="save-area">
-        <a href="{% url 'login' %}" class="logout-link">ログアウト</a>
+        <a href="{% url 'login' %}" id="open-logout-modal" class="logout-link">ログアウト</a>
     </div>
+
+    <!-- ログアウト確認モーダル -->
+        <div id="logout-modal" class="logout-modal">
+            <div class="logout-modal-box">
+                <p class="logout-modal-text">ログアウトしますか？</p>
+
+                <div class="logout-modal-actions">
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-yes-button">はい</button>
+                    </form>
+
+                    <button type="button" id="close-logout-modal" class="logout-no-button">いいえ</button>
+                </div>
+            </div>
+        </div>
 </div>
-    
+
+<script>
+//ログアウトモーダル
+const openLogoutModalButton = document.getElementById("open-logout-modal");
+const logoutModal = document.getElementById("logout-modal");
+const closeLogoutModalButton = document.getElementById("close-logout-modal");
+
+if (openLogoutModalButton && logoutModal) {
+    openLogoutModalButton.addEventListener("click", function () {
+        logoutModal.classList.add("active");
+    });
+}
+
+if (closeLogoutModalButton && logoutModal) {
+    closeLogoutModalButton.addEventListener("click", function () {
+        logoutModal.classList.remove("active");
+    });
+}
+</script>
 {% endblock %}
