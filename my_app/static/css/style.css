@@ -47,13 +47,13 @@ body {
 
 /* ハンバーガーだけシンプルに　*/
 #hamburger {
-    width: 56px;
-    height: 56px;
-    font-size: 36px;
+    width: 42px;
+    height: 42px;
+    font-size: 26px;
     background-color: #f7f2ef;
     color: #9f7770;
     border: 1px solid #e5ddd8;
-    border-radius: 12px;
+    border-radius: 10px !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2273,7 +2273,7 @@ form select {
     object-fit: cover;
     display: block;
     border: 2px solid #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: none;
 }
 
 /* 中のメニュー全体 */
