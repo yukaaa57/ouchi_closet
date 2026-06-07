@@ -2276,6 +2276,11 @@ form select {
     box-shadow: none;
 }
 
+#open-account-sidebar {
+    background-color: transparent;
+    padding: 0;
+}
+
 /* 中のメニュー全体 */
 .side-menu {
     display: flex;
