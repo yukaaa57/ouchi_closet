@@ -47,9 +47,16 @@ body {
 
 /* ハンバーガーだけシンプルに　*/
 #hamburger {
-    font-size: 40px;
-    background-color: transparent;
+    width: 56px;
+    height: 56px;
+    font-size: 36px;
+    background-color: #f7f2ef;
     color: #9f7770;
+    border: 1px solid #e5ddd8;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* パンくず　*/
