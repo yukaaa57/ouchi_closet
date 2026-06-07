@@ -29,8 +29,8 @@ body {
 
 /* 左上、右上アイコン共通　*/
 .icon-button {
-    width: 42px;
-    height: 42px;
+    width: 56px;
+    height: 56px;
     border: none;
     border-radius: 50%;
 
@@ -47,7 +47,7 @@ body {
 
 /* ハンバーガーだけシンプルに　*/
 #hamburger {
-    font-size: 24px;
+    font-size: 40px;
     background-color: transparent;
     color: #9f7770;
 }
@@ -1710,7 +1710,7 @@ form select {
     margin-top: -4px;
 }
 
-.icon-button {
+.nursery-icon-button {
     background-color: transparent;
     border: none;
 }
