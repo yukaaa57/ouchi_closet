@@ -17,7 +17,7 @@
             {% block account_icon %}
             <div id="account-icon" class="account-area">
                 <button type="button" id="open-account-sidebar" class="icon-button">
-                    {% if request.user.profile_image %}
+                    {% if request.user.profile_image.name %}
                         <img src="{{ request.user.profile_image.url }}" alt="プロフィール画像" class="account-icon-image">
                     {% else %}
                         <div class="header-account-default-icon">👤</div>
