@@ -2112,14 +2112,11 @@ form select {
 /* =====アカウント管理画面===== */
 /* 表示用入力欄 */
 .account-display {
-    width: 100%;
-    max-width: 260px;
-    margin: 0 auto;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fff;
-    font-size: 16px;
+    padding: 8px 0;
+    border: none;
+    background-color: transparent;
+    font-size: 18px;
+    color: #555;
 }
 
 /* 変更ボタン */
