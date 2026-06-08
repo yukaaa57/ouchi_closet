@@ -1,26 +1,12 @@
-<h2>ouchi closet</h2> 
+ouchi closet をご利用いただきありがとうございます。
 
-<p>
-ご利用いただきありがとうございます。
-</p>
-
-<p>
-パスワード再設定のご依頼を受け付けました。<br>
+パスワード再設定のご依頼を受け付けました。
 以下のURLを開き、新しいパスワードを設定してください。
-</p>
 
-<p>
-<a href="{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}">
 {{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=tokn %}
-</a>
-</p>
 
-<p>
 このメールに心当たりがない場合は、操作は不要です。<br>
 第三者にこのURLを共有しないでください。
-</p>
 
-<p>
-----------<br>
+----------
 ouchi closet
-</p>
