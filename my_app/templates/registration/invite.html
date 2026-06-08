@@ -14,13 +14,13 @@
       <input type="text" id="invite-url" value="{{ invite_url}}" readonly style="width: 100%;">
     {% endif %}
 
-    <button type="button" id="copy-invite-url-btn">
-      URLをコピー
-    </button>
+    <div class="copy-button-area">
+      <button type="button" id="copy-invite-url-btn">
+        URLをコピー
+      </button>
+    </div>
 
-    <p id="copy-message" style="display: none;">
-      コピーしました
-    </p>
+    <p id="copy-message">コピーしました</p>
 
     <a href="{% url 'home' %}" class="login-link">ホーム画面へ戻る</a>
 </div>

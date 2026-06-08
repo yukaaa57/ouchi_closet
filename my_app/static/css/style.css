@@ -1993,20 +1993,27 @@ form select {
 }
 
 /* 家族招待画面URL */
+.copy-button-area {
+    text-align: center;
+    margin-top: 16px;
+}
+
 #copy-invite-url-btn {
     margin-top: 12px;
     padding: 10px 22px;
     border: none;
     border-radius: 20px;
-    background-color: #f3b38b;
-    color: #fff;
+    background-color: #e6d3c8;
+    color: #8a6a55;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
 }
 
 #copy-message {
-    margin-top: 8px;
+    text-align: center;
+    margin-top: 10px;
+    min-height: 20px;
     color: #8a6a55;
     font-size: 13px;
 }
