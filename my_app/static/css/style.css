@@ -2011,6 +2011,7 @@ form select {
 }
 
 #copy-message {
+    display: none;
     text-align: center;
     margin-top: 10px;
     min-height: 20px;
