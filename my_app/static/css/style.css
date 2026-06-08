@@ -1901,16 +1901,6 @@ form select {
     text-align: left;
 }
 
-/* サイズセレクト欄 */
-.account-form select {
-    background-color: #fff;
-    border: 1px solid#e5e0dc;
-    height: 48px;
-    padding: 0 14px;
-    font-size: 16px;
-    color: #555;
-}
-
 /* パス変更画面の条件リスト部分 */
 .account-form ul {
     width: 300px;
@@ -1942,8 +1932,9 @@ form select {
     margin-bottom: 6px;
 }
 
-/* 入力欄 */
-.account-form input {
+/* 入力欄,サイズセレクト欄 */
+.account-form input,
+.account-form select {
     display: block;
     margin-left: 20px;
     width: 100%;
