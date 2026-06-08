@@ -1992,6 +1992,25 @@ form select {
     font-weight: bold;
 }
 
+/* 家族招待画面URL */
+#copy-invite-url-btn {
+    margin-top: 12px;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f3b38b;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#copy-message {
+    margin-top: 8px;
+    color: #8a6a55;
+    font-size: 13px;
+}
+
 /* =====新規登録画面===== */
 /* 新規登録画面全体 */
 .signup-container {

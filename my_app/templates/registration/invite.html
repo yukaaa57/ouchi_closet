@@ -11,9 +11,35 @@
       <p>{{ error }}</p>
     {% else %}
       <p class="account-text">招待したい家族にURLを共有し、リンク先からアカウント登録をして下さい。</p>
-      <input type="text" value="{{ invite_url}}" readonly style="width: 100%;">
+      <input type="text" id="invite-url" value="{{ invite_url}}" readonly style="width: 100%;">
     {% endif %}
+
+    <button type="button" id="copy-invite-url-btn">
+      URLをコピー
+    </button>
+
+    <p id="copy-message" style="display: none;">
+      コピーしました
+    </p>
 
     <a href="{% url 'home' %}" class="login-link">ホーム画面へ戻る</a>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const copyBtn = document.getElementById("copy-invite-url-btn");
+  const inviteUrl = document.getElementById("invite-url");
+  const copyMessage = document.getElementById("copy-message");
+
+  copyBtn.addEventListener("click", function () {
+    inviteUrl.select();
+    inviteUrl.setSelectionRange(0, 99999);
+
+    navigator.clipboard.writeText(inviteUrl.value).then(function () {
+      copyMessage.style.display = "block"
+      copyMessage.textContent = "コピーしました"
+    });
+  });
+});
+</script>
 {% endblock %}
