@@ -20,7 +20,7 @@ class SignUpView(CreateView):
     model = User
     form_class = SignUpForm
     template_name = "registration/signup.html"
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("home")
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -54,6 +54,8 @@ class SignUpView(CreateView):
                 create_default_categories(family)
                 user.family = family
             user.save()
+            
+            login(self.request, user)
             
             if invitation is not None:
                 invitation.mark_used()
