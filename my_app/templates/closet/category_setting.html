@@ -21,14 +21,19 @@
 
 <ul class="category-edit-list">
     {% for category in categories %}
-        <li class="category-item">
-            <span class="category-name">
-                {{ category.name }}
-            </span>
+        <div class="category-row">
+            <span class="category-name">{{ category.name }}</span>
 
-            <button type="button" class="edit-link open-edit-modal" data-category-id="{{ category.pk }}" data-category-name="{{ category.name }}">編集</button>
-            <button type="button" class="delete-link open-delete-modal" data-category-id="{{ category.pk }}" data-category-name="{{ category.name}}">削除</button>
-        </li>
+            <div class="category-actions">
+                {% if category.is_default %}
+                    <span class="category-button disabled">編集</span>
+                    <span class="category-button disabled">削除</span>
+                {% else %}
+                    <button type="button" class="edit-link open-edit-modal" data-category-id="{{ category.pk }}" data-category-name="{{ category.name }}">編集</button>
+                    <button type="button" class="delete-link open-delete-modal" data-category-id="{{ category.pk }}" data-category-name="{{ category.name}}">削除</button>
+                {% endif %}
+            </div>
+        </div>
     {% endfor %}
 </ul>
 

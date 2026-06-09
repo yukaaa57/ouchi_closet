@@ -2190,27 +2190,41 @@ form select {
     list-style: none;
     padding: 0;
     margin: 30px auto o;
-    width: 280px;
+    width: 90%;
+    max-width: 680px;
     display: flex;
     flex-direction: column;
 }
 
 /* カテゴリ１行分 */
-.category-item {
+.category-row {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
     width: 100%;
-    padding: 16px 0;
+    padding: 22px 0;
     border-bottom: 1px solid #ddd;
 }
 
 /* カテゴリ名 */
 .category-name {
     flex: 1;
-    font-size: 18px;
-    min-width: 90px;
+    font-size: 22px;
+    font-weight: 600;
     white-space: nowrap;
+}
+
+.category-actions {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.category-button.disabled {
+    background-color: #e5e5e5;
+    color: #aaa;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 /* モーダル */
