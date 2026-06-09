@@ -1064,10 +1064,9 @@ form select {
 }
 
 .optional-text {
-    margin-top: 8px;
     font-size: 13px;
-    text-align: center;
     color: #d89a9a;
+    font-weight: 500;
 }
 
 /* 基本情報、詳細情報 */
