@@ -2237,6 +2237,21 @@ form select {
     pointer-events: none;
 }
 
+/* カテゴリ追加リンク */
+.setting-category-add-link-area {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.setting-add-category-link {
+    border: none;
+    background: none;
+    padding: 0;
+    font-size: 16px;
+    color: #7da4c7;
+    cursor: pointer;
+}
+
 /* モーダル */
 .modal {
     display: none;
