@@ -45,6 +45,27 @@
     <button type="button" class="setting-add-category-link" onclick="document.getElementById('category-modal').style.display='flex'">＋カテゴリを追加</button>
 </div>
 
+<div id="category-modal" class="category-modal" style="display: none;">
+    <div class="category-modal-box">
+        <p>カテゴリ追加</p>
+
+        <form method="post" action="{% url 'category_create' %}" class="prevent-double-submit">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+
+            <div class="category-modal-row">
+                {{ category_form.name.label_tag }}
+                {{ category_form.name }}
+            </div>
+
+            <div class="save-area">
+                <button type="submit" class="save-button">追加</button>
+            </div>
+            <button type="button" class="modal-close-button" onclick="document.getElementById('category-modal').style.display='none'">×</button>
+        </form>
+    </div>
+</div>
+
 <div id="edit-modal" class="modal">
     <div class="modal-content"> 
         <button type="button" id="close-edit-modal" class="modal-close-button">×</button>
