@@ -2174,6 +2174,13 @@ form select {
     font-size: 24px;
 }
 
+.category-note {
+    margin: 10px 0 20px;
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+}
+
 .message-area {
     margin: 16px 0 24px;
     text-align: center;
@@ -2209,14 +2216,14 @@ form select {
 /* カテゴリ名 */
 .category-name {
     flex: 1;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     white-space: nowrap;
 }
 
 .category-actions {
     display: flex;
-    gap: 12px;
+    gap: 20px;
     flex-shrink: 0;
 }
 
