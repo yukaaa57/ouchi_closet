@@ -41,7 +41,6 @@
                             <label class="image-select-link">
                                 画像を選択
                                 <input type="file" name="outfit_images" class="outfit-image-input">
-                                <span class="optional-text">（必須）</span>
                             </label>
                         </div>
                     </div>
@@ -91,8 +90,7 @@
 
                         <div class="selected-item-action">
                             <button type="button" class="open-clothing-modal">
-                                アイテムを選択
-                                <span class="optional-text">（必須）</span>
+                                画像を選択
                             </button>
                             <input type="hidden" name="selected_clothing_item_ids" value="">
                         </div>
@@ -106,7 +104,7 @@
                         </div>
 
                         <div class="selected-item-action">
-                            <button type="button" class="remove-item-slot">アイテムを削除</button>
+                            <button type="button" class="remove-item-slot">画像を削除</button>
                             <input type="hidden" name="selected_clothing_item_ids" value="{{ item.clothing_item.pk }}">
                         </div>
                     </div>
@@ -114,12 +112,12 @@
 
             <!--手持ちコーデ：アイテム追加-->
                 <div class="add-image-area">
-                    <p class="add-image-title">アイテムを追加</p>
+                    <p class="add-image-title">画像を追加</p>
                     <div class="selected-item-slot outfit-form-slot">
                         <div class="selected-item-preview outfit-form-preview"> </div>
 
                         <div class="selected-item-action">
-                            <button type="button" class="open-clothing-modal">アイテムを選択</button>
+                            <button type="button" class="open-clothing-modal">画像を選択</button>
                             <input type="hidden" name="selected_clothing_item_ids" value="">
                         </div>  
                     </div>
