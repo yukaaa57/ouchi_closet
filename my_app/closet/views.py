@@ -412,8 +412,11 @@ def category_create(request):
 def category_setting(request):
     categories = Category.objects.filter(family=request.user.family)
     
+    category_form = CategoryForm()
+    
     context = {
         "categories": categories,
+        "category_form": category_form,
     }
     
     return render(request, "closet/category_setting.html", context)
