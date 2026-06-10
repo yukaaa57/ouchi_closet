@@ -1049,6 +1049,16 @@ form select {
     object-fit: cover;
 }
 
+.image-upload-area .errorlist {
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    color: #c85c5c;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
 /* 画像選択リンク */
 .item-image-select-link {
     display: block;
@@ -2139,7 +2149,7 @@ form select {
 }
 
 .image-select-button {
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
 }
 
