@@ -91,6 +91,42 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
     if request.method == "POST":
         form = OutfitForm(request.POST)
         
+        image_error = None
+        
+        if int(outfit_type) == 1:
+            upload_images = request.FILES.getlist("outfit_images")
+            
+            if not upload_images:
+                image_error = "画像を1枚以上選択してください。"
+            elif len(upload_images) > 5:
+                image_error = "画像は最大5枚まで登録できます"
+                
+        if int(outfit_type) == 0:
+            selected_ids = request.POST.getlist("selected_clothing_item_ids")
+            selected_ids = [clothing_item_id for clothing_item_id in selected_ids if clothing_item_id]
+            
+            if not selected_ids:
+                image_error = "画像を1枚以上選択してください。"
+            elif len(upload_images) > 5:
+                image_error = "画像は最大5枚まで登録できます"
+                
+        if image_error:
+            initial_slot_count = 3 if int(outfit_type) == 0 else 2
+            initial_slots = range(initial_slot_count)
+            
+            return render(request, "cordinate/outfit_form.html", {
+                "form": form,
+                "owner": owner,
+                "owner_type": owner_type,
+                "outfit_type": int(outfit_type),
+                "image_error": image_error,
+                "is_cleate": True,
+                "initial_slots": initial_slots,
+                "clothing_items": ClothingItem.objects.filter(user=owner) if owner_type =="user" else ClothingItem.objects.filter(child=owner),
+                "categories": Category.objects.filter(family=request.user.family),
+                "color_choices": ClothingItem.COLOR_CHOICES,
+            })
+        
         if form.is_valid():
             outfit = form.save(commit=False)
             

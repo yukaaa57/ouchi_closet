@@ -128,6 +128,12 @@
         <button type="button" id="add-item-slot" class="outfit-form-add-button">＋追加</button>
     {% endif %}
 
+    {% if image_error %}
+        <ul class="errorlist image_error">
+            <li>{{ image_error }}</li>
+        </ul>
+    {% endif %}
+
     {% if outfit_type == 1 %}
         <div class="outfit-form-url-area">
             <p class="outfit-form-url-label">URL:</p>
