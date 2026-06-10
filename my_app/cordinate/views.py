@@ -120,7 +120,7 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
                 "owner_type": owner_type,
                 "outfit_type": int(outfit_type),
                 "image_error": image_error,
-                "is_cleate": True,
+                "is_create": True,
                 "initial_slots": initial_slots,
                 "clothing_items": ClothingItem.objects.filter(user=owner) if owner_type =="user" else ClothingItem.objects.filter(child=owner),
                 "categories": Category.objects.filter(family=request.user.family),
