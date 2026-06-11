@@ -2,7 +2,8 @@
 
 {% block breadcrumbs %}
     <a href="{% url 'home' %}">ホーム</a> >
-    <a href="{% url 'child_closet' child.pk %}">{{ child.nickname }}のクローゼット</a>
+    <a href="{% url 'child_closet' child.pk %}">{{ child.nickname }}のクローゼット</a> >
+    <a href="{% url 'nursery_item_list' child.pk %}">保育園必需品一覧</a>
     >保育園必需品登録
 {% endblock %}
 
