@@ -263,10 +263,10 @@
 
     if (addImageButton && newImageInputs){
         addImageButton.addEventListener("click", function(){
-            const currentSlots = selectedItemsArea.querySelectorAll(".selected-item-slot").length;
+            const currentSlots = newImageInputs.querySelectorAll(".selected-item-slot").length;
 
             if (currentSlots >= 5) {
-                addItemSlotButton.style.display = "none";
+                addImageButton.style.display = "none";
                 return;
             }
 
@@ -285,10 +285,10 @@
             `;
             newImageInputs.appendChild(newRow);
 
-            const afterSlots = selectedItemsArea.querySelectorAll("selected-item-slot").length;
+            const afterSlots = newImageInputs.querySelectorAll("selected-item-slot").length;
 
             if (afterSlots >= 5) {
-                addItemSlotButton.style.display = "none";
+                addImageButton.style.display = "none";
             }
         });
     }
