@@ -8,7 +8,7 @@ User = get_user_model()
 class SignUpForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ("profile_image", "nickname", "size", "email")
+        fields = ("profile_image", "nickname", "size", "email", "password1", "password2")
     
     def clean_email(self):
         email = self.cleaned_data.get("email")
