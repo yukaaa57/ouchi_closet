@@ -1150,8 +1150,7 @@ form select {
 /* コーデ一覧全体 */
 .outfit-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 340px));
-    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     padding: 16px;
     white-space: nowrap;
@@ -1175,6 +1174,10 @@ form select {
     gap: 6px;
     overflow: hidden;
     margin-bottom: 10px;
+}
+
+.outfit-images:has(.outfit-image-box:only-child) {
+    grid-template-columns: 1fr;
 }
 
 .outfit-images img {
