@@ -89,7 +89,7 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
             return redirect ("home")
     
     if request.method == "POST":
-        form = OutfitForm(request.POST)
+        form = OutfitForm(request.POST, request.FILES)
         
         image_error = None
         
@@ -310,7 +310,66 @@ def outfit_update(request, pk):
         owner_type = "child"
     
     if request.method == "POST":
-        form = OutfitForm(request.POST, instance=outfit)
+        form = OutfitForm(request.POST,request.FILES, instance=outfit)
+        
+        image_error = None
+        
+        #外部サイトコーデ
+        if outfit.outfit_type == 1:
+            keep_image_ids = request.POST.getlist("keep_outfit_image_ids")
+            keep_image_ids = [image_id for image_id in keep_image_ids if image_id]
+            
+            upload_images = request.FILES.getlist("outfit_images")
+            
+            total_image_count = len(keep_image_ids) + len(upload_images)
+            
+            if total_image_count == 0:
+                image_error = "画像を1枚以上登録してください。"
+            elif total_image_count > 5:
+                image_error = "画像は最大5枚まで登録できます。"
+        
+        #手持ちコーデ
+        if outfit.outfit_type == 0:
+            selected_ids = request.POST.getlist("selected_clothing_item_ids")
+            selected_ids = [item_id for item_id in selected_ids if item_id]
+            
+            if len(selected_ids) == 0:
+                image_error = "画像を1枚以上登録してください。"
+            elif len(selected_ids) > 5:
+                image_error = "画像は最大5枚まで登録できます。"
+                
+        if image_error:
+            if outfit.outfit_type == 0:
+                if outfit.user:
+                    clothing_items = ClothingItem.objects.filter(user=outfit.user).exclude(
+                        id__in=outfit.outfit_clothing_items.values_list("clothing_item_id", flat=True)
+                    )
+                else:
+                    clothing_items = ClothingItem.objects.filter(child=outfit.child).exclude(
+                        id__in=outfit.outfit_clothing_items.value_list("clothing_item_id", flat=True)
+                    )
+                
+                categories = Category.objects.filter(family=request.user.family)
+                color_choices = ClothingItem.COLOR_CHOICES
+
+            else:
+                clothing_items = []
+                categories = []
+                color_choices = []
+                
+            return render(request, "cordinate/outfit_form.html", {
+                "form": form,
+                "outfit": outfit
+                "owner": owner,
+                "owner_type": owner_type,
+                "outfit_type": outfit.outfit_type,
+                "image_error": image_error,
+                "is_create": False,
+                "initial_slots": range(1),
+                "clothing_items": clothing_items
+                "categories": categories,
+                "color_choices": color_choices,
+            })
         
         if form.is_valid():
             outfit = form.save()
