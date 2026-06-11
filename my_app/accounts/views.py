@@ -128,9 +128,17 @@ class ProfileUpdateView(LoginRequiredMixin,UpdateView):
     def get_object(self, queryset = None):
         return self.request.user
     
+    def form_valid(self, form):
+        messages.success(self.request, "アカウント情報を変更しました。")
+        return super().form_valid(form)
+    
 class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     template_name = "registration/password_change_form.html"
     success_url = reverse_lazy("me")
+    
+    def form_valid(self, form):
+        messages.success(self.request, "パスワードを変更しました。")
+        return super().form_valid(form)
     
 class ChildCreateView(LoginRequiredMixin, CreateView):
     model = Child
@@ -142,6 +150,8 @@ class ChildCreateView(LoginRequiredMixin, CreateView):
         child = form.save(commit=False)
         child.family = self.request.user.family
         child.save()
+        
+        messages.success(self.request, "お子さまを追加しました。")
         return super().form_valid(form)
     
 class ChildUpdateView(LoginRequiredMixin, UpdateView):
@@ -152,6 +162,10 @@ class ChildUpdateView(LoginRequiredMixin, UpdateView):
     
     def get_queryset(self):
         return Child.objects.filter(family=self.request.user.family)
+    
+    def form_valid(self, form):
+        messages.success(self.request, "お子さま情報を変更しました。")
+        return super().form_valid(form)
 
 def user_closet(request, pk):
     user = get_object_or_404(User, pk=pk, family=request.user.family)
