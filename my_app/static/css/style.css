@@ -1466,6 +1466,8 @@ form select {
     display: block;
     margin-bottom: 8px;
     font-size: 18px;
+    color: #777;
+    font-weight: normal;
 }
 
 .outfit-form-note textarea {
@@ -1563,6 +1565,9 @@ form select {
 .outfit-form-url-label {
     text-align: left;
     margin-bottom: 8px;
+    color: #777;
+    font-size: 18px;
+    font-weight: normal;
 }
 
 /* 入力欄と＋ボタン並び */
