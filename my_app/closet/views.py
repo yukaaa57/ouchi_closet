@@ -7,6 +7,7 @@ from .forms import ClothingItemForm, CategoryForm, ClothingSearchForm
 from django.db.models.deletion import ProtectedError
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.db.models import ProtectedError
 
 User = get_user_model()
 
@@ -472,13 +473,13 @@ def category_delete(request, pk):
         
         try:
             category.delete()
+            messages.success(request, "削除しました。")
         except ProtectedError:
             messages.error(
                 request,
                 f"「{category.name}」はアイテムに使用されているため削除できません"
             )
     
-    messages.success(request, "削除しました。")
     return redirect("category_setting")
 
 
