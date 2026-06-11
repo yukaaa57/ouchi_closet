@@ -103,11 +103,11 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
                 
         if int(outfit_type) == 0:
             selected_ids = request.POST.getlist("selected_clothing_item_ids")
-            selected_ids = [clothing_item_id for clothing_item_id in selected_ids if clothing_item_id]
+            selected_ids = [item_id for item_id in selected_ids if item_id]
             
             if not selected_ids:
                 image_error = "画像を1枚以上選択してください。"
-            elif len(upload_images) > 5:
+            elif len(selected_ids) > 5:
                 image_error = "画像は最大5枚まで登録できます"
                 
         if image_error:
