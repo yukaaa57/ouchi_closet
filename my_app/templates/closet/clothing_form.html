@@ -8,7 +8,7 @@
       <a href="{% url 'child_closet' owner.pk %}">{{ owner.nickname }}のクローゼット</a>
     {% endif %}
     >
-    {% if is_edit %}編集{% else %}登録{% endif %}
+    {% if is_edit %}編集{% else %}アイテム登録{% endif %}
 {% endblock %}
 
 {% block content %}

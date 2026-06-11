@@ -263,13 +263,13 @@ def clothing_delete(request, pk):
     if request.method == "POST":
         next_url = request.POST.get("next", "")
         clothing.delete()
+        messages.success(request, "削除しました。")
         
         if next_url:
             return redirect(next_url)
         
         return redirect("clothing_list", owner_type=owner_type, owner_id=owner.pk, category="all")
     
-    messages.success(request, "削除しました。")
     return redirect("clothing_detail", pk=clothing.pk)
 
 @login_required
