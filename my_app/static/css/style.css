@@ -1151,30 +1151,29 @@ form select {
 .outfit-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 20px;
     padding: 16px;
     white-space: nowrap;
 }
 
 /* コーデ写真 */
 .outfit-card {
-    width: 100%;
-    max-width: 340px;
     position: relative;
     border: 1px solid #ccc;
     border-radius: 6px;
     background-color: #fff;
     padding: 8px;
-    align-self: start;
+    height: 160px;
 }
 
 /* コーデ写真詳細 */
 .outfit-images {
+    height: 120px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 6px;
     overflow: hidden;
-    margin-bottom: 10px;
+    margin-bottom: 0;
 }
 
 .outfit-images:has(.outfit-image-box:only-child) {
