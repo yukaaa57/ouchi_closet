@@ -1441,8 +1441,7 @@ form select {
 }
 
 .image_error {
-    margin: 0 0 12px;
-    padding: 0;
+    margin-bottom: 24px;
     list-style: none;
     color: #c85c5c;
     font-size: 14px;
