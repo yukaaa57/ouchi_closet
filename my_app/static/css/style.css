@@ -1163,7 +1163,7 @@ form select {
     border-radius: 6px;
     background-color: #fff;
     padding: 8px;
-    padding-bottom: 64px;
+    padding-bottom: 44px;
     overflow: hidden;
 }
 
@@ -1189,6 +1189,16 @@ form select {
     display: block;
 }
 
+.outfit-images:has(.outfit-image-box:only-child) {
+    display: flex;
+    justify-content: center;
+}
+
+.outfit-images:has(.outfit-image-box:only-child) .outfit-image-box {
+    width: 70%;
+}
+
+/* +1表示 */
 .image-count-overlay {
     position: absolute;
     inset: 0;
@@ -1240,8 +1250,8 @@ form select {
 /* お気に入り一覧用 */
 .list-favorite-button {
     position: absolute;
-    right: 12px;
-    bottom: 12px;
+    right: 10px;
+    bottom: 10px;
     z-index: 10;
 }
 
