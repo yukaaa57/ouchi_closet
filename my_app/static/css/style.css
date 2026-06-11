@@ -1953,6 +1953,18 @@ form select {
     text-align: left;
 }
 
+.account-form .errorlist {
+    color: #d46a6a;
+    margin: 8px 0;
+    list-style: none;
+    padding-left: 0;
+    font-size:  14px;
+}
+
+.account-form .errorlist li {
+    color: #d46a6a;
+}
+
 /* パス変更画面の新しいパス入力（確認用）の補足文 */
 .account-form .helptext {
     color: #888;
@@ -2556,9 +2568,11 @@ form select {
 }
 
 .message.success {
-    background-color: #eef7ec;
-    color: #5f8f5f;
-    border: 1px solid #d8b8b0;
+    background-color: #f8f4ef;
+    color: #8b6f5a;
+    border: 1px solid #d8c2ae;
+    padding: 12px;
+    border-radius: 12px;
 }
 
 .message.error {
