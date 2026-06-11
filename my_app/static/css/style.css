@@ -1561,18 +1561,16 @@ form select {
 
 /* URLラベル */
 .outfit-form-url-label {
-    width: 90%;
-    margin: 0 auto 8px;
-    font-size: 18px;
-    color: #777;
     text-align: left;
+    margin-bottom: 8px;
 }
 
 /* 入力欄と＋ボタン並び */
 .outfit-form-url-content {
     display: block;
     width: 90%;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: 0;
 }
 
 /* 入力欄全体 */
@@ -1605,6 +1603,7 @@ form select {
     border: 1px solid #aaa;
     background-color: transparent;
     font-size: 20px;
+    color: #777;
     padding: 0;
     line-height: 1;
     flex-shrink: 0;
