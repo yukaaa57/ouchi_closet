@@ -654,6 +654,7 @@ def nursery_item_create(request, child_id):
             nursery_item = form.save(commit=False)
             nursery_item.child = child
             nursery_item.save()
+            messages.success(request, "登録しました。")
             return redirect("nursery_item_list", child_id=child.pk)
     else:
         form = NurseryItemForm()
@@ -664,7 +665,6 @@ def nursery_item_create(request, child_id):
         "current_child": child,
     }
     
-    messages.success(request, "登録しました。")
     return render(request, "cordinate/nursery_item_form.html", context)
 
 def nursery_item_list(request, child_id):
