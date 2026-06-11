@@ -37,17 +37,34 @@
         <a href="{% url 'outfit_detail' outfit.pk %}?next={{ request.get_full_path|urlencode }}">
           <div class="outfit-images">
             {% if outfit.outfit_type == 1 %}
-              {% for image in outfit.outfit_images.all %}
-                <div class="outfit-image-box">
-                  <img src="{{ image.outfit_image.url }}" alt="コーデ画像">
-                </div>
-              {% endfor %}
+              {% with images=outfit.outfit_images.all %}
+                {% for image in images|slice:":4" %}
+                  <div class="outfit-image-box">
+                    <img src="{{ image.outfit_image.url }}" alt="コーデ画像">
+
+                    {% if forloop.last and images.count > 4 %}
+                      <div class="image-count-overlay">
+                        +{{ images.count|add:"-4" }}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              {% endwith %}
+
             {% else %}
-              {% for item in outfit.outfit_clothing_items.all %}
-                <div class="outfit-image-box">
-                  <img src="{{ item.clothing_item.clothing_image.url }}" alt="コーデ画像">
-                </div>
-              {% endfor %}
+              {% with items=outfit.outfit_clothing_items.all %}  
+                {% for item in items|slice:":4" %}
+                  <div class="outfit-image-box">
+                    <img src="{{ item.clothing_item.clothing_image.url }}" alt="コーデ画像">
+
+                    {% if forloop.last and items.count > 4 %}
+                      <div class="image-count-overlay">
+                        +{{ items.count|add:"-4" }}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              {% endwith %}
             {% endif %}
           </div>
         </a>
