@@ -1163,7 +1163,7 @@ form select {
     border-radius: 6px;
     background-color: #fff;
     padding: 8px;
-    height: auto;
+    padding-bottom: 64px;
     overflow: hidden;
 }
 
@@ -1240,8 +1240,9 @@ form select {
 /* お気に入り一覧用 */
 .list-favorite-button {
     position: absolute;
-    right: 8px;
-    bottom: -8px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 10;
 }
 
 /* リンクを真ん中に */
