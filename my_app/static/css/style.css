@@ -1163,35 +1163,16 @@ form select {
     border-radius: 6px;
     background-color: #fff;
     padding: 8px;
-    height: 160px;
+    height: auto;
+    overflow: hidden;
 }
 
 /* コーデ写真詳細 */
 .outfit-images {
-    height: 220px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 6px;
-    overflow: hidden;
     margin-bottom: 0;
-}
-
-.outfit-images:has(.outfit-image-box:only-child) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.outfit-images:has(.outfit-image-box:only-child) .outfit-image-box {
-    width: 100%;
-    height: 100%;
-}
-
-.outfit-images img {
-    width: 100px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    display: block;
 }
 
 .outfit-image-box {
