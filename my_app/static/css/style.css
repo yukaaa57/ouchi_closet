@@ -1165,6 +1165,7 @@ form select {
     border-radius: 6px;
     background-color: #fff;
     padding: 8px;
+    align-self: start;
 }
 
 /* コーデ写真詳細 */
@@ -1177,7 +1178,14 @@ form select {
 }
 
 .outfit-images:has(.outfit-image-box:only-child) {
-    grid-template-columns: 1fr;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outfit-images:has(.outfit-image-box:only-child) .outfit-image-box {
+    width: 100%;
+    height: 100%;
 }
 
 .outfit-images img {
