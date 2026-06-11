@@ -1168,7 +1168,7 @@ form select {
 
 /* コーデ写真詳細 */
 .outfit-images {
-    height: 120px;
+    height: 220px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 6px;
@@ -1195,8 +1195,7 @@ form select {
 }
 
 .outfit-image-box {
-    width: 100%;
-    aspect-ratio: 1 / 1;
+    position: relative;
     overflow: hidden;
 }
 
@@ -1205,6 +1204,18 @@ form select {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.image-count-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(110, 90, 80, 0.45);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 /* お気に入りボタン */
