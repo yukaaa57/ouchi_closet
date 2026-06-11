@@ -166,6 +166,7 @@ def clothing_create(request, owner_type, owner_id):
     else:
         context["current_user_owner"] = owner
     
+    messages.success(request, "登録しました。")
     return render(request, "closet/clothing_form.html", context)
 
 @login_required
@@ -210,6 +211,7 @@ def clothing_update(request, pk):
     else:
         context["current_user_owner"] = owner
     
+    messages.success(request, "変更しました。")
     return render(request, "closet/clothing_form.html", context)
 
 @login_required
@@ -267,6 +269,7 @@ def clothing_delete(request, pk):
         
         return redirect("clothing_list", owner_type=owner_type, owner_id=owner.pk, category="all")
     
+    messages.success(request, "削除しました。")
     return redirect("clothing_detail", pk=clothing.pk)
 
 @login_required
@@ -406,6 +409,7 @@ def category_create(request):
         "form": form,
     }
     
+    messages.success(request, "登録しました。")
     return render(request, "closet/category_form.html", context)
 
 @login_required
@@ -447,6 +451,7 @@ def category_update(request, pk):
                 "カテゴリ名を変更しました。"
             )
         
+        messages.success(request, "変更しました。")
         return redirect("category_setting")
     
 @login_required
@@ -473,7 +478,8 @@ def category_delete(request, pk):
                 request,
                 f"「{category.name}」はアイテムに使用されているため削除できません"
             )
-        
+    
+    messages.success(request, "削除しました。")
     return redirect("category_setting")
 
 

@@ -60,6 +60,7 @@ class SignUpView(CreateView):
             if invitation is not None:
                 invitation.mark_used()
         
+        messages.success(self.request, "登録しました。")
         return redirect(self.success_url)
         
         

@@ -2540,6 +2540,31 @@ form select {
     color: #4f6b5e;
 }
 
+/* サクセスメッセージ */
+.success-message-area {
+    margin: 12px auto;
+    width: 90%;
+    max-width: 500px;
+}
 
+.message {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.message.success {
+    background-color: #eef7ec;
+    color: #5f8f5f;
+    border: 1px solid #d8b8b0;
+}
+
+.message.error {
+    background-color: #fff0f0;
+    color: #c85c5c;
+    border: 1px solid #e5b5b5;
+}
 
 

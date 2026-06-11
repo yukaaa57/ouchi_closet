@@ -6,6 +6,7 @@ from .models import Outfit, OutfitImage, OutfitClothingItem, OutfitUrl, NurseryI
 from .forms import OutfitForm, OutfitImageForm, NurseryItemForm
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 @login_required
 def outfit_list(request, owner_type, owner_id):
@@ -226,6 +227,7 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
     else:
         context["current_user_owner"] = owner
     
+    messages.success(request, "登録しました。")
     return render(request, "cordinate/outfit_form.html", context)
 
 @login_required
@@ -474,6 +476,7 @@ def outfit_update(request, pk):
     else:
         context["current_user_owner"] = owner
     
+    messages.success(request, "変更しました。")
     return render(request, "cordinate/outfit_form.html", context)
 
 @login_required
@@ -542,6 +545,7 @@ def outfit_delete(request, pk):
         else:
             return redirect("child_outfit_list", owner_id=owner.pk)
     
+    messages.success(request, "削除しました。")
     return redirect("outfit_detail", pk=outfit.pk)
 
 @login_required
@@ -659,6 +663,8 @@ def nursery_item_create(request, child_id):
         "form": form,
         "current_child": child,
     }
+    
+    messages.success(request, "登録しました。")
     return render(request, "cordinate/nursery_item_form.html", context)
 
 def nursery_item_list(request, child_id):
@@ -729,6 +735,7 @@ def nursery_item_update(request, child_id):
                     child=child
                 ).update(name=name.strip())
     
+    messages.success(request, "変更しました。")
     return redirect("nursery_item_list", child_id=child.pk)
 
 def nursery_item_delete(request, child_id):
@@ -744,7 +751,8 @@ def nursery_item_delete(request, child_id):
             child=child,
             pk__in=delete_item_ids
         ).delete()
-        
+    
+    messages.success(request, "削除しました。")
     return redirect ("nursery_item_list", child_id=child.pk)
     
      
