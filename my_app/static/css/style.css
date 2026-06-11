@@ -1364,6 +1364,14 @@ form select {
     padding: 24px;
 }
 
+/* 注記 */
+.image-limit-message {
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+    margin: 8px 0 20px;
+}
+
 /* 洋服画像の枠をまとめる箱 */
 .outfit-form-image-area {
     display: flex;

@@ -30,6 +30,7 @@
 
     <!--外部サイトコーデ-->
     {% if outfit_type == 1 %}
+        <p class="image-limit-message">画像は最大５枚まで登録できます</p>
 
         {% if image_error %}
             <p class="image-error">{{ image_error }}</p>
@@ -86,6 +87,7 @@
 
     <!--手持ちコーデ：-->
     {% if outfit_type == 0 %}
+        <p class="image-limit-message">画像は最大５枚まで登録できます</p>
 
         {% if image_error %}
             <p class="image-error">{{ image_error }}</p>
@@ -261,6 +263,13 @@
 
     if (addImageButton && newImageInputs){
         addImageButton.addEventListener("click", function(){
+            const currentSlots = selectedItemsArea.querySelectorAll(".selected-item-slot").length;
+
+            if (currentSlots >= 5) {
+                addItemSlotButton.style.display = "none";
+                return;
+            }
+
             const newRow = document.createElement("div");
             newRow.className = "selected-item-slot outfit-form-slot";
 
@@ -275,6 +284,12 @@
                 </div>
             `;
             newImageInputs.appendChild(newRow);
+
+            const afterSlots = selectedItemsArea.querySelectorAll("selected-item-slot").length;
+
+            if (afterSlots >= 5) {
+                addItemSlotButton.style.display = "none";
+            }
         });
     }
 
@@ -320,6 +335,13 @@
     //プラス追加で空枠を増やす
     if (addItemSlotButton && selectedItemsArea){
         addItemSlotButton.addEventListener("click", function(){
+            const currentSlots = selectedItemsArea.querySelectorAll(".selected-item-slot").length;
+
+            if (currentSlots >= 5) {
+                addItemSlotButton.style.display = "none";
+                return;
+            }
+
             const newSlot = document.createElement("div");
             newSlot.className = "selected-item-slot outfit-form-slot";
 
@@ -334,6 +356,12 @@
             `;
 
             selectedItemsArea.appendChild(newSlot);
+
+            const afterSlots = selectedItemsArea.querySelectorAll("selected-item-slot").length;
+
+            if (afterSlots >= 5) {
+                addItemSlotButton.style.display = "none";
+            }
         });
     }
 
