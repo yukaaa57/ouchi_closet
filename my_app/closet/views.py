@@ -451,7 +451,6 @@ def category_update(request, pk):
                 "カテゴリ名を変更しました。"
             )
         
-        messages.success(request, "変更しました。")
         return redirect("category_setting")
     
 @login_required
