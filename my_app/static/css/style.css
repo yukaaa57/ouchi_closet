@@ -1251,7 +1251,7 @@ form select {
 .list-favorite-button {
     position: absolute;
     right: 10px;
-    bottom: 10px;
+    bottom: -8px;
     z-index: 10;
 }
 
