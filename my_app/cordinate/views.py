@@ -539,13 +539,13 @@ def outfit_delete(request, pk):
     if request.method == "POST":
         next_url = request.POST.get("next", "")
         outfit.delete()
+        messages.success(request, "削除しました。")
         
         if owner_type == "user":
             return redirect("user_outfit_list", owner_id=owner.pk)
         else:
             return redirect("child_outfit_list", owner_id=owner.pk)
     
-    messages.success(request, "削除しました。")
     return redirect("outfit_detail", pk=outfit.pk)
 
 @login_required
