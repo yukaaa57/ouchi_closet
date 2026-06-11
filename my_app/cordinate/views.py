@@ -366,7 +366,7 @@ def outfit_update(request, pk):
                 "image_error": image_error,
                 "is_create": False,
                 "initial_slots": range(1),
-                "clothing_items": clothing_items
+                "clothing_items": clothing_items,
                 "categories": categories,
                 "color_choices": color_choices,
             })
