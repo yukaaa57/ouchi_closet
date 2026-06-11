@@ -359,7 +359,7 @@ def outfit_update(request, pk):
                 
             return render(request, "cordinate/outfit_form.html", {
                 "form": form,
-                "outfit": outfit
+                "outfit": outfit,
                 "owner": owner,
                 "owner_type": owner_type,
                 "outfit_type": outfit.outfit_type,
