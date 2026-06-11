@@ -1567,21 +1567,19 @@ form select {
     text-align: left;
 }
 
-/* 入力欄と＋ボタンだけ横並び */
+/* 入力欄と＋ボタン並び */
 .outfit-form-url-content {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 8px;
+    display: block;
 }
 
 /* 入力欄全体 */
 .outfit-form-url-inputs {
-    width: 250px;
+    width: 100%;
 }
 
 /* 入力欄１つずつ */
 .url-input-row {
+    width: 100%;
     margin-bottom: 8px;
 }
 
@@ -1594,19 +1592,14 @@ form select {
 
 /* ＋ボタン */
 .url-add-button {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    border: 1px solid #aaa;
-    background-color: transparent;
-    color: #777;
-    font-size: 20px;
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    line-height: 1;
+    width: 28px;
+    height: 28px;
+    margin: 8px 0 0 auto;
+    border-radius: 50%;
+    flex-shrink: 0;
     cursor: pointer;
 }
 
