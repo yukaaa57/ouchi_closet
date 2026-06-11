@@ -146,6 +146,7 @@ def clothing_create(request, owner_type, owner_id):
             
             clothing.save()
             form.save_m2m()
+            messages.success(request, "登録しました。")
             
             if owner_type == "user":
                 return redirect("user_closet", pk=owner_id)
@@ -166,7 +167,6 @@ def clothing_create(request, owner_type, owner_id):
     else:
         context["current_user_owner"] = owner
     
-    messages.success(request, "登録しました。")
     return render(request, "closet/clothing_form.html", context)
 
 @login_required
@@ -189,6 +189,7 @@ def clothing_update(request, pk):
         
         if form.is_valid():
             form.save()
+            messages.success(request, "変更しました。")
             
             if clothing.user:
                 return redirect("user_closet", pk=clothing.user.pk)
@@ -211,7 +212,6 @@ def clothing_update(request, pk):
     else:
         context["current_user_owner"] = owner
     
-    messages.success(request, "変更しました。")
     return render(request, "closet/clothing_form.html", context)
 
 @login_required
@@ -397,6 +397,7 @@ def category_create(request):
             category = form.save(commit=False)
             category.family = request.user.family
             category.save()
+            messages.success(request, "登録しました。")
             
             if next_url:
                 return redirect(next_url)
@@ -409,7 +410,6 @@ def category_create(request):
         "form": form,
     }
     
-    messages.success(request, "登録しました。")
     return render(request, "closet/category_form.html", context)
 
 @login_required

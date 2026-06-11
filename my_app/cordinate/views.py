@@ -144,6 +144,7 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
                 outfit.is_favorite = True
                 
             outfit.save()
+            messages.success(request, "登録しました。")
             
             if int(outfit_type) == 1:
                 upload_images = request.FILES.getlist("outfit_images")
@@ -227,7 +228,6 @@ def outfit_create(request, owner_type, owner_id, outfit_type):
     else:
         context["current_user_owner"] = owner
     
-    messages.success(request, "登録しました。")
     return render(request, "cordinate/outfit_form.html", context)
 
 @login_required
@@ -375,6 +375,7 @@ def outfit_update(request, pk):
         
         if form.is_valid():
             outfit = form.save()
+            messages.success(request, "変更しました。")
             
             #外部サイトコーデ画像登録
             if outfit.outfit_type == 1:
@@ -476,7 +477,6 @@ def outfit_update(request, pk):
     else:
         context["current_user_owner"] = owner
     
-    messages.success(request, "変更しました。")
     return render(request, "cordinate/outfit_form.html", context)
 
 @login_required
