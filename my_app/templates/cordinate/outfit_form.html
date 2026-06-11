@@ -30,6 +30,13 @@
 
     <!--外部サイトコーデ-->
     {% if outfit_type == 1 %}
+
+        {% if image_error %}
+        <ul class="errorlist image_error">
+            <li>{{ image_error }}</li>
+        </ul>
+        {% endif %}
+
         <div id="new-image-inputs" class="outfit-form-image-area">
 
             {% if is_create %}
@@ -81,6 +88,13 @@
 
     <!--手持ちコーデ：-->
     {% if outfit_type == 0 %}
+
+        {% if image_error %}
+        <ul class="errorlist image_error">
+            <li>{{ image_error }}</li>
+        </ul>
+        {% endif %}
+
         <div id="selected-items-area" class="outfit-form-image-area">
 
             {% if is_create %}
@@ -126,12 +140,6 @@
         </div>
 
         <button type="button" id="add-item-slot" class="outfit-form-add-button">＋追加</button>
-    {% endif %}
-
-    {% if image_error %}
-        <ul class="errorlist image_error">
-            <li>{{ image_error }}</li>
-        </ul>
     {% endif %}
 
     {% if outfit_type == 1 %}
