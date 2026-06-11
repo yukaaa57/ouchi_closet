@@ -1974,7 +1974,7 @@ form select {
     margin-left: 20px;
 }
 
-.account-form .helptext ul {
+.account-form .help-text ul {
     margin: 8px 0 0;
     padding-left: 20px;
     font-size: 13px;
@@ -2590,3 +2590,19 @@ form select {
 }
 
 
+/* パスワード変更関連 */
+.account-container .account-form .form-group {
+    display: block;
+    margin-bottom: 18px;
+}
+
+.account-container .account-form .form-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+}
+
+.account-container .account-form .form-group input {
+    width: 100%;
+    box-sizing: border-box;
+}
