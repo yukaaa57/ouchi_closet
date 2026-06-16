@@ -2305,12 +2305,13 @@ form select {
     flex-shrink: 0;
 }
 
+/*
 .category-button.disabled {
     background-color: #e5e5e5;
     color: #aaa;
     cursor: not-allowed;
     pointer-events: none;
-}
+}*/
 
 /* カテゴリ追加リンク */
 .setting-category-add-link-area {
