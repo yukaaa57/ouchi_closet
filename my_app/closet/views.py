@@ -395,10 +395,20 @@ def category_create(request):
         next_url = request.POST.get("next", "")
         
         if form.is_valid():
-            category = form.save(commit=False)
-            category.family = request.user.family
-            category.save()
-            messages.success(request, "登録しました。")
+            name = form.cleaned_data["name"].strip()
+            
+            exists = Category.objects.filter(
+                family=request.user.family,
+                name__iexact=name
+            ).exists()
+            
+            if exists:
+                messages.error(request, "同じカテゴリ名は追加できません。")
+            else:
+                category = form.save(commit=False)
+                category.family = request.user.family
+                category.save()
+                messages.success(request, "登録しました。")
             
             if next_url:
                 return redirect(next_url)
@@ -445,12 +455,19 @@ def category_update(request, pk):
         new_name = request.POST.get("name")
         
         if new_name and new_name.strip():
-            category.name = new_name.strip()
-            category.save()
-            messages.success(
-                request,
-                "カテゴリ名を変更しました。"
-            )
+            new_name = new_name.strip()
+            
+            exists = Category.objects.filter(
+                family=request.user.family,
+                name__iexact=new_name
+            ).exclude(pk=category.pk).exists()
+            
+            if exists:
+                messages.error(request, "同じカテゴリ名は登録できません。")
+            else:
+                category.name = new_name.strip()
+                category.save()
+                messages.success(request, "カテゴリ名を変更しました。")
         
         return redirect("category_setting")
     
