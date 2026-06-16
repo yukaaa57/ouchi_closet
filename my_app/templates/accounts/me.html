@@ -15,6 +15,8 @@
         <div class="profile-preview">
             {% if user_obj.profile_image %}
                 <img id="preview-image" src="{{ user_obj.profile_image.url }}">
+            {% else %}
+                <div id="preview-image" class="profile-default-icon">👤</div>
             {% endif %}
         </div>
     </div>
