@@ -52,14 +52,26 @@
 
 <script>
 const imageInput = document.getElementById("id_profile_image");
-const previewImage = document.getElementById("preview-image");
+let previewImage = document.getElementById("preview-image");
 
 imageInput.addEventListener("change", function(event) {
     const file = event.target.files[0];
-     if (file) {
-        previewImage.src = URL.createObjectURL(file);
-        previewImage.style.display = "block";
-     }
+    if (file) {
+        const imageUrl = URL.createObjectURL(file);
+
+        if (previewImage.tagName.toLowerCase() === "img") {
+            previewImage.src = imageUrl;
+            previewImage.style.display = "block";
+        } else {
+            const img = document.createElement("img");
+            img.id = "preview-image";
+            img.src = imageUrl;
+            img.className = previewImage.className;
+
+            previewImage.replaceWith(img);
+            previewImage = img;
+        }
+    }
 });
 </script>
 {% endblock %}
