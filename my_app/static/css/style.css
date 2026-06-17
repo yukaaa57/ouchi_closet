@@ -1422,6 +1422,18 @@ form select {
     object-fit: cover;
 }
 
+.hanger-svg {
+    width: 70px;
+    height: 70px;
+    fill: none;
+    stroke: #c9c5c0;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.55;
+}
+
+/*
 .image-placeholder {
     width: 100%;
     height: 100%;
@@ -1462,7 +1474,7 @@ form select {
     border-bottom: 4px solid #c9c5c0;
     transform: rotate(-28deg);
     transform-origin: center;
-}
+} */
 
 /* 画像選択ボタン押下時の操作 */
 .selected-item-action {
