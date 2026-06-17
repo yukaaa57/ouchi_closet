@@ -43,7 +43,7 @@
                     <div class="selected-item-slot outfit-form-slot">
                         <div class="selected-item-preview  outfit-form-preview">
                             <div class="image-placeholder">
-                                <div class="image-placeholder-icon">👕</div>
+                                <span class="image-placeholder-icon"></span>
                             </div>
                         </div>
 
@@ -75,7 +75,7 @@
                     <div class="selected-item-slot outfit-form-slot">
                         <div class="selected-item-preview outfit-form-preview">
                             <div class="image-placeholder">
-                                <div class="image-placeholder-icon">👕</div>
+                                <span class="image-placeholder-icon"></span>
                             </div>
                         </div>
 
@@ -108,7 +108,7 @@
                     <div class="selected-item-slot outfit-form-slot">
                         <div class="selected-item-preview  outfit-form-preview">
                             <div class="image-placeholder">
-                                <div class="image-placeholder-icon">👕</div>
+                                <span class="image-placeholder-icon"></span>
                             </div>
                         </div>
 
@@ -140,7 +140,7 @@
                     <div class="selected-item-slot outfit-form-slot">
                         <div class="selected-item-preview outfit-form-preview">
                             <div class="image-placeholder">
-                                <div class="image-placeholder-icon">👕</div>
+                                <span class="image-placeholder-icon"></span>
                             </div>
                         </div>
 
@@ -290,7 +290,11 @@
             newRow.className = "selected-item-slot outfit-form-slot";
 
             newRow.innerHTML = `
-                <div class="selected-item-preview  outfit-form-preview"></div>
+                <div class="selected-item-preview  outfit-form-preview">
+                    <div class="image-placeholder">
+                        <span class="image-placeholder-icon"></span>
+                    </div>
+                </div>
 
                 <div class="selected-item-action">
                     <label class="image-select-link">
@@ -363,7 +367,9 @@
 
             newSlot.innerHTML = `
                 <div class="selected-item-preview outfit-form-preview">
-                    <div></div>
+                    <div class="image-placeholder">
+                        <span class="image-placeholder-icon"></span>
+                    </div>
                 </div>
                 <div class="selected-item-action">
                     <button type="button" class="open-clothing-modal">画像を選択</button>
