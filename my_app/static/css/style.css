@@ -1432,18 +1432,18 @@ form select {
 
 .image-placeholder-icon {
     position: relative;
-    width: 58px;
-    height: 38px;
-    opacity: 0.45;
+    width: 64px;
+    height: 48px;
+    opacity: 0.55;
 }
 
 .image-placeholder-icon::before {
     content: "";
     position: absolute;
     top: 0;
-    left: 24px;
+    left: 27px;
     width: 10px;
-    height: 14px;
+    height: 16px;
     border: 3px solid #9a9a9a;
     border-bottom: none;
     border-radius: 10px 10px 0 0;
@@ -1452,15 +1452,14 @@ form select {
 .image-placeholder-icon::after {
     content: "";
     position: absolute;
-    left: 0;
+    left: 3px;
     top: 18px;
     width: 58px;
-    height: 26px;
-    border-top: 3px solid #9a9a9a;
+    height: 28px;
     border-left: 3px solid #9a9a9a;
-    border-right: 3px solid #9a9a9a;
-    transform: skewY(-18deg);
-    border-radius: 4px;
+    border-bottom: 3px solid #9a9a9a;
+    transform: rotate(-25deg) skewX(-20deg);
+    border-radius: 2px;
 }
 
 /* 画像選択ボタン押下時の操作 */
