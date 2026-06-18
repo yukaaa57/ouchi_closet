@@ -1,4 +1,5 @@
 {% extends "registration/account_base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="signup-container">
@@ -10,7 +11,7 @@
         <div class="image-area">
 
             <div class="profile-preview">
-                <img id="preview-image">
+                <img id="preview-image" src="{% static 'images/camera.png' %}" alt="プロフィール画像">
             </div>
             {{ form.profile_image }}
 
