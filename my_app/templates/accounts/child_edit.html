@@ -18,7 +18,7 @@
                 {% if object.profile_image %}
                     <img id="preview-image" src="{{ object.profile_image.url }}">
                 {% else %}
-                    <div id="preview-image" class="profile-default-icon">👤</div>
+                    <img id="preview-image" src="{% static 'images/default-profile.png' %}" class="profile-default-icon">
                 {% endif %}
             </div>
             <input type="file" name="{{ form.profile_image.name }}" id="{{ form.profile_image.id_for_label }}" accept="image/*" hidden>

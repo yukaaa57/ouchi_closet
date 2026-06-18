@@ -21,7 +21,7 @@
                     {% if request.user.profile_image.name %}
                         <img src="{{ request.user.profile_image.url }}" alt="プロフィール画像" class="account-icon-image">
                     {% else %}
-                        <div class="header-account-default-icon">👤</div>
+                        <img src="{% static 'images/default-profile.png' %}" class="header-account-default-icon">
                     {% endif %}
                 </button>
             </div>
