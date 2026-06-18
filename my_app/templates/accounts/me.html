@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block hamburger %}{% endblock %}
 
@@ -16,7 +17,7 @@
             {% if user_obj.profile_image %}
                 <img id="preview-image" src="{{ user_obj.profile_image.url }}">
             {% else %}
-                <div id="preview-image" class="profile-default-icon">👤</div>
+                <img id="preview-image" src="{% static 'images/default-profile.png' %}" class="profile-default-icon">
             {% endif %}
         </div>
     </div>
