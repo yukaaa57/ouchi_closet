@@ -1425,11 +1425,10 @@ form select {
     object-fit: cover;
 }
 
-.hanger-svg {
-    width: 70px;
-    height: 70px;
-    opacity: 0.65;
-    display: block;
+.placeholder-icon {
+    width: 60px;
+    height: 60px;
+    opacity: 0.25;
 }
 
 /*
