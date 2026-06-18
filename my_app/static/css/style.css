@@ -568,6 +568,12 @@ form select {
     text-align: left;
 }
 
+.default-hanger {
+    width: 90px;
+    height: auto;
+    opacity: 0.45;
+}
+
 /* １項目ずつのまとまり */
 .form-row {
     display: flex;
