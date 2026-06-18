@@ -21,7 +21,7 @@
                     {% if user.profile_image %}
                         <img src="{{ user.profile_image.url }}" alt="{{ user.nickname }}">
                     {% else %}
-                        <div class="no-image">👤</div>
+                        <img src="{% static 'images/default-profile.png' %}" class="no-image">
                     {% endif %}
                 </a>
                 <p>{{ user.nickname }}</p>
