@@ -2277,6 +2277,12 @@ form select {
     opacity: 0.8;
 }
 
+.profile-default-icon img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+}
+
 .image-select-button {
     text-decoration: none;
     cursor: pointer;
