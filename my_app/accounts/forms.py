@@ -42,7 +42,7 @@ class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        self.fields["new_password1"].help_text = """
+        self.fields["password1"].help_text = """
         <ul>
             <li>個人情報と似たパスワードは使用できません</li>
             <li>８文字以上で入力してください</li>
