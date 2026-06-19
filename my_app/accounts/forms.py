@@ -156,7 +156,7 @@ class CustomPasswordResetConfirmForm(SetPasswordForm):
         """
     
     def clean_new_password2(self):
-        return self.cleaned_data.get(self.new_password2)
+        return self.cleaned_data.get("new_password2")
     
     def clean(self):
         cleaned_data = super().clean()
@@ -167,10 +167,10 @@ class CustomPasswordResetConfirmForm(SetPasswordForm):
         errors = []
         
         if password1:
-            self.errors += validate_custom_password(password1, self.user)
+            errors += validate_custom_password(password1, self.user)
             
         if password1 and password2 and password1 != password2:
-            self.errors.append("確認用パスワードが一致しません。")
+            errors.append("確認用パスワードが一致しません。")
             
         for error in errors:
             self.add_error("new_password1", error)
