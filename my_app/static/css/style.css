@@ -2050,7 +2050,7 @@ form select {
 }
 
 /* パス変更画面の新しいパス入力（確認用）の補足文 */
-.account-form .helptext {
+.account-form .help-text {
     color: #888;
     font-size: 13px;
     opacity: 0.8;
@@ -2058,10 +2058,15 @@ form select {
 }
 
 .account-form .help-text ul {
-    margin: 8px 0 0;
-    padding-left: 20px;
+    list-style: none;
+    margin: 8px 0;
+    padding-left: 0;
     font-size: 13px;
     color: #777;
+}
+
+.account-form .help-text li {
+    margin-bottom: 4px;
 }
 
 /* ラベル */

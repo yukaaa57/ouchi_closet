@@ -35,6 +35,17 @@ def validate_custom_password(password, user=None):
     return errors
 
 class CustomPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+        
+        self.fields["new_password1"].help_text = """
+        <ul>
+            <li>個人情報と似たパスワードは使用できません</li>
+            <li>８文字以上で入力してください</li>
+            <li>英字・数字・記号を含めてください</li>
+        </ul>
+        """
+    
     def clean_new_password2(self):
         return self.cleaned_data.get("new_password2")
     
@@ -58,6 +69,17 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         return cleaned_data
     
 class CustomPasswordResetConfirmForm(SetPasswordForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+        
+        self.fields["new_password1"].help_text = """
+        <ul>
+            <li>個人情報と似たパスワードは使用できません</li>
+            <li>８文字以上で入力してください</li>
+            <li>英字・数字・記号を含めてください</li>
+        </ul>
+        """
+    
     def clean_new_password2(self):
         return self.cleaned_data.get(self.new_password2)
     
@@ -84,6 +106,17 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("profile_image", "nickname", "size", "email", "password1", "password2")
+        
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+        
+        self.fields["new_password1"].help_text = """
+        <ul>
+            <li>個人情報と似たパスワードは使用できません</li>
+            <li>８文字以上で入力してください</li>
+            <li>英字・数字・記号を含めてください</li>
+        </ul>
+        """
     
     def clean_email(self):
         email = self.cleaned_data.get("email")
