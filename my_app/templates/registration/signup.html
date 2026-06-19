@@ -63,7 +63,7 @@
             {{ form.password1 }}
 
             {% if form.password1.help_text %}
-                <div class="helptext">
+                <div class="help-text">
                     {{ form.password1.help_text }}
                 </div>
             {% endif %}
@@ -72,12 +72,6 @@
         <div class="form-group">
             <label for="{{ form.passeord2.id_for_label }}">パスワード（確認用）：</label>
             {{ form.password2 }}
-
-            {% if form.password2.help_text %}
-                <div class="helptext2">
-                    {{ form.password2.help_text }}
-                </div>
-            {% endif %}
         </div>
 
         <input type="hidden" name="invite" value="{{ invite|default:'' }}">
