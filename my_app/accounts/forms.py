@@ -34,74 +34,6 @@ def validate_custom_password(password, user=None):
     
     return errors
 
-class CustomPasswordChangeForm(PasswordChangeForm):
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(user, *args, **kwargs)
-        
-        self.fields["new_password1"].help_text = """
-        <ul>
-            <li>個人情報と似たパスワードは使用できません</li>
-            <li>８文字以上で入力してください</li>
-            <li>英字・数字・記号を含めてください</li>
-        </ul>
-        """
-    
-    def clean_new_password2(self):
-        return self.cleaned_data.get("new_password2")
-    
-    def clean(self):
-        cleaned_data = super().clean()
-        
-        password1 = cleaned_data.get("new_password1")
-        password2 = cleaned_data.get("new_password2")
-        
-        errors = []
-        
-        if password1:
-            errors += validate_custom_password(password1, self.user)
-        
-        if password1 and password2 and password1 != password2:
-            errors.append("確認用パスワードが一致しません。")
-            
-        for error in errors:
-            self.add_error(None, error)
-        
-        return cleaned_data
-    
-class CustomPasswordResetConfirmForm(SetPasswordForm):
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(user, *args, **kwargs)
-        
-        self.fields["new_password1"].help_text = """
-        <ul>
-            <li>個人情報と似たパスワードは使用できません</li>
-            <li>８文字以上で入力してください</li>
-            <li>英字・数字・記号を含めてください</li>
-        </ul>
-        """
-    
-    def clean_new_password2(self):
-        return self.cleaned_data.get(self.new_password2)
-    
-    def clean(self):
-        cleaned_data = super().clean()
-        
-        password1 = cleaned_data.get("new_password1")
-        password2 = cleaned_data.get("new_password2")
-        
-        errors = []
-        
-        if password1:
-            self.errors += validate_custom_password(password1, self.user)
-            
-        if password1 and password2 and password1 != password2:
-            self.errors.append("確認用パスワードが一致しません。")
-            
-        for error in errors:
-            self.add_error(None, error)
-            
-        return cleaned_data
-
 class SignUpForm(UserCreationForm):
     class Meta:
         model = User
@@ -177,3 +109,70 @@ class ChildForm(forms.ModelForm):
             "birthday": forms.DateInput(attrs={"type": "date"}),
         }
 
+class CustomPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+        
+        self.fields["new_password1"].help_text = """
+        <ul>
+            <li>個人情報と似たパスワードは使用できません</li>
+            <li>８文字以上で入力してください</li>
+            <li>英字・数字・記号を含めてください</li>
+        </ul>
+        """
+    
+    def clean_new_password2(self):
+        return self.cleaned_data.get("new_password2")
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        
+        password1 = cleaned_data.get("new_password1")
+        password2 = cleaned_data.get("new_password2")
+        
+        errors = []
+        
+        if password1:
+            errors += validate_custom_password(password1, self.user)
+        
+        if password1 and password2 and password1 != password2:
+            errors.append("確認用パスワードが一致しません。")
+            
+        for error in errors:
+            self.add_error(None, error)
+        
+        return cleaned_data
+    
+class CustomPasswordResetConfirmForm(SetPasswordForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+        
+        self.fields["new_password1"].help_text = """
+        <ul>
+            <li>個人情報と似たパスワードは使用できません</li>
+            <li>８文字以上で入力してください</li>
+            <li>英字・数字・記号を含めてください</li>
+        </ul>
+        """
+    
+    def clean_new_password2(self):
+        return self.cleaned_data.get(self.new_password2)
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        
+        password1 = cleaned_data.get("new_password1")
+        password2 = cleaned_data.get("new_password2")
+        
+        errors = []
+        
+        if password1:
+            self.errors += validate_custom_password(password1, self.user)
+            
+        if password1 and password2 and password1 != password2:
+            self.errors.append("確認用パスワードが一致しません。")
+            
+        for error in errors:
+            self.add_error(None, error)
+            
+        return cleaned_data
