@@ -139,7 +139,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
             errors.append("確認用パスワードが一致しません。")
             
         for error in errors:
-            self.add_error("password1", error)
+            self.add_error("new_password1", error)
         
         return cleaned_data
     
@@ -173,6 +173,6 @@ class CustomPasswordResetConfirmForm(SetPasswordForm):
             self.errors.append("確認用パスワードが一致しません。")
             
         for error in errors:
-            self.add_error("password1", error)
+            self.add_error("new_password1", error)
             
         return cleaned_data
