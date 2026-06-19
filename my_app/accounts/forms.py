@@ -1,11 +1,84 @@
+import re
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, SetPasswordForm
 from .models import User, Child
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
 User = get_user_model()
+
+def validate_custom_password(password, user=None):
+    errors = []
+    
+    if len(password) < 8:
+        errors.append("パスワードは最低８文字以上で入力してください。")
+    
+    has_letter = re.search(r"[A-Za-z]", password)
+    has_number = re.search(r"\d", password)
+    has_symbol = re.search(r"[!-/:-@[-`{-~]", password)
+    
+    if not (has_letter and has_number and has_symbol):
+        errors.append("パスワードは英字・数字・記号を含めてください。")
+        
+    user_infos = [
+        getattr(user, "email", ""),
+        getattr(user, "username", ""),
+        getattr(user, "nickname", ""),
+    ]
+    
+    for info in user_infos:
+        if info and info.lower() in password.lower():
+            errors.append("個人情報と似ているパスワードは使用できません。")
+            break
+    
+    return errors
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    def clean_new_password2(self):
+        return self.cleaned_data.get("new_password2")
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        
+        password1 = cleaned_data.get("new_password1")
+        password2 = cleaned_data.get("new_password2")
+        
+        errors = []
+        
+        if password1:
+            errors += validate_custom_password(password1, self.user)
+        
+        if password1 and password2 and password1 != password2:
+            errors.append("確認用パスワードが一致しません。")
+            
+        for error in errors:
+            self.add_error(None, error)
+        
+        return cleaned_data
+    
+class CustomPasswordResetConfirmForm(SetPasswordForm):
+    def clean_new_password2(self):
+        return self.cleaned_data.get(self.new_password2)
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        
+        password1 = cleaned_data.get("new_password1")
+        password2 = cleaned_data.get("new_password2")
+        
+        errors = []
+        
+        if password1:
+            self.errors += validate_custom_password(password1, self.user)
+            
+        if password1 and password2 and password1 != password2:
+            self.errors.append("確認用パスワードが一致しません。")
+            
+        for error in errors:
+            self.add_error(None, error)
+            
+        return cleaned_data
 
 class SignUpForm(UserCreationForm):
     class Meta:
@@ -26,17 +99,26 @@ class SignUpForm(UserCreationForm):
         password1 = cleaned_data.get("password1")
         password2 = cleaned_data.get("password2")
         
+        errors = []
+        
         if password1:
-            try:
-                validate_password(password1, self.instance)
-            except ValidationError as e:
-                for message in e.messages:
-                    self.add_error("password1", message)
-                    
-        if password1 and password2 and password1 != password2:
-            self.add_error("password2", "確認用パスワードが一致しません。")
+            if len(password1) < 8:
+                errors.append("パスワードは最低８文字以上で入力してください。")
+                
+            has_letter = re.search(r"[A-Za-z]", password1)
+            has_number = re.search(r"\d", password1)
+            has_symbol = re.search(r"[!-/:-@[-`{-~]", password1)
             
-        return self.cleaned_data
+            if not (has_letter and has_number and has_symbol):
+                errors.append("パスワードは英字・数字・記号を含めてください。")
+                
+        if password1 and password2 and password1 != password2:
+            errors.append("確認用パスワードが一致しません。")
+            
+        for error in errors:
+            self.add_error(None, error)
+            
+        return cleaned_data
         
 
 class ProfileUpdateForm(forms.ModelForm):
@@ -61,3 +143,4 @@ class ChildForm(forms.ModelForm):
         widgets = {
             "birthday": forms.DateInput(attrs={"type": "date"}),
         }
+

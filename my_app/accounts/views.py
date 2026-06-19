@@ -6,9 +6,9 @@ from django.contrib.auth import get_user_model,login
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
-from .forms import SignUpForm, ProfileUpdateForm, ChildCreateForm, ChildForm
+from .forms import SignUpForm, ProfileUpdateForm, ChildCreateForm, ChildForm, CustomPasswordChangeForm, CustomPasswordResetConfirmForm
 from .models import User, Family, Invitation, Child
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.views import PasswordChangeView, PasswordResetConfirmView
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from closet.utils import create_default_categories
@@ -133,12 +133,17 @@ class ProfileUpdateView(LoginRequiredMixin,UpdateView):
         return super().form_valid(form)
     
 class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+    form_class = CustomPasswordChangeForm
     template_name = "registration/password_change_form.html"
     success_url = reverse_lazy("me")
     
     def form_valid(self, form):
         messages.success(self.request, "パスワードを変更しました。")
         return super().form_valid(form)
+    
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    form_class = CustomPasswordResetConfirmForm
+    template_name = "registration/password_reset_confirm.html"
     
 class ChildCreateView(LoginRequiredMixin, CreateView):
     model = Child

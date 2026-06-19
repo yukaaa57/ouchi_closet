@@ -2037,11 +2037,12 @@ form select {
 
 .account-form .errorlist {
     color: #c85c5c;
-    margin: 6px 0 10px;
+    margin: 0 0 18px;
     list-style: none;
     padding-left: 0;
     font-size:  14px;
     line-height: 1.6;
+    text-align: left;
 }
 
 .account-form .errorlist li {

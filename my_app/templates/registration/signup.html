@@ -7,6 +7,20 @@
 
     <form method="post" enctype="multipart/form-data" class="account-form prevent-double-submit" novalidate>
         {% csrf_token %}
+
+        {% if form.errors %}
+         <ul class="errorlist">
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+         </ul>
+        {% endif %}
         
         <div class="image-area">
 
@@ -47,7 +61,6 @@
         <div class="form-group">
             <label for="{{ form.passeord1.id_for_label }}">パスワード：</label>
             {{ form.password1 }}
-            {{ form.password1.errors }}
 
             {% if form.password1.help_text %}
                 <div class="helptext">
@@ -59,7 +72,6 @@
         <div class="form-group">
             <label for="{{ form.passeord2.id_for_label }}">パスワード（確認用）：</label>
             {{ form.password2 }}
-            {{ form.password2.errors }}
 
             {% if form.password2.help_text %}
                 <div class="helptext2">
