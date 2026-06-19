@@ -107,8 +107,8 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ("profile_image", "nickname", "size", "email", "password1", "password2")
         
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(user, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         
         self.fields["new_password1"].help_text = """
         <ul>
