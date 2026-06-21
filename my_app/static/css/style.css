@@ -2711,7 +2711,6 @@ form select {
     box-sizing: border-box;
 }
 
-.errorlist,
 .non-field-errors {
     list-style: none;
     padding: 10px 12px;
