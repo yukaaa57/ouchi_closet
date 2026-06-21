@@ -6,9 +6,9 @@ from django.contrib.auth import get_user_model,login
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
-from .forms import SignUpForm, ProfileUpdateForm, ChildCreateForm, ChildForm, CustomPasswordChangeForm, CustomPasswordResetConfirmForm
+from .forms import SignUpForm, ProfileUpdateForm, ChildCreateForm, ChildForm, CustomPasswordChangeForm, CustomPasswordResetConfirmForm, LoginForm
 from .models import User, Family, Invitation, Child
-from django.contrib.auth.views import PasswordChangeView, PasswordResetConfirmView
+from django.contrib.auth.views import PasswordChangeView, PasswordResetConfirmView, LoginView
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from closet.utils import create_default_categories
@@ -63,7 +63,8 @@ class SignUpView(CreateView):
         messages.success(self.request, "登録しました。")
         return redirect(self.success_url)
         
-        
+class CustomLoginView(LoginView):
+    form_class = LoginForm
         
 @login_required
 def invite_view(request):

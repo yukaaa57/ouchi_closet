@@ -1,7 +1,7 @@
 import re
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, SetPasswordForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, SetPasswordForm, AuthenticationForm
 from .models import User, Child
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -84,6 +84,14 @@ class SignUpForm(UserCreationForm):
             self.add_error("password1", error)
             
         return cleaned_data
+    
+class LoginForm(AuthenticationForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.fields["username"].help_text = ""
+        self.fields["password"].help_text = ""
         
 
 class ProfileUpdateForm(forms.ModelForm):

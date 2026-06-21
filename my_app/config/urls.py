@@ -38,6 +38,7 @@ urlpatterns = [
          accounts_views.CustomPasswordResetConfirmView.as_view(),
          name="password_reset_confirm",
     ),
+    path("accounts/login/", accounts_views.CustomLoginView.as_view(), name="login"),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("closet/", include("closet.urls")),
