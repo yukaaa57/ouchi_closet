@@ -17,7 +17,15 @@
         </div>   
     {% endif %}
 
-    {{ form.as_p }}
+    <p>
+        {{ form.username.label_tag }}
+        {{ form.username }}
+    </p>
+
+    <p>
+        {{ form.password.label_tag }}
+        {{ form.password }}
+    </p>
 
     <div class="save-area">
         <button type="submit" class="login-button">ログイン</button>
