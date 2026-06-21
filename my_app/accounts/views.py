@@ -64,6 +64,7 @@ class SignUpView(CreateView):
         return redirect(self.success_url)
         
 class CustomLoginView(LoginView):
+    template_name = "registration/login.html"
     form_class = LoginForm
         
 @login_required
