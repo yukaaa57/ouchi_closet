@@ -87,6 +87,10 @@ class SignUpForm(UserCreationForm):
     
 class LoginForm(AuthenticationForm):
     
+    error_messages = {
+        "invalid_login": "正しいEメールアドレスとパスワードを入力してください。",
+    }
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
