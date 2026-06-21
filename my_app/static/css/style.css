@@ -2710,3 +2710,21 @@ form select {
     width: 100%;
     box-sizing: border-box;
 }
+
+.errorlist,
+.non-field-errors {
+    list-style: none;
+    padding: 10px 12px;
+    margin: 0 0 22px;
+    background-color: #fff4f2;
+    border-left: 4px solid #d86b64;
+    border-radius: 8px;
+    color: #c95f59;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.non-field-errors p {
+    margin: 0;
+}
