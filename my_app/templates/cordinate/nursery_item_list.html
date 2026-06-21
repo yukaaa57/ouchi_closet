@@ -2,7 +2,7 @@
 
 {% block breadcrumbs %}
     <a href="{% url 'home' %}">ホーム</a> >
-    <a href="{% url 'child_closet' child.pk %}">{{ child.nickname }}のクローゼット</a>
+    <a href="{% url 'child_closet' child.pk %}">{{ child.nickname }}のクローゼット</a> 
     >保育園必需品一覧
 {% endblock %} 
 
@@ -87,7 +87,7 @@
     <h3 class="modal-title">削除🗑</h3>
     <p class="modal-description">削除したい物にチェックを入れて削除ボタンを押下してください</p>
 
-    <form method="post" action="{% url 'nursery_item_delete' child.pk %}" class="modal-form">
+    <form method="post" action="{% url 'nursery_item_delete' child.pk %}" class="modal-form prevent-double-submit">
         {% csrf_token %}
 
         <div class="modal-item-section">
@@ -184,7 +184,7 @@
     <h3 class="modal-title">削除🗑</h3>
     <p class="modal-description">削除したい物にチェックを入れて削除ボタンを押下してください</p>
 
-    <form method="post" action="{% url 'nursery_item_delete' child.pk %}" class="modal-form">
+    <form method="post" action="{% url 'nursery_item_delete' child.pk %}" class="modal-form prevent-double-submit">
         {% csrf_token %}
 
         <div class="modal-item-section">

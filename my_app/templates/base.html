@@ -267,7 +267,14 @@ doubleSubmitForms.forEach(function (form) {
 
         if (submitButton) {
             submitButton.disabled = true;
-            submitButton.textContent = "保存中...";
+
+            if (submitButton.textContent.includes("削除")) {
+                submitButton.textContent = "削除中...";
+            } else if (submitButton.textContent.includes("はい")) {
+                submitButton.textContent = "処理中...";
+            } else {
+                submitButton.textContent = "保存中...";
+            }
         }
     });
 });

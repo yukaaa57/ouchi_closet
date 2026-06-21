@@ -43,7 +43,7 @@
       <p>削除しますか？</p>
   
       <div class="delete-modal-actions">
-        <form method="post" action="{% url 'clothing_delete' clothing.pk %}">
+        <form method="post" action="{% url 'clothing_delete' clothing.pk %}" class="prevent-double-submit">
           {% csrf_token %}
           <input type="hidden" name="next" value="{{ next_url }}">
           <button type="submit" class="delete-yes-button">はい</button>

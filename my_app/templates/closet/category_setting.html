@@ -94,7 +94,7 @@
         <h3 class="modal-title">カテゴリ削除</h3>
         <p class="delete-category-name">「<span id="delete-category-name"></span>」を削除しますか？</p>
 
-        <form method="post" id="delete-form">
+        <form method="post" id="delete-form prevent-double-submit">
             {% csrf_token %}
 
             <div class="modal-button-area">
